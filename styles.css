@@ -65,8 +65,12 @@ nav ul li a {
 .card-link {
   text-decoration: none; 
   display: block;
-  width: 100%;
+  width: 30%;
+  text-align: center;
 }
+
+.btn:hover {
+    background-color: #0056b3;
 
 footer {
     text-align: center;
