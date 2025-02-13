@@ -75,7 +75,7 @@ nav ul li a {
     max-width: 400px;
     width: 80%;
     margin: 10px;
-    display: flex;
+    display: block;
     flex-direction: column;
     align-items: center;
 }
