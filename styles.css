@@ -67,13 +67,6 @@ nav ul li a {
     color: inherit;
 }
 
-.card-link {
-  text-decoration: none; 
-  display: block;
-  width: 30%;
-  text-align: center;
-}
-
 footer {
     text-align: center;
     padding: 10px;
