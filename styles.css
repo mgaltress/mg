@@ -59,7 +59,11 @@ nav ul li a {
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     text-align: center;
+    text-decoration: none;
+    max-width: 600px;
     width: 30%;
+    margin: 20px auto;
+    display: block;
 }
 
 .card-link {
@@ -68,9 +72,6 @@ nav ul li a {
   width: 30%;
   text-align: center;
 }
-
-.btn:hover {
-    background-color: #0056b3;
 
 footer {
     text-align: center;
