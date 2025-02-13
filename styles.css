@@ -59,11 +59,11 @@ nav ul li a {
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     text-align: center;
-    text-decoration: none;
+    text-decoration: none !important;
     max-width: 1000px;
     width: 80%;
     margin: 20px auto;
-    display: block;
+    display: inline-block;
     color: inherit;
 }
 
