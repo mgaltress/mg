@@ -60,10 +60,11 @@ nav ul li a {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     text-align: center;
     text-decoration: none;
-    max-width: 600px;
-    width: 30%;
+    max-width: 800px;
+    width: 60%;
     margin: 20px auto;
     display: block;
+    color: inherit;
 }
 
 .card-link {
