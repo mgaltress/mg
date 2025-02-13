@@ -30,7 +30,9 @@ nav ul li a {
 }
 
 .hero {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     padding: 50px;
     background: linear-gradient(to right, #4CAF50, #2196F3);
