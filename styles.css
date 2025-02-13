@@ -45,7 +45,7 @@ nav ul li a {
 }
 
 .btn {
-    display: inline-block;
+    display: block;
     margin-top: 15px;
     padding: 10px 20px;
     background: white;
