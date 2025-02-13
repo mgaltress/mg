@@ -31,6 +31,7 @@ nav ul li a {
 
 .hero {
     text-align: center;
+    align-items: center;
     padding: 50px;
     background: linear-gradient(to right, #4CAF50, #2196F3);
     color: white;
@@ -52,7 +53,7 @@ nav ul li a {
     color: #333;
     text-decoration: none;
     border-radius: 5px;
-    max-width: 100px;
+    max-width: 300px;
 }
 
 .grid {
