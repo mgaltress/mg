@@ -75,6 +75,13 @@ nav ul li a {
     color: inherit;
 }
 
+.card-image {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover;
+}
+
 footer {
     text-align: center;
     padding: 10px;
