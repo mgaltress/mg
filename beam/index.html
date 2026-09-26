@@ -153,6 +153,40 @@ h2 { font-family: var(--font-head); font-size: 24px; font-weight: 700; margin: 3
 .tile .delta.down { color: var(--bad); }
 .tile svg { width: 100%; height: 34px; margin-top: 6px; display: block; }
 
+/* Flip-to-definitions cards */
+.flip { position: relative; transition: transform .5s ease; transform-style: preserve-3d; }
+.flip.flipped { transform: perspective(1400px) rotateY(180deg); z-index: 4; }
+.flip > .front { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.flip > .back {
+  /* At least the card's size; a longer explanation extends down over the content below */
+  position: absolute; top: 0; left: 0; right: 0; min-height: 100%;
+  background: var(--surface); border-radius: inherit;
+  border: 1px solid var(--border); box-shadow: 0 10px 28px rgba(0, 0, 0, .18);
+  padding: 14px 40px 14px 16px;
+  transform: rotateY(180deg);
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  font-size: 12.5px; line-height: 1.5; color: var(--ink-2);
+}
+.flip:not(.flipped) > .back, .flip.flipped > .front { visibility: hidden; transition: visibility 0s .25s; }
+.flip > .back h4 { font-family: var(--font-label); font-size: 17px; letter-spacing: .04em; color: var(--ink); margin: 0 0 2px; font-weight: 400; }
+.flip > .back .for { font-size: 12px; color: var(--muted); margin: 0 0 8px; }
+.flip > .back p { margin: 0 0 8px; color: var(--ink); }
+.flip > .back ul { margin: 0; padding-left: 18px; }
+.flip > .back li { margin-bottom: 4px; }
+.info-btn {
+  position: absolute; top: 8px; right: 8px; z-index: 2;
+  width: 26px; height: 26px; padding: 3px; border: 0; border-radius: 50%;
+  background: none; color: var(--muted); cursor: pointer;
+}
+.info-btn svg { display: block; width: 20px; height: 20px; }
+.info-btn:hover { color: var(--s1); background: var(--accent-wash); }
+.info-btn:focus-visible { outline: 2px solid var(--s1); outline-offset: 1px; }
+.back .info-btn { color: var(--s1); }
+.card .front h3, .tile .front .label { padding-right: 26px; }
+.tile.flip > .back { padding: 12px 34px 12px 14px; }
+.tile.flip > .back h4 { font-size: 15px; }
+@media (prefers-reduced-motion: reduce) { .flip { transition: none; } }
+
 .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 12px; }
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; min-width: 0; }
 .card h3 { font-size: 15px; font-weight: 600; margin: 0 0 2px; }
@@ -462,6 +496,204 @@ function showTip(event, title, rows) {
 }
 function hideTip() { tip.style.opacity = 0; }
 
+// ------------------------------------------------------------ definitions & considerations
+
+const PDF = "the monthly PDF report";
+const PDF_CAP = "The monthly PDF report";
+const INFO = {
+  // KPI tiles
+  requests: {
+    def: "New client businesses added to the BEAM portal in the period, counted by the month their record was created.",
+    notes: [
+      "Not affected by the mentor filter - a request isn't tied to a mentor yet.",
+      "February includes about 15 existing clients imported when the portal launched (Feb 17-19), so it overstates new demand that month.",
+      "Businesses the portal marks as idle aren't returned by its API, so they aren't counted.",
+      `Matches ${PDF} for July (14).`,
+    ],
+  },
+  sessions: {
+    def: "Each 'BEAM Client Session Report' a mentor submits counts as one session, dated by the meeting date the mentor entered.",
+    notes: [
+      "4 reports have no meeting date; they use the submission date instead.",
+      `${PDF_CAP} dates sessions by submission date, so a late report can fall in a different month here. July matches (27) either way.`,
+      "Sessions after the latest form export are picked up from the portal twice a day. If one business logs two sessions between pickups, only the later one is captured.",
+      "With a mentor selected, counts sessions that person led or co-mentored.",
+    ],
+  },
+  hours: {
+    def: "Total volunteer hours: the lead mentor's meeting length plus any co-mentor time, as entered on each session report.",
+    notes: [
+      "Hours are self-reported. 7 sessions have no hours entered and count as 0.",
+      "Co-mentor time only counts when 'Co-Mentor Time' is filled in; 3 sessions name a co-mentor without it.",
+      `${PDF_CAP}'s July hours include co-mentor time (73 by submission date; 65 here by meeting date). Its year-to-date hours appear to leave co-mentor time out.`,
+    ],
+  },
+  avg: {
+    def: "Volunteer hours divided by sessions in the period.",
+    notes: [
+      "Includes co-mentor time, so co-mentored sessions raise the average.",
+      "Sessions with no hours entered count as 0 and pull it down slightly.",
+      "Shows '-' for periods with no sessions.",
+    ],
+  },
+  served: {
+    def: "Distinct businesses with at least one session in the period.",
+    notes: [
+      "A business mentored in several months counts once for the whole period, so monthly figures don't add up to multi-month totals.",
+      "Sessions are linked to a business through the client's email address in the portal.",
+    ],
+  },
+  co: {
+    def: "Sessions where a co-mentor was named or co-mentor time was logged. 'N/A' or blank means no co-mentor.",
+    notes: [
+      `${PDF_CAP} shows 16 for July; the session log supports 12 (11 with a co-mentor named, 12 with either).`,
+      `${PDF_CAP}'s 'SMEs co-mentoring' implies no co-mentoring before July; the log shows about 16 co-mentored sessions from April to June.`,
+    ],
+  },
+  mentors: {
+    def: "Distinct lead mentors - the 'Mentor' on the session report - with at least one session in the period.",
+    notes: [
+      "Co-mentors aren't included here; see Volunteers involved.",
+      "Name spellings are cleaned up (e.g. 'Mike' and 'Michael Woods' are one person).",
+      `${PDF_CAP} shows 4 for July; only 3 people logged sessions as lead mentor that month.`,
+    ],
+  },
+  volunteers: {
+    def: "Distinct people who led or co-mentored at least one session in the period.",
+    notes: [
+      "Co-mentor names are typed freely on the form. Known spelling variants are merged, but a new misspelling could show up as a separate person until it's added to the cleanup list.",
+      "A session listing two co-mentors counts both.",
+    ],
+  },
+  // Charts
+  "c-sessions": {
+    def: "Sessions per month, split by the 'How did you meet?' answer on each session report.",
+    notes: [
+      "'Not recorded' means the question was left blank (7 sessions).",
+      `${PDF_CAP} appears to count Email sessions as in person; here Email is its own type.`,
+      "Dated by meeting date, so a few sessions sit in a different month than in the PDF.",
+      "Each bar stacks largest to smallest from the bottom. Click the key to hide a type, or a month to focus on it.",
+    ],
+  },
+  "c-hours": {
+    def: "Volunteer hours per month, split into the lead mentor's hours and co-mentor time.",
+    notes: [
+      "Self-reported on the session report; 7 sessions have no hours entered.",
+      "Co-mentor time only counts when it's filled in on the form.",
+      "Click the key to show lead or co-mentor hours on their own.",
+    ],
+  },
+  "c-requests": {
+    def: "New client businesses added to the portal each month.",
+    notes: [
+      "February includes about 15 existing clients imported when the portal launched.",
+      "Not affected by the mentor filter.",
+    ],
+  },
+  "c-served": {
+    def: "Distinct businesses with at least one session each month.",
+    notes: [
+      "A business seen in several months counts in each of them, so months don't add up to the period total in the 'Businesses served' tile.",
+    ],
+  },
+  "c-ownership": {
+    def: "Businesses with at least one session in the selected period, by the ownership they reported on their intake form.",
+    notes: [
+      "Businesses can select more than one option, so rows can add up to more than the total. Percentages are of businesses served.",
+      "'Not provided' means the question was left blank (22 of 80 businesses overall).",
+      `${PDF_CAP} counts new requests by ownership instead of businesses mentored, which is why its numbers differ (July: 7/1/3 woman/veteran/minority there vs 5/1/2 here).`,
+    ],
+  },
+  "c-industry": {
+    def: "Businesses with at least one session in the selected period, by the primary industry on their intake form.",
+    notes: [
+      "Falls back to the portal's company category when the form answer is blank; 'Not provided' means neither is set.",
+      "The top 7 industries are shown; the rest are grouped as Other.",
+    ],
+  },
+  "c-referral": {
+    def: "How businesses that requested mentoring in the selected period heard about BEAM.",
+    notes: [
+      "Based on new requests, not businesses served, so it reflects how new clients find BEAM.",
+      "Businesses can pick more than one answer. The top 7 are shown; the rest, including the form's own 'Other' answer, are grouped as Other.",
+      "Not affected by the mentor filter.",
+    ],
+  },
+  "c-topics": {
+    def: "Share of sessions where the mentor ticked each topic on the session report.",
+    notes: [
+      "A session can cover several topics, so percentages add up to more than 100%.",
+      "Unticked topics may have been discussed but not recorded.",
+    ],
+  },
+  "c-mentors": {
+    def: "Sessions each volunteer led (as the report's 'Mentor') or joined as a co-mentor in the selected period.",
+    notes: [
+      "Always shows every volunteer so they can be compared - the mentor filter doesn't apply here.",
+      "Co-mentor participation counts per session, even when no co-mentor time was logged.",
+      "Name spellings are cleaned up so variants count as one person.",
+    ],
+  },
+};
+
+const INFO_ICON = '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.25" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="6.4" r="1.1" fill="currentColor"/><path d="M10 9v5.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
+const flipped = new Set();    // keys of cards showing their back, kept across re-renders
+
+// Turn a card into a flip card: its content becomes the front, and an (i) button
+// flips it to a back face with the definition and considerations for `key`.
+function makeFlippable(box, key, title) {
+  const info = INFO[key];
+  if (!info) return;
+  const front = document.createElement("div");
+  front.className = "front";
+  front.append(...box.childNodes);
+  const back = document.createElement("div");
+  back.className = "back";
+  const h = document.createElement("h4");
+  h.textContent = "Definitions & considerations";
+  const forWhat = document.createElement("p");
+  forWhat.className = "for";
+  forWhat.textContent = title;
+  const def = document.createElement("p");
+  def.textContent = info.def;
+  const ul = document.createElement("ul");
+  for (const n of info.notes) {
+    const li = document.createElement("li");
+    li.textContent = n;
+    ul.append(li);
+  }
+  back.append(h, forWhat, def, ul);
+
+  const btn = (label) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "info-btn";
+    b.innerHTML = INFO_ICON;                   // static markup, no data
+    b.setAttribute("aria-label", label);
+    b.title = label;
+    return b;
+  };
+  const openBtn = btn(`Definitions & considerations: ${title}`);
+  const closeBtn = btn(`Back to ${title}`);
+  front.append(openBtn);
+  back.append(closeBtn);
+  box.classList.add("flip");
+  box.append(front, back);
+
+  const set = (on, focus) => {
+    on ? flipped.add(key) : flipped.delete(key);
+    box.classList.toggle("flipped", on);
+    front.inert = on;
+    back.inert = !on;
+    openBtn.setAttribute("aria-expanded", String(on));
+    if (focus) (on ? closeBtn : openBtn).focus({ preventScroll: true });
+  };
+  openBtn.addEventListener("click", () => { hideTip(); set(true, true); });
+  closeBtn.addEventListener("click", () => set(false, true));
+  back.addEventListener("keydown", e => { if (e.key === "Escape") set(false, true); });
+  set(flipped.has(key), false);
+}
+
 // ------------------------------------------------------------ chart helpers
 
 // Legend. With a `hiddenSet`, each entry is a toggle button that shows/hides its series.
@@ -704,6 +936,7 @@ function renderTiles() {
     }
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     tile.append(label, value, delta, svg);
+    makeFlippable(tile, t.key, t.label);
     el.append(tile);
     spark(svg, monthly.map(m => m[t.key]), t);
   }
@@ -909,6 +1142,12 @@ function setup() {
     b.addEventListener("click", () => setRange(from, to));
     box.append(b);
   }
+
+  document.querySelectorAll(".card .chart").forEach(chart => {
+    const card = chart.closest(".card");
+    const title = card.querySelector("h3")?.textContent || card.closest("section").querySelector("h2").textContent;
+    makeFlippable(card, chart.id, title);
+  });
 
   legend("lg-sessions", TYPES, hidden.sessions);
   legend("lg-hours", HOURS, hidden.hours);
