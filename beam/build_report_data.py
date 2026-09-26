@@ -2,20 +2,22 @@
 Build the BEAM impact report dataset (beam/data/report.json).
 
 Sources:
-  1. Session Report form exports (CSV) in beam/private/exports/  - session history
+  1. Session Report form exports (CSV) in <private>/exports/     - session history
   2. Secure API: companies, contacts, projects                   - client profiles, requests, engagements
   3. Secure API capture: each company's "latest meeting" fields  - new sessions since the last export.
      The API has no session log, but the Session Report form copies each submission onto the
-     company record, so every run saves any meeting it hasn't seen to beam/private/captured_sessions.json.
-     Run this often (daily) so meetings aren't overwritten between runs.
+     company record, so every run saves any meeting it hasn't seen to <private>/captured_sessions.json.
+     Run this often (every few hours) so meetings aren't overwritten between runs.
   4. beam/manual_inputs.json                                     - workshops and monthly notes
 
-Everything under beam/private/ stays local (git-ignored). The published JSON is de-identified:
+<private> defaults to beam/private/ (git-ignored); the scheduled GitHub Action in the
+mg-private repo points it at that repo instead. The published JSON is de-identified:
 no client names, emails, notes or company names, and companies are replaced by sequential ids.
 
 Usage:
     python build_report_data.py
     python build_report_data.py --creds PATH
+    python build_report_data.py --private-dir DIR --out FILE    (used by the scheduled job)
 """
 import argparse
 import csv
@@ -27,11 +29,9 @@ from pathlib import Path
 from beam_api import DEFAULT_CREDS, Client, load_creds
 
 HERE = Path(__file__).parent
-PRIVATE = HERE / "private"
-EXPORTS_DIR = PRIVATE / "exports"
-CAPTURED = PRIVATE / "captured_sessions.json"
+DEFAULT_PRIVATE = HERE / "private"
 MANUAL_INPUTS = HERE / "manual_inputs.json"
-OUT = HERE / "data" / "report.json"
+DEFAULT_OUT = HERE / "data" / "report.json"
 
 SCHEMA_VERSION = 1
 # Mentor names are volunteers' real names; keep False to publish "Mentor 1", "Mentor 2", ...
@@ -131,14 +131,24 @@ def fetch_companies(client):
     return companies
 
 
-def fetch_projects(client):
-    """Project list plus detail (the list endpoint omits the client)."""
+def fetch_projects(client, cache_path):
+    """Project list plus each project's client email.
+
+    The list endpoint omits the client, so it takes one detail call per project. A project's
+    client doesn't change, so emails are cached and only new projects cost a call.
+    """
+    cache = json.loads(cache_path.read_text(encoding="utf-8")) if cache_path.exists() else {}
     projects = client.get_all("/projects")
-    details = []
     for p in projects:
-        status, body = client.get(f"/project/uid/{p['uid']}")
-        details.append(body.get("data") if status == 200 else p)
-    return details
+        if p["uid"] not in cache:
+            status, body = client.get(f"/project/uid/{p['uid']}")
+            if status != 200:
+                continue
+            cache[p["uid"]] = ((body.get("data") or {}).get("client") or {}).get("email")
+        p["client"] = {"email": cache[p["uid"]]}
+    cache_path.parent.mkdir(parents=True, exist_ok=True)
+    cache_path.write_text(json.dumps(cache, indent=1), encoding="utf-8")
+    return projects
 
 
 def email_to_company(companies, contacts):
@@ -161,8 +171,8 @@ def email_to_company(companies, contacts):
 
 # ---------------------------------------------------------------- sessions
 
-def sessions_from_exports(email_lookup):
-    sessions, seen_ids, files = [], set(), sorted(EXPORTS_DIR.glob("*.csv"))
+def sessions_from_exports(email_lookup, exports_dir):
+    sessions, seen_ids, files = [], set(), sorted(exports_dir.glob("*.csv"))
     for f in files:
         with f.open(encoding="utf-8-sig", newline="") as fh:
             for row in csv.DictReader(fh):
@@ -186,9 +196,9 @@ def sessions_from_exports(email_lookup):
     return [s for s in sessions if s["date"]], [f.name for f in files]
 
 
-def capture_latest_meetings(companies):
+def capture_latest_meetings(companies, captured_path):
     """Record each company's current 'latest meeting' fields; return all captured sessions."""
-    captured = json.loads(CAPTURED.read_text(encoding="utf-8")) if CAPTURED.exists() else []
+    captured = json.loads(captured_path.read_text(encoding="utf-8")) if captured_path.exists() else []
     keys = {(s["company_uid"], s["date"]) for s in captured}
     today = date.today().isoformat()
     for c in companies:
@@ -208,8 +218,8 @@ def capture_latest_meetings(companies):
             "topics": [t for t in TOPICS if f.get(f"{t} Discussed") == "checked"],
         })
         keys.add((c["uid"], meeting.isoformat()))
-    CAPTURED.parent.mkdir(parents=True, exist_ok=True)
-    CAPTURED.write_text(json.dumps(captured, indent=1), encoding="utf-8")
+    captured_path.parent.mkdir(parents=True, exist_ok=True)
+    captured_path.write_text(json.dumps(captured, indent=1), encoding="utf-8")
     return captured
 
 
@@ -322,34 +332,52 @@ def build(companies, contacts, projects, sessions, export_files):
     }
 
 
+def write_if_changed(report, out):
+    """Write the report unless only generated_at would change. Returns True if written."""
+    if out.exists():
+        try:
+            old = json.loads(out.read_text(encoding="utf-8"))
+            old["meta"]["generated_at"] = report["meta"]["generated_at"]
+            if old == report:
+                return False
+        except (ValueError, KeyError):
+            pass
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(report, indent=1), encoding="utf-8")
+    return True
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--creds", type=Path, default=DEFAULT_CREDS)
+    ap.add_argument("--private-dir", type=Path, default=DEFAULT_PRIVATE,
+                    help="folder holding exports/, the captured session log and caches")
+    ap.add_argument("--out", type=Path, default=DEFAULT_OUT)
     args = ap.parse_args()
+    exports_dir = args.private_dir / "exports"
 
     client = Client(load_creds(args.creds))
     companies = fetch_companies(client)
     contacts = client.get_all("/contacts")
-    projects = fetch_projects(client)
+    projects = fetch_projects(client, args.private_dir / "project_clients.json")
 
     lookup = email_to_company(companies, contacts)
-    exported, export_files = sessions_from_exports(lookup)
-    captured = capture_latest_meetings(companies)
+    exported, export_files = sessions_from_exports(lookup, exports_dir)
+    captured = capture_latest_meetings(companies, args.private_dir / "captured_sessions.json")
     sessions = merge_sessions(exported, captured)
 
     report = build(companies, contacts, projects, sessions, export_files)
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(json.dumps(report, indent=1), encoding="utf-8")
+    written = write_if_changed(report, args.out)
 
     src = report["meta"]["sources"]
     print(f"API calls used:          {client.calls}")
-    print(f"Session exports read:    {', '.join(export_files) or 'none (put CSVs in beam/private/exports/)'}")
+    print(f"Session exports read:    {', '.join(export_files) or f'none (put CSVs in {exports_dir})'}")
     print(f"Sessions:                {len(sessions)} "
           f"({src['sessions_from_exports']} from exports, {src['sessions_from_api_capture']} from API capture)")
     print(f"Sessions not linked:     {src['sessions_unlinked_to_company']}")
     print(f"Companies / engagements: {src['companies']} / {src['engagements']}")
     print(f"Data range:              {report['meta']['data_from']} to {report['meta']['data_through']}")
-    print(f"Wrote {OUT} ({OUT.stat().st_size / 1024:.1f} KB)")
+    print(f"{'Wrote' if written else 'No data changes, left'} {args.out}")
 
 
 if __name__ == "__main__":

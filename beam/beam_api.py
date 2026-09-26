@@ -1,5 +1,6 @@
 """Minimal client for the BEAM portal Secure API (SuiteDash)."""
 import json
+import os
 import re
 import sys
 import urllib.error
@@ -13,11 +14,14 @@ DUMMY_CREDS = {"public_id": "00000000-0000-0000-0000-000000000000", "secret_key"
 
 
 def load_creds(path=DEFAULT_CREDS):
-    """Read Public ID and Secret Key from a text file.
+    """Read Public ID and Secret Key from the environment, or else a text file.
 
-    Accepts 'Label: value', 'Label:' followed by the value on the next line,
-    or 'NAME=value'. Labels just need to contain 'public' or 'secret'.
+    Environment: BEAM_PUBLIC_ID and BEAM_SECRET_KEY (used by the scheduled GitHub Action).
+    File: 'Label: value', 'Label:' followed by the value on the next line, or
+    'NAME=value'. Labels just need to contain 'public' or 'secret'.
     """
+    if os.environ.get("BEAM_PUBLIC_ID") and os.environ.get("BEAM_SECRET_KEY"):
+        return {"public_id": os.environ["BEAM_PUBLIC_ID"], "secret_key": os.environ["BEAM_SECRET_KEY"]}
     path = Path(path)
     if not path.exists():
         sys.exit(f"Credentials file not found: {path}\n"
