@@ -470,6 +470,12 @@ function legend(id, series) {
   }
 }
 
+// Segments of one stacked bar, largest first so the biggest sits on the baseline.
+// Array.sort is stable, so ties keep the legend order.
+function stackOrder(series, values) {
+  return series.map(s => ({ s, v: values[s.key] || 0 })).filter(d => d.v > 0).sort((a, b) => b.v - a.v);
+}
+
 // Rect with 4px rounded top corners, square at the baseline
 function topRounded(x, y, w, h, r = 4) {
   r = Math.min(r, h, w / 2);
@@ -503,7 +509,7 @@ function monthColumns(id, rows, series, fmt, unit) {
     const g = d3.select(this);
     const x0 = x(r.month) + (x.bandwidth() - bw) / 2;
     let acc = 0;
-    const segs = series.map(s => ({ s, v: r.values[s.key] || 0 })).filter(d => d.v > 0);
+    const segs = stackOrder(series, r.values);
     segs.forEach((d, i) => {
       const y1 = y(acc), y2 = y(acc + d.v);
       acc += d.v;
@@ -526,7 +532,7 @@ function monthColumns(id, rows, series, fmt, unit) {
     .attr("y", m.top).attr("height", height - m.top - m.bottom)
     .attr("aria-label", r => `${monthName(r.month)}: ${fmt(total(r))} ${unit}`)
     .on("pointermove focus", (e, r) => {
-      const rowsTip = series.filter(s => r.values[s.key]).map(s => ({ label: s.key, value: fmt(r.values[s.key]), color: s.color }));
+      const rowsTip = stackOrder(series, r.values).map(d => ({ label: d.s.key, value: fmt(d.v), color: d.s.color }));
       if (series.length > 1) rowsTip.push({ label: "Total", value: fmt(total(r)) });
       showTip(e, monthName(r.month), rowsTip.length ? rowsTip : [{ label: unit, value: "0" }]);
     })
@@ -577,7 +583,7 @@ function hBars(id, rows, series, { fmt = fmtInt, share = null } = {}) {
     const g = d3.select(this);
     let acc = 0;
     const y0 = (y.bandwidth() - bh) / 2;
-    const segs = series.map(s => ({ s, v: r.values[s.key] || 0 })).filter(d => d.v > 0);
+    const segs = stackOrder(series, r.values);
     segs.forEach((d, i) => {
       const x1 = x(acc), x2 = x(acc + d.v);
       acc += d.v;
@@ -605,7 +611,7 @@ function hBars(id, rows, series, { fmt = fmtInt, share = null } = {}) {
     .attr("aria-label", r => `${r.label}: ${fmt(total(r))}`)
     .on("pointermove focus", (e, r) => {
       const rowsTip = series.length > 1
-        ? series.filter(s => r.values[s.key]).map(s => ({ label: s.key, value: fmt(r.values[s.key]), color: s.color }))
+        ? stackOrder(series, r.values).map(d => ({ label: d.s.key, value: fmt(d.v), color: d.s.color }))
         : [{ label: share ? `${fmtPct(total(r) / share)} of ${fmtInt(share)}` : "", value: fmt(total(r)) }];
       showTip(e, r.label, rowsTip);
     })
