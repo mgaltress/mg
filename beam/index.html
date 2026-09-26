@@ -618,18 +618,32 @@ function hBars(id, rows, series, { fmt = fmtInt, share = null } = {}) {
     .on("pointerleave blur", hideTip);
 }
 
-// Mini monthly columns for a tile; selected months in the accent, others recede
-function spark(svgEl, values) {
+// Mini monthly columns for a tile; selected months in the accent, others recede.
+// values[i] may be null (e.g. avg hours in a month with no sessions).
+function spark(svgEl, values, { label, fmt }) {
   const svg = d3.select(svgEl);
   svg.selectAll("*").remove();
   const w = svgEl.clientWidth || 180, h = 34;
   const x = d3.scaleBand().domain(MONTHS).range([0, w]).padding(0.3);
   const y = d3.scaleLinear().domain([0, d3.max(values) || 1]).range([h - 1, 2]);
   const bw = Math.min(12, x.bandwidth());
-  svg.selectAll("path").data(MONTHS).join("path")
+  const bars = svg.selectAll("path").data(MONTHS).join("path")
     .attr("d", (mo, i) => topRounded(x(mo) + (x.bandwidth() - bw) / 2, y(values[i] || 0), bw, (h - 1) - y(values[i] || 0), 2))
     .attr("fill", mo => inRange(mo) ? "var(--s1)" : "var(--dim)");
   svg.append("line").attr("x1", 0).attr("x2", w).attr("y1", h - 0.5).attr("y2", h - 0.5).attr("stroke", "var(--axis)");
+
+  // Hit target: the whole month slot, full height (the bars themselves are tiny)
+  svg.append("g").selectAll("rect").data(MONTHS).join("rect")
+    .attr("class", "hit").attr("tabindex", 0)
+    .attr("x", mo => x(mo) - x.step() * x.paddingInner() / 2).attr("width", x.step())
+    .attr("y", 0).attr("height", h)
+    .attr("aria-label", (mo, i) => `${label}, ${monthName(mo)}: ${values[i] == null ? "no data" : fmt(values[i])}`)
+    .on("pointermove focus", (e, mo) => {
+      const i = MONTHS.indexOf(mo);
+      bars.attr("opacity", m => m === mo ? 1 : 0.45);
+      showTip(e, monthName(mo), [{ label, value: values[i] == null ? "–" : fmt(values[i]) }]);
+    })
+    .on("pointerleave blur", () => { bars.attr("opacity", 1); hideTip(); });
 }
 
 // ------------------------------------------------------------ rendering
@@ -672,10 +686,9 @@ function renderTiles() {
       delta.textContent = "No earlier period to compare";
     }
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("aria-hidden", "true");
     tile.append(label, value, delta, svg);
     el.append(tile);
-    spark(svg, monthly.map(m => m[t.key] || 0));
+    spark(svg, monthly.map(m => m[t.key]), t);
   }
   document.getElementById("kpi-sub").textContent =
     `${periodName(state.from, state.to)}${state.mentor ? " · " + state.mentor : ""}`;
