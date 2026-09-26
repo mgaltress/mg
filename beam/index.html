@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BEAM Impact Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<style>
+:root {
+  color-scheme: light;
+  --page: #f9f9f7;
+  --surface: #fcfcfb;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --muted: #898781;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.10);
+  --good: #006300;
+  --bad: #d03b3b;
+  --dim: #d6d5cf;
+  --s1: #2a78d6;
+  --s2: #eb6834;
+  --s3: #1baf7a;
+  --s4: #eda100;
+  --s-none: #b3b2ab;
+  --brand: #13306b;
+  --brand-2: #d9a520;
+  --brand-ink: #ffffff;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --ink: #ffffff;
+    --ink-2: #c3c2b7;
+    --muted: #898781;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --border: rgba(255, 255, 255, 0.10);
+    --good: #0ca30c;
+    --bad: #e66767;
+    --dim: #3a3a37;
+    --s1: #3987e5;
+    --s2: #d95926;
+    --s3: #199e70;
+    --s4: #c98500;
+    --s-none: #5c5b56;
+    --brand: #13306b;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d;
+  --surface: #1a1a19;
+  --ink: #ffffff;
+  --ink-2: #c3c2b7;
+  --muted: #898781;
+  --grid: #2c2c2a;
+  --axis: #383835;
+  --border: rgba(255, 255, 255, 0.10);
+  --good: #0ca30c;
+  --bad: #e66767;
+  --dim: #3a3a37;
+  --s1: #3987e5;
+  --s2: #d95926;
+  --s3: #199e70;
+  --s4: #c98500;
+  --s-none: #5c5b56;
+  --brand: #13306b;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: "Open Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+}
+a { color: inherit; }
+
+header.brand {
+  background: var(--brand);
+  color: var(--brand-ink);
+  padding: 28px 16px 24px;
+  border-bottom: 4px solid var(--brand-2);
+}
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+header.brand .wrap { padding: 0; }
+.eyebrow { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--brand-2); font-weight: 700; margin: 0 0 4px; }
+header.brand h1 { margin: 0; font-size: clamp(26px, 5vw, 38px); font-weight: 700; }
+header.brand p { margin: 6px 0 0; opacity: .85; }
+.back { display: inline-block; margin-bottom: 14px; font-size: 13px; opacity: .8; text-decoration: none; }
+.back:hover { opacity: 1; text-decoration: underline; }
+
+.filters {
+  position: sticky; top: 0; z-index: 5;
+  background: var(--page);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+}
+.filters .wrap { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+.presets { display: flex; flex-wrap: wrap; gap: 6px; }
+.presets button, select {
+  font: inherit; font-size: 14px;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.presets button[aria-pressed="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink); font-weight: 600; }
+.presets button:hover:not([aria-pressed="true"]) { background: var(--grid); }
+.field { display: flex; align-items: center; gap: 6px; font-size: 14px; color: var(--ink-2); }
+.range-label { font-size: 14px; color: var(--ink-2); margin-left: auto; }
+
+main { padding: 20px 0 40px; }
+h2 { font-size: 18px; margin: 32px 0 12px; }
+.sub { color: var(--ink-2); font-size: 13px; margin: -8px 0 12px; }
+
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 12px; }
+.tile {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+  padding: 14px 14px 10px; display: flex; flex-direction: column; gap: 2px; min-width: 0;
+}
+.tile .label { font-size: 13px; color: var(--ink-2); }
+.tile .value { font-size: 30px; font-weight: 600; line-height: 1.15; }
+.tile .delta { font-size: 12px; color: var(--muted); min-height: 18px; }
+.tile .delta.up { color: var(--good); }
+.tile .delta.down { color: var(--bad); }
+.tile svg { width: 100%; height: 34px; margin-top: 6px; display: block; }
+
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; min-width: 0; }
+.card h3 { font-size: 15px; margin: 0 0 2px; }
+.card .sub { margin: 0 0 10px; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--ink-2); margin-bottom: 6px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+.chart { width: 100%; }
+.chart svg { display: block; overflow: visible; }
+.axis text, .bar-label, .bar-value { font-size: 12px; fill: var(--ink-2); }
+.bar-value { fill: var(--ink); font-variant-numeric: tabular-nums; }
+.axis path { display: none; }
+.axis line { stroke: var(--grid); }
+.baseline { stroke: var(--axis); }
+.hit { fill: transparent; cursor: pointer; }
+.hit:focus { outline: none; }
+.hit:focus-visible { stroke: var(--ink); stroke-width: 1; }
+.empty { color: var(--muted); font-size: 13px; padding: 20px 0; }
+.foot { font-size: 12px; color: var(--muted); margin: 8px 0 0; }
+
+.tooltip {
+  position: fixed; pointer-events: none; z-index: 20;
+  background: var(--surface); color: var(--ink);
+  border: 1px solid var(--border); border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.12);
+  padding: 8px 10px; font-size: 12px; min-width: 140px;
+  opacity: 0; transition: opacity .1s;
+}
+.tooltip .t-title { color: var(--ink-2); margin-bottom: 4px; }
+.tooltip .row { display: flex; align-items: center; gap: 8px; }
+.tooltip .row b { font-weight: 600; min-width: 34px; font-variant-numeric: tabular-nums; }
+.tooltip .row i { width: 12px; height: 2px; display: inline-block; }
+.tooltip .row span { color: var(--ink-2); }
+
+.workshops { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.workshop .when { color: var(--ink-2); font-size: 13px; }
+.workshop .nums { display: flex; gap: 18px; margin-top: 8px; }
+.workshop .nums div { display: flex; flex-direction: column; }
+.workshop .nums b { font-size: 22px; font-weight: 600; }
+.workshop .nums span { font-size: 12px; color: var(--ink-2); }
+
+.note { background: var(--surface); border-left: 4px solid var(--brand-2); border-radius: 6px; padding: 12px 16px; margin-top: 12px; }
+
+.table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { padding: 8px 12px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--grid); font-variant-numeric: tabular-nums; }
+th:first-child, td:first-child { text-align: left; }
+th { color: var(--ink-2); font-weight: 600; }
+tr.sel td { background: color-mix(in srgb, var(--s1) 10%, transparent); }
+tbody tr:last-child td { border-bottom: 0; }
+
+details { margin-top: 12px; color: var(--ink-2); font-size: 13px; }
+details summary { cursor: pointer; color: var(--ink); font-weight: 600; }
+details dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; }
+details dt { font-weight: 600; color: var(--ink); }
+details dd { margin: 0; }
+
+footer.site { text-align: center; padding: 16px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); }
+
+@media (max-width: 600px) {
+  .range-label { margin-left: 0; width: 100%; }
+  .grid2 { grid-template-columns: 1fr; }
+  .tile .value { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+
+<header class="brand">
+  <div class="wrap">
+    <a class="back" href="../funprojects.html">&larr; MG Fun Projects</a>
+    <p class="eyebrow">Business Empowerment &amp; Mentorship</p>
+    <h1>BEAM Impact Report</h1>
+    <p id="asof">Loading data&hellip;</p>
+  </div>
+</header>
+
+<div class="filters" role="region" aria-label="Report filters">
+  <div class="wrap">
+    <div class="presets" id="presets" role="group" aria-label="Period presets"></div>
+    <label class="field">From <select id="from"></select></label>
+    <label class="field">To <select id="to"></select></label>
+    <label class="field">Mentor <select id="mentor"></select></label>
+    <span class="range-label" id="range-label"></span>
+  </div>
+</div>
+
+<main class="wrap">
+  <section aria-labelledby="h-kpi">
+    <h2 id="h-kpi" style="margin-top:4px">At a glance</h2>
+    <p class="sub" id="kpi-sub"></p>
+    <div class="tiles" id="tiles"></div>
+    <div id="notes"></div>
+  </section>
+
+  <section aria-labelledby="h-trend">
+    <h2 id="h-trend">Month by month</h2>
+    <p class="sub">Selected months are highlighted. Click a month to focus on it.</p>
+    <div class="grid2">
+      <div class="card">
+        <h3>Sessions by meeting type</h3>
+        <p class="sub">Mentoring sessions per month</p>
+        <div class="legend" id="lg-sessions"></div>
+        <div class="chart" id="c-sessions"></div>
+      </div>
+      <div class="card">
+        <h3>Volunteer hours</h3>
+        <p class="sub">Lead mentor and co-mentor hours per month</p>
+        <div class="legend" id="lg-hours"></div>
+        <div class="chart" id="c-hours"></div>
+      </div>
+      <div class="card">
+        <h3>New mentoring requests</h3>
+        <p class="sub">New client businesses added per month</p>
+        <div class="chart" id="c-requests"></div>
+        <p class="foot">February includes existing clients imported when the portal launched (Feb 17&ndash;19).</p>
+      </div>
+      <div class="card">
+        <h3>Businesses served</h3>
+        <p class="sub">Distinct businesses with at least one session per month</p>
+        <div class="chart" id="c-served"></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-who">
+    <h2 id="h-who">Who we serve</h2>
+    <p class="sub">Businesses with at least one session in the selected period</p>
+    <div class="grid2">
+      <div class="card">
+        <h3>Ownership</h3>
+        <p class="sub">Businesses may select more than one</p>
+        <div class="chart" id="c-ownership"></div>
+      </div>
+      <div class="card">
+        <h3>Industry</h3>
+        <p class="sub">Primary industry</p>
+        <div class="chart" id="c-industry"></div>
+      </div>
+      <div class="card">
+        <h3>How they heard about BEAM</h3>
+        <p class="sub">All businesses that requested mentoring in the period</p>
+        <div class="chart" id="c-referral"></div>
+      </div>
+      <div class="card">
+        <h3>Topics discussed</h3>
+        <p class="sub">Share of sessions covering each topic</p>
+        <div class="chart" id="c-topics"></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-mentors">
+    <h2 id="h-mentors">Mentor activity</h2>
+    <p class="sub">Sessions each volunteer led or joined as co-mentor in the selected period</p>
+    <div class="card">
+      <div class="legend" id="lg-mentors"></div>
+      <div class="chart" id="c-mentors"></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-workshops">
+    <h2 id="h-workshops">Workshops &amp; community reach</h2>
+    <div class="workshops" id="workshops"></div>
+  </section>
+
+  <section aria-labelledby="h-table">
+    <h2 id="h-table">Monthly detail</h2>
+    <p class="sub">Every figure on this page, by month. Selected months are shaded.</p>
+    <div class="table-wrap"><table id="table"></table></div>
+    <details id="defs"><summary>How these numbers are calculated</summary><dl></dl></details>
+  </section>
+</main>
+
+<footer class="site">
+  Creating jobs and helping small businesses thrive &middot; <a href="https://www.beamsb.com">beamsb.com</a>
+  &middot; Built by MG with D3.js &middot; <a href="data/report.json">Download the data</a>
+</footer>
+
+<div class="tooltip" id="tip" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+const TYPES = [
+  { key: "In Person", color: "var(--s1)" },
+  { key: "Video Conference", color: "var(--s2)" },
+  { key: "Phone", color: "var(--s3)" },
+  { key: "Email", color: "var(--s4)" },
+  { key: "Not recorded", color: "var(--s-none)" },
+];
+const HOURS = [
+  { key: "Lead mentor", color: "var(--s1)" },
+  { key: "Co-mentor", color: "var(--s2)" },
+];
+const ROLES = [
+  { key: "Led", color: "var(--s1)" },
+  { key: "Co-mentored", color: "var(--s2)" },
+];
+
+const state = { from: null, to: null, mentor: "" };
+let R, MONTHS;
+
+const fmtInt = d3.format(",");
+const fmt1 = d3.format(",.1~f");
+const fmt2 = d3.format(",.2f");
+const fmtPct = d3.format(".0%");
+const monthName = m => d3.timeFormat("%b %Y")(d3.timeParse("%Y-%m")(m));
+const monthShort = m => d3.timeFormat("%b")(d3.timeParse("%Y-%m")(m));
+const hoursOf = s => (s.mentor_hours || 0) + (s.co_mentor_hours || 0);
+
+// ------------------------------------------------------------ data slicing
+
+function inRange(month, from = state.from, to = state.to) {
+  return month >= from && month <= to;
+}
+function sessionsFor(from, to, mentor = state.mentor) {
+  return R.sessions.filter(s => inRange(s.date.slice(0, 7), from, to) &&
+    (!mentor || s.mentor === mentor || s.co_mentors.includes(mentor)));
+}
+function requestsFor(from, to) {
+  return R.companies.filter(c => inRange(c.created, from, to));
+}
+
+function metrics(from, to) {
+  const ss = sessionsFor(from, to);
+  const hours = d3.sum(ss, hoursOf);
+  return {
+    requests: requestsFor(from, to).length,
+    sessions: ss.length,
+    hours,
+    avg: ss.length ? hours / ss.length : null,
+    served: new Set(ss.map(s => s.company).filter(c => c != null)).size,
+    co: ss.filter(s => s.co_mentoring).length,
+    mentors: new Set(ss.map(s => s.mentor).filter(Boolean)).size,
+    volunteers: new Set(ss.flatMap(s => [s.mentor, ...s.co_mentors]).filter(Boolean)).size,
+  };
+}
+
+const TILES = [
+  { key: "requests", label: "New mentoring requests", fmt: fmtInt },
+  { key: "sessions", label: "Mentoring sessions", fmt: fmtInt },
+  { key: "hours", label: "Volunteer hours", fmt: fmt1 },
+  { key: "avg", label: "Avg. hours per session", fmt: fmt2 },
+  { key: "served", label: "Businesses served", fmt: fmtInt },
+  { key: "co", label: "Co-mentoring sessions", fmt: fmtInt },
+  { key: "mentors", label: "Active lead mentors", fmt: fmtInt },
+  { key: "volunteers", label: "Volunteers involved", fmt: fmtInt },
+];
+
+// ------------------------------------------------------------ tooltip
+
+const tip = document.getElementById("tip");
+function showTip(event, title, rows) {
+  tip.replaceChildren();
+  const t = document.createElement("div");
+  t.className = "t-title";
+  t.textContent = title;
+  tip.append(t);
+  for (const r of rows) {
+    const row = document.createElement("div");
+    row.className = "row";
+    const b = document.createElement("b");
+    b.textContent = r.value;
+    const name = document.createElement("span");
+    name.textContent = r.label;
+    if (r.color) {
+      const key = document.createElement("i");
+      key.style.background = r.color;
+      row.append(key);
+    }
+    row.append(b, name);
+    tip.append(row);
+  }
+  let x, y;
+  if (event.clientX !== undefined && event.type !== "focus") {
+    x = event.clientX; y = event.clientY;
+  } else {
+    const box = event.target.getBoundingClientRect();
+    x = box.left + box.width / 2; y = box.top;
+  }
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  tip.style.left = Math.max(8, Math.min(window.innerWidth - w - 8, x + 14)) + "px";
+  tip.style.top = Math.max(8, y - h - 12) + "px";
+  tip.style.opacity = 1;
+}
+function hideTip() { tip.style.opacity = 0; }
+
+// ------------------------------------------------------------ chart helpers
+
+function legend(id, series) {
+  const el = document.getElementById(id);
+  el.replaceChildren();
+  for (const s of series) {
+    const span = document.createElement("span");
+    const i = document.createElement("i");
+    i.style.background = s.color;
+    span.append(i, document.createTextNode(s.key));
+    el.append(span);
+  }
+}
+
+// Rect with 4px rounded top corners, square at the baseline
+function topRounded(x, y, w, h, r = 4) {
+  r = Math.min(r, h, w / 2);
+  if (h <= 0) return "";
+  return `M${x},${y + h}V${y + r}Q${x},${y} ${x + r},${y}H${x + w - r}Q${x + w},${y} ${x + w},${y + r}V${y + h}Z`;
+}
+
+// Stacked monthly columns. rows: [{month, values: {seriesKey: n}}]
+function monthColumns(id, rows, series, fmt, unit) {
+  const el = document.getElementById(id);
+  el.replaceChildren();
+  const width = el.clientWidth || 320, height = 210;
+  const m = { top: 12, right: 4, bottom: 24, left: 34 };
+  const x = d3.scaleBand().domain(rows.map(r => r.month)).range([m.left, width - m.right]).padding(0.25);
+  const total = r => d3.sum(series, s => r.values[s.key] || 0);
+  const y = d3.scaleLinear().domain([0, d3.max(rows, total) || 1]).nice(4).range([height - m.bottom, m.top]);
+  const bw = Math.min(24, x.bandwidth());
+
+  const svg = d3.select(el).append("svg").attr("width", width).attr("height", height)
+    .attr("role", "img").attr("aria-label", el.closest(".card").querySelector("h3").textContent + " by month");
+  svg.append("g").attr("class", "axis").attr("transform", `translate(${m.left},0)`)
+    .call(d3.axisLeft(y).ticks(4).tickSize(-(width - m.left - m.right)).tickFormat(d3.format("~s")))
+    .call(g => g.selectAll("text").attr("x", -6));
+  svg.append("g").attr("class", "axis").attr("transform", `translate(0,${height - m.bottom})`)
+    .call(d3.axisBottom(x).tickSize(0).tickPadding(8).tickFormat(monthShort))
+    .call(g => g.selectAll("line").remove());
+
+  const col = svg.append("g").selectAll("g").data(rows).join("g")
+    .attr("opacity", r => inRange(r.month) ? 1 : 0.3);
+  col.each(function (r) {
+    const g = d3.select(this);
+    const x0 = x(r.month) + (x.bandwidth() - bw) / 2;
+    let acc = 0;
+    const segs = series.map(s => ({ s, v: r.values[s.key] || 0 })).filter(d => d.v > 0);
+    segs.forEach((d, i) => {
+      const y1 = y(acc), y2 = y(acc + d.v);
+      acc += d.v;
+      const gap = i > 0 ? 2 : 0;                       // 2px surface gap between segments
+      const h = Math.max(0, y1 - y2 - gap);
+      if (i === segs.length - 1) {
+        g.append("path").attr("d", topRounded(x0, y2, bw, h)).attr("fill", d.s.color);
+      } else {
+        g.append("rect").attr("x", x0).attr("y", y2).attr("width", bw).attr("height", h).attr("fill", d.s.color);
+      }
+    });
+  });
+  svg.append("line").attr("class", "baseline")
+    .attr("x1", m.left).attr("x2", width - m.right).attr("y1", height - m.bottom).attr("y2", height - m.bottom);
+
+  // Whole column is the hit target
+  svg.append("g").selectAll("rect").data(rows).join("rect")
+    .attr("class", "hit").attr("tabindex", 0)
+    .attr("x", r => x(r.month) - x.step() * x.paddingInner() / 2).attr("width", x.step())
+    .attr("y", m.top).attr("height", height - m.top - m.bottom)
+    .attr("aria-label", r => `${monthName(r.month)}: ${fmt(total(r))} ${unit}`)
+    .on("pointermove focus", (e, r) => {
+      const rowsTip = series.filter(s => r.values[s.key]).map(s => ({ label: s.key, value: fmt(r.values[s.key]), color: s.color }));
+      if (series.length > 1) rowsTip.push({ label: "Total", value: fmt(total(r)) });
+      showTip(e, monthName(r.month), rowsTip.length ? rowsTip : [{ label: unit, value: "0" }]);
+    })
+    .on("pointerleave blur", hideTip)
+    .on("click keydown", (e, r) => {
+      if (e.type === "keydown" && e.key !== "Enter" && e.key !== " ") return;
+      e.preventDefault();
+      setRange(r.month, r.month);
+    });
+}
+
+// Horizontal bars. rows: [{label, values: {seriesKey: n}}]; value label at the tip
+function hBars(id, rows, series, { fmt = fmtInt, share = null } = {}) {
+  const el = document.getElementById(id);
+  el.replaceChildren();
+  if (!rows.length) {
+    const p = document.createElement("p");
+    p.className = "empty";
+    p.textContent = "No data for this selection.";
+    el.append(p);
+    return;
+  }
+  const width = el.clientWidth || 320;
+  const rowH = 28, m = { top: 4, right: 70, bottom: 4, left: Math.min(190, width * 0.42) };
+  const height = m.top + m.bottom + rows.length * rowH;
+  const total = r => d3.sum(series, s => r.values[s.key] || 0);
+  const x = d3.scaleLinear().domain([0, d3.max(rows, total) || 1]).range([m.left, width - m.right]);
+  const y = d3.scaleBand().domain(rows.map(r => r.label)).range([m.top, height - m.bottom]).padding(0.3);
+  const bh = Math.min(16, y.bandwidth());
+
+  const svg = d3.select(el).append("svg").attr("width", width).attr("height", height)
+    .attr("role", "img").attr("aria-label", el.closest(".card").querySelector("h3")?.textContent || "Bar chart");
+
+  const row = svg.append("g").selectAll("g").data(rows).join("g")
+    .attr("transform", r => `translate(0,${y(r.label)})`);
+  row.append("text").attr("class", "bar-label").attr("x", m.left - 8).attr("y", y.bandwidth() / 2)
+    .attr("dy", "0.35em").attr("text-anchor", "end")
+    .text(r => r.label)
+    .each(function () {                                   // truncate long labels to fit
+      const self = d3.select(this);
+      let t = self.text();
+      while (this.getComputedTextLength() > m.left - 12 && t.length > 4) {
+        t = t.slice(0, -1);
+        self.text(t + "…");
+      }
+    });
+  row.each(function (r) {
+    const g = d3.select(this);
+    let acc = 0;
+    const y0 = (y.bandwidth() - bh) / 2;
+    const segs = series.map(s => ({ s, v: r.values[s.key] || 0 })).filter(d => d.v > 0);
+    segs.forEach((d, i) => {
+      const x1 = x(acc), x2 = x(acc + d.v);
+      acc += d.v;
+      const gap = i > 0 ? 2 : 0;
+      const w = Math.max(0, x2 - x1 - gap);
+      const xs = x1 + gap;
+      if (i === segs.length - 1) {                         // rounded data-end, square at baseline
+        const rr = Math.min(4, w, bh / 2);
+        g.append("path").attr("fill", d.s.color).attr("d",
+          `M${xs},${y0}H${xs + w - rr}Q${xs + w},${y0} ${xs + w},${y0 + rr}V${y0 + bh - rr}Q${xs + w},${y0 + bh} ${xs + w - rr},${y0 + bh}H${xs}Z`);
+      } else {
+        g.append("rect").attr("x", xs).attr("y", y0).attr("width", w).attr("height", bh).attr("fill", d.s.color);
+      }
+    });
+  });
+  row.append("text").attr("class", "bar-value").attr("x", r => x(total(r)) + 6).attr("y", y.bandwidth() / 2)
+    .attr("dy", "0.35em")
+    .text(r => fmt(total(r)) + (share ? ` (${fmtPct(total(r) / share)})` : ""));
+  svg.append("line").attr("class", "baseline")
+    .attr("x1", m.left).attr("x2", m.left).attr("y1", m.top).attr("y2", height - m.bottom);
+
+  svg.append("g").selectAll("rect").data(rows).join("rect")
+    .attr("class", "hit").attr("tabindex", 0)
+    .attr("x", 0).attr("width", width).attr("y", r => y(r.label) - y.step() * y.paddingInner() / 2).attr("height", y.step())
+    .attr("aria-label", r => `${r.label}: ${fmt(total(r))}`)
+    .on("pointermove focus", (e, r) => {
+      const rowsTip = series.length > 1
+        ? series.filter(s => r.values[s.key]).map(s => ({ label: s.key, value: fmt(r.values[s.key]), color: s.color }))
+        : [{ label: share ? `${fmtPct(total(r) / share)} of ${fmtInt(share)}` : "", value: fmt(total(r)) }];
+      showTip(e, r.label, rowsTip);
+    })
+    .on("pointerleave blur", hideTip);
+}
+
+// Mini monthly columns for a tile; selected months in the accent, others recede
+function spark(svgEl, values) {
+  const svg = d3.select(svgEl);
+  svg.selectAll("*").remove();
+  const w = svgEl.clientWidth || 180, h = 34;
+  const x = d3.scaleBand().domain(MONTHS).range([0, w]).padding(0.3);
+  const y = d3.scaleLinear().domain([0, d3.max(values) || 1]).range([h - 1, 2]);
+  const bw = Math.min(12, x.bandwidth());
+  svg.selectAll("path").data(MONTHS).join("path")
+    .attr("d", (mo, i) => topRounded(x(mo) + (x.bandwidth() - bw) / 2, y(values[i] || 0), bw, (h - 1) - y(values[i] || 0), 2))
+    .attr("fill", mo => inRange(mo) ? "var(--s1)" : "var(--dim)");
+  svg.append("line").attr("x1", 0).attr("x2", w).attr("y1", h - 0.5).attr("y2", h - 0.5).attr("stroke", "var(--axis)");
+}
+
+// ------------------------------------------------------------ rendering
+
+function previousPeriod() {
+  const i0 = MONTHS.indexOf(state.from), i1 = MONTHS.indexOf(state.to);
+  const n = i1 - i0 + 1;
+  if (i0 - n < 0) return null;
+  return [MONTHS[i0 - n], MONTHS[i0 - 1]];
+}
+function periodName(from, to) {
+  return from === to ? monthName(from) : `${monthName(from)} – ${monthName(to)}`;
+}
+
+function renderTiles() {
+  const cur = metrics(state.from, state.to);
+  const prev = previousPeriod();
+  const before = prev ? metrics(prev[0], prev[1]) : null;
+  const monthly = MONTHS.map(mo => metrics(mo, mo));
+  const el = document.getElementById("tiles");
+  el.replaceChildren();
+  for (const t of TILES) {
+    const tile = document.createElement("div");
+    tile.className = "tile";
+    const label = document.createElement("div");
+    label.className = "label";
+    label.textContent = t.label + (t.key === "requests" && state.mentor ? " (all mentors)" : "");
+    const value = document.createElement("div");
+    value.className = "value";
+    value.textContent = cur[t.key] == null ? "–" : t.fmt(cur[t.key]);
+    const delta = document.createElement("div");
+    delta.className = "delta";
+    if (before && before[t.key] != null && cur[t.key] != null) {
+      const d = cur[t.key] - before[t.key];
+      const pct = before[t.key] ? d / before[t.key] : null;
+      delta.classList.add(d > 0 ? "up" : d < 0 ? "down" : "flat");
+      const arrow = d > 0 ? "▲" : d < 0 ? "▼" : "■";
+      delta.textContent = `${arrow} ${d > 0 ? "+" : ""}${t.fmt(d)}${pct != null && isFinite(pct) ? ` (${d > 0 ? "+" : ""}${fmtPct(pct)})` : ""} vs ${periodName(prev[0], prev[1])}`;
+    } else {
+      delta.textContent = "No earlier period to compare";
+    }
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("aria-hidden", "true");
+    tile.append(label, value, delta, svg);
+    el.append(tile);
+    spark(svg, monthly.map(m => m[t.key] || 0));
+  }
+  document.getElementById("kpi-sub").textContent =
+    `${periodName(state.from, state.to)}${state.mentor ? " · " + state.mentor : ""}`;
+}
+
+function renderTrends() {
+  const rows = MONTHS.map(mo => {
+    const ss = sessionsFor(mo, mo);
+    const types = {};
+    for (const t of TYPES) types[t.key] = 0;
+    for (const s of ss) types[s.type || "Not recorded"]++;
+    return {
+      month: mo, ss, types,
+      hours: { "Lead mentor": d3.sum(ss, s => s.mentor_hours || 0), "Co-mentor": d3.sum(ss, s => s.co_mentor_hours || 0) },
+    };
+  });
+  monthColumns("c-sessions", rows.map(r => ({ month: r.month, values: r.types })), TYPES, fmtInt, "sessions");
+  monthColumns("c-hours", rows.map(r => ({ month: r.month, values: r.hours })), HOURS, fmt1, "hours");
+  monthColumns("c-requests", MONTHS.map(mo => ({ month: mo, values: { Requests: requestsFor(mo, mo).length } })),
+    [{ key: "Requests", color: "var(--s1)" }], fmtInt, "requests");
+  monthColumns("c-served", rows.map(r => ({ month: r.month, values: { Businesses: new Set(r.ss.map(s => s.company).filter(c => c != null)).size } })),
+    [{ key: "Businesses", color: "var(--s1)" }], fmtInt, "businesses");
+}
+
+function countRows(items, keysOf, order = null, limit = 8) {
+  const counts = new Map();
+  for (const it of items) for (const k of keysOf(it)) counts.set(k, (counts.get(k) || 0) + 1);
+  let rows = [...counts].map(([label, n]) => ({ label, values: { n } }));
+  if (order) rows.sort((a, b) => order.indexOf(a.label) - order.indexOf(b.label));
+  else rows.sort((a, b) => b.values.n - a.values.n || a.label.localeCompare(b.label));
+  if (rows.length > limit) {
+    // Fold the tail (and any existing "Other" answer) into a single "Other" row
+    const other = rows.filter(r => r.label === "Other");
+    rows = rows.filter(r => r.label !== "Other");
+    const rest = rows.slice(limit - 1).concat(other);
+    rows = rows.slice(0, limit - 1).concat({ label: "Other", values: { n: d3.sum(rest, r => r.values.n) } });
+  }
+  return rows;
+}
+
+function renderWho() {
+  const ss = sessionsFor(state.from, state.to);
+  const byId = new Map(R.companies.map(c => [c.id, c]));
+  const served = [...new Set(ss.map(s => s.company))].map(id => byId.get(id)).filter(Boolean);
+  const one = [{ key: "n", color: "var(--s1)" }];
+  const ownOrder = [...R.lookups.ownership, "Not provided"];
+  hBars("c-ownership", countRows(served, c => c.ownership.length ? c.ownership : ["Not provided"], ownOrder),
+    one, { share: served.length });
+  hBars("c-industry", countRows(served, c => [c.industry || "Not provided"]), one, { share: served.length });
+  const requested = requestsFor(state.from, state.to);
+  hBars("c-referral", countRows(requested, c => c.referral.length ? c.referral : ["Not provided"]), one, { share: requested.length });
+  const topicRows = R.lookups.topics.map(t => ({ label: t, values: { n: ss.filter(s => s.topics.includes(t)).length } }))
+    .filter(r => r.values.n);
+  hBars("c-topics", topicRows, one, { share: ss.length });
+}
+
+function renderMentors() {
+  const ss = sessionsFor(state.from, state.to, "");
+  const led = new Map(), co = new Map();
+  for (const s of ss) {
+    if (s.mentor) led.set(s.mentor, (led.get(s.mentor) || 0) + 1);
+    for (const c of s.co_mentors) co.set(c, (co.get(c) || 0) + 1);
+  }
+  const names = [...new Set([...led.keys(), ...co.keys()])];
+  const rows = names.map(n => ({ label: n, values: { "Led": led.get(n) || 0, "Co-mentored": co.get(n) || 0 } }))
+    .sort((a, b) => (b.values.Led + b.values["Co-mentored"]) - (a.values.Led + a.values["Co-mentored"]) || a.label.localeCompare(b.label, undefined, { numeric: true }));
+  hBars("c-mentors", rows, ROLES);
+}
+
+function renderWorkshops() {
+  const el = document.getElementById("workshops");
+  el.replaceChildren();
+  const list = R.workshops.filter(w => inRange(w.date.slice(0, 7)));
+  if (!list.length) {
+    const p = document.createElement("p");
+    p.className = "empty";
+    p.textContent = "No workshops in the selected period.";
+    el.append(p);
+    return;
+  }
+  for (const w of list) {
+    const card = document.createElement("div");
+    card.className = "card workshop";
+    const h = document.createElement("h3");
+    h.textContent = w.name;
+    const when = document.createElement("div");
+    when.className = "when";
+    when.textContent = d3.timeFormat("%B %-d, %Y")(d3.timeParse("%Y-%m-%d")(w.date));
+    const nums = document.createElement("div");
+    nums.className = "nums";
+    for (const [v, l] of [[fmtInt(w.registered), "registered"], [fmtInt(w.attended), "attended"],
+      [w.registered ? fmtPct(w.attended / w.registered) : "–", "attendance"]]) {
+      const d = document.createElement("div");
+      const b = document.createElement("b"); b.textContent = v;
+      const s = document.createElement("span"); s.textContent = l;
+      d.append(b, s);
+      nums.append(d);
+    }
+    card.append(h, when, nums);
+    el.append(card);
+  }
+}
+
+function renderNotes() {
+  const el = document.getElementById("notes");
+  el.replaceChildren();
+  for (const mo of MONTHS.filter(m => inRange(m))) {
+    const text = R.notes[mo];
+    if (!text) continue;
+    const div = document.createElement("div");
+    div.className = "note";
+    const b = document.createElement("b");
+    b.textContent = monthName(mo) + ": ";
+    div.append(b, document.createTextNode(text));
+    el.append(div);
+  }
+}
+
+function renderTable() {
+  const cols = TILES;
+  const table = d3.select("#table");
+  table.selectAll("*").remove();
+  const head = table.append("thead").append("tr");
+  head.append("th").text("Month");
+  for (const c of cols) head.append("th").text(c.label);
+  const body = table.append("tbody");
+  const rowsData = MONTHS.map(mo => ({ mo, m: metrics(mo, mo) })).reverse();
+  const tr = body.selectAll("tr").data(rowsData).join("tr").classed("sel", d => inRange(d.mo));
+  tr.append("td").text(d => monthName(d.mo));
+  for (const c of cols) tr.append("td").text(d => d.m[c.key] == null ? "–" : c.fmt(d.m[c.key]));
+  const tot = metrics(state.from, state.to);
+  const tf = table.append("tfoot").append("tr");
+  tf.append("td").append("b").text("Selected period");
+  for (const c of cols) tf.append("td").append("b").text(tot[c.key] == null ? "–" : c.fmt(tot[c.key]));
+}
+
+function renderAll() {
+  document.querySelectorAll("#presets button").forEach(b =>
+    b.setAttribute("aria-pressed", String(b.dataset.from === state.from && b.dataset.to === state.to)));
+  document.getElementById("from").value = state.from;
+  document.getElementById("to").value = state.to;
+  document.getElementById("range-label").textContent = periodName(state.from, state.to);
+  renderTiles();
+  renderNotes();
+  renderTrends();
+  renderWho();
+  renderMentors();
+  renderWorkshops();
+  renderTable();
+}
+
+function setRange(from, to) {
+  if (from > to) [from, to] = [to, from];
+  state.from = from;
+  state.to = to;
+  renderAll();
+}
+
+// ------------------------------------------------------------ setup
+
+function setup() {
+  const through = R.meta.data_through;
+  document.getElementById("asof").textContent =
+    `Data through ${d3.timeFormat("%B %-d, %Y")(d3.timeParse("%Y-%m-%d")(through))} · updated ${d3.timeFormat("%b %-d, %Y")(new Date(R.meta.generated_at))}`;
+
+  const first = d3.min([...R.companies.map(c => c.created), ...R.sessions.map(s => s.date.slice(0, 7))]);
+  const last = through.slice(0, 7);
+  MONTHS = d3.timeMonth.range(d3.timeParse("%Y-%m")(first), d3.timeMonth.offset(d3.timeParse("%Y-%m")(last), 1))
+    .map(d3.timeFormat("%Y-%m"));
+
+  for (const id of ["from", "to"]) {
+    const sel = document.getElementById(id);
+    for (const mo of MONTHS) sel.add(new Option(monthName(mo), mo));
+    sel.addEventListener("change", () => setRange(document.getElementById("from").value, document.getElementById("to").value));
+  }
+
+  const mentorSel = document.getElementById("mentor");
+  mentorSel.add(new Option("All mentors", ""));
+  const names = [...new Set(R.sessions.flatMap(s => [s.mentor, ...s.co_mentors]).filter(Boolean))]
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+  for (const n of names) mentorSel.add(new Option(n, n));
+  mentorSel.addEventListener("change", () => { state.mentor = mentorSel.value; renderAll(); });
+
+  const year = last.slice(0, 4);
+  const i = MONTHS.length - 1;
+  const presets = [
+    ["Latest month", MONTHS[i], MONTHS[i]],
+    ["Last 3 months", MONTHS[Math.max(0, i - 2)], MONTHS[i]],
+    ["Year to date", MONTHS.find(m => m.startsWith(year)), MONTHS[i]],
+    ["All time", MONTHS[0], MONTHS[i]],
+  ];
+  const box = document.getElementById("presets");
+  for (const [label, from, to] of presets) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.textContent = label;
+    b.dataset.from = from;
+    b.dataset.to = to;
+    b.addEventListener("click", () => setRange(from, to));
+    box.append(b);
+  }
+
+  legend("lg-sessions", TYPES);
+  legend("lg-hours", HOURS);
+  legend("lg-mentors", ROLES);
+
+  const dl = document.querySelector("#defs dl");
+  for (const [k, v] of Object.entries(R.meta.definitions)) {
+    const dt = document.createElement("dt");
+    dt.textContent = k.replace(/_/g, " ").replace(/^./, c => c.toUpperCase());
+    const dd = document.createElement("dd");
+    dd.textContent = v;
+    dl.append(dt, dd);
+  }
+
+  state.from = presets[2][1];
+  state.to = presets[2][2];
+  renderAll();
+
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(renderAll, 150);
+  });
+}
+
+fetch("data/report.json")
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(data => {
+    if (data.meta.schema_version !== 1) throw new Error("Unexpected data format");
+    R = data;
+    setup();
+  })
+  .catch(err => {
+    document.getElementById("asof").textContent = "Could not load the report data (" + err.message + ").";
+  });
+</script>
+</body>
+</html>

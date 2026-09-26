@@ -1,0 +1,3519 @@
+{
+ "meta": {
+  "schema_version": 1,
+  "generated_at": "2026-09-26T18:04:57+00:00",
+  "data_from": "2026-04-14",
+  "data_through": "2026-09-24",
+  "sources": {
+   "session_exports": [
+    "submissions_09_26_2026.csv"
+   ],
+   "sessions_from_exports": 120,
+   "sessions_from_api_capture": 0,
+   "sessions_unlinked_to_company": 0,
+   "companies": 80,
+   "engagements": 66
+  },
+  "definitions": {
+   "session": "One 'BEAM Client Session Report' submission, dated by meeting date (submission date when the meeting date is missing: date_estimated=true).",
+   "hours": "Total volunteer hours = mentor_hours + co_mentor_hours.",
+   "co_mentoring": "A co-mentor is named or co-mentor time is logged.",
+   "active_mentors": "Distinct lead mentors with a session in the period.",
+   "volunteers": "Distinct lead mentors and co-mentors with a session in the period.",
+   "new_request": "A company created in the portal (by month).",
+   "engagement": "A portal project opened for a client."
+  }
+ },
+ "lookups": {
+  "meeting_types": [
+   "In Person",
+   "Video Conference",
+   "Phone",
+   "Email"
+  ],
+  "topics": [
+   "Accounting & Finance",
+   "Business Startup",
+   "Marketing",
+   "Operations",
+   "Technology"
+  ],
+  "ownership": [
+   "Woman-owned",
+   "Minority-owned",
+   "Veteran-owned",
+   "None of the above",
+   "Prefer not to say"
+  ]
+ },
+ "companies": [
+  {
+   "id": 1,
+   "created": "2026-02",
+   "industry": "Technology / Software / IT",
+   "ownership": [],
+   "employees": null,
+   "referral": [],
+   "areas_requested": []
+  },
+  {
+   "id": 2,
+   "created": "2026-02",
+   "industry": "Retail (Brick-and-Mortar)",
+   "ownership": [],
+   "employees": null,
+   "referral": [],
+   "areas_requested": []
+  },
+  {
+   "id": 3,
+   "created": "2026-02",
+   "industry": "Professional & Business Services",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "BEAM Client or Volunteer"
+   ],
+   "areas_requested": [
+    "Marketing"
+   ]
+  },
+  {
+   "id": 4,
+   "created": "2026-02",
+   "industry": "Food & Beverage",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Friend or Relative"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Marketing",
+    "Operations"
+   ]
+  },
+  {
+   "id": 5,
+   "created": "2026-02",
+   "industry": "Construction & Trades",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "BEAM Client or Volunteer"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Business Startup",
+    "Marketing",
+    "Operations"
+   ]
+  },
+  {
+   "id": 6,
+   "created": "2026-02",
+   "industry": "Retail (Brick-and-Mortar)",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "BEAM Client or Volunteer"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Business Startup",
+    "Marketing",
+    "Operations"
+   ]
+  },
+  {
+   "id": 7,
+   "created": "2026-02",
+   "industry": "Manufacturing & Production",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "BEAM Client or Volunteer"
+   ],
+   "areas_requested": [
+    "Marketing"
+   ]
+  },
+  {
+   "id": 8,
+   "created": "2026-02",
+   "industry": "Professional & Business Services",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "BEAM Client or Volunteer"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Business Startup",
+    "Marketing",
+    "Operations"
+   ]
+  },
+  {
+   "id": 9,
+   "created": "2026-02",
+   "industry": "Other",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Friend or Relative"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Business Startup",
+    "Marketing",
+    "Operations"
+   ]
+  },
+  {
+   "id": 10,
+   "created": "2026-02",
+   "industry": "Manufacturing & Production",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "BEAM Client or Volunteer"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Business Startup",
+    "Marketing",
+    "Operations"
+   ]
+  },
+  {
+   "id": 11,
+   "created": "2026-02",
+   "industry": "Construction & Trades",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Friend or Relative"
+   ],
+   "areas_requested": []
+  },
+  {
+   "id": 12,
+   "created": "2026-02",
+   "industry": "Construction & Trades",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Friend or Relative"
+   ],
+   "areas_requested": []
+  },
+  {
+   "id": 13,
+   "created": "2026-02",
+   "industry": "Manufacturing & Production",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Friend or Relative"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Business Startup",
+    "Marketing",
+    "Operations"
+   ]
+  },
+  {
+   "id": 14,
+   "created": "2026-02",
+   "industry": "Retail (Brick-and-Mortar)",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "5-9",
+   "referral": [
+    "Friend or Relative"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Business Startup",
+    "Marketing",
+    "Operations"
+   ]
+  },
+  {
+   "id": 15,
+   "created": "2026-02",
+   "industry": "Professional & Business Services",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Friend or Relative"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Marketing"
+   ]
+  },
+  {
+   "id": 16,
+   "created": "2026-04",
+   "industry": null,
+   "ownership": [],
+   "employees": null,
+   "referral": [],
+   "areas_requested": []
+  },
+  {
+   "id": 17,
+   "created": "2026-04",
+   "industry": null,
+   "ownership": [],
+   "employees": null,
+   "referral": [],
+   "areas_requested": []
+  },
+  {
+   "id": 18,
+   "created": "2026-04",
+   "industry": null,
+   "ownership": [],
+   "employees": null,
+   "referral": [],
+   "areas_requested": []
+  },
+  {
+   "id": 19,
+   "created": "2026-04",
+   "industry": "Agriculture, Food Systems & Natural Resources",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Friend or Relative"
+   ],
+   "areas_requested": [
+    "Business Startup",
+    "Operations"
+   ]
+  },
+  {
+   "id": 20,
+   "created": "2026-04",
+   "industry": null,
+   "ownership": [],
+   "employees": null,
+   "referral": [],
+   "areas_requested": []
+  },
+  {
+   "id": 21,
+   "created": "2026-04",
+   "industry": "Professional & Business Services",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Other"
+   ],
+   "areas_requested": [
+    "Business Startup"
+   ]
+  },
+  {
+   "id": 22,
+   "created": "2026-04",
+   "industry": "Food & Beverage",
+   "ownership": [
+    "Woman-owned",
+    "Minority-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "BEAM Client or Volunteer"
+   ],
+   "areas_requested": []
+  },
+  {
+   "id": 23,
+   "created": "2026-05",
+   "industry": "Education & Training",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Other"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Marketing",
+    "Operations"
+   ]
+  },
+  {
+   "id": 24,
+   "created": "2026-05",
+   "industry": null,
+   "ownership": [],
+   "employees": null,
+   "referral": [],
+   "areas_requested": []
+  },
+  {
+   "id": 25,
+   "created": "2026-05",
+   "industry": "Construction & Trades",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Friend or Relative"
+   ],
+   "areas_requested": [
+    "Operations"
+   ]
+  },
+  {
+   "id": 26,
+   "created": "2026-05",
+   "industry": "Professional & Business Services",
+   "ownership": [
+    "Veteran-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Online Search"
+   ],
+   "areas_requested": [
+    "Business Startup"
+   ]
+  },
+  {
+   "id": 27,
+   "created": "2026-05",
+   "industry": "Professional & Business Services",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Workshop or Event"
+   ],
+   "areas_requested": [
+    "Business Startup",
+    "Marketing"
+   ]
+  },
+  {
+   "id": 28,
+   "created": "2026-05",
+   "industry": null,
+   "ownership": [],
+   "employees": null,
+   "referral": [],
+   "areas_requested": []
+  },
+  {
+   "id": 29,
+   "created": "2026-05",
+   "industry": "Health, Wellness & Personal Care",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "BEAM Client or Volunteer"
+   ],
+   "areas_requested": [
+    "Marketing",
+    "Technology"
+   ]
+  },
+  {
+   "id": 30,
+   "created": "2026-05",
+   "industry": "Health, Wellness & Personal Care",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": null,
+   "referral": [
+    "Other"
+   ],
+   "areas_requested": []
+  },
+  {
+   "id": 31,
+   "created": "2026-05",
+   "industry": "Food & Beverage",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "BEAM Client or Volunteer",
+    "I am a member of the Chamber"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Business Startup",
+    "Marketing",
+    "Operations",
+    "Technology"
+   ]
+  },
+  {
+   "id": 32,
+   "created": "2026-05",
+   "industry": "Retail (Brick-and-Mortar)",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Friend or Relative"
+   ],
+   "areas_requested": [
+    "Operations"
+   ]
+  },
+  {
+   "id": 33,
+   "created": "2026-05",
+   "industry": null,
+   "ownership": [],
+   "employees": null,
+   "referral": [],
+   "areas_requested": []
+  },
+  {
+   "id": 34,
+   "created": "2026-05",
+   "industry": null,
+   "ownership": [],
+   "employees": null,
+   "referral": [],
+   "areas_requested": []
+  },
+  {
+   "id": 35,
+   "created": "2026-05",
+   "industry": "Nonprofit / Social Enterprise",
+   "ownership": [],
+   "employees": null,
+   "referral": [
+    "BEAM Client or Volunteer"
+   ],
+   "areas_requested": [
+    "Marketing"
+   ]
+  },
+  {
+   "id": 36,
+   "created": "2026-06",
+   "industry": null,
+   "ownership": [],
+   "employees": null,
+   "referral": [],
+   "areas_requested": []
+  },
+  {
+   "id": 37,
+   "created": "2026-06",
+   "industry": "Professional & Business Services",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "I am a member of the Chamber"
+   ],
+   "areas_requested": [
+    "Business Startup"
+   ]
+  },
+  {
+   "id": 38,
+   "created": "2026-06",
+   "industry": "Food & Beverage",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "I am a member of the Chamber"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Marketing",
+    "Operations",
+    "Technology"
+   ]
+  },
+  {
+   "id": 39,
+   "created": "2026-06",
+   "industry": "Food & Beverage",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "BEAM Client or Volunteer"
+   ],
+   "areas_requested": []
+  },
+  {
+   "id": 40,
+   "created": "2026-06",
+   "industry": "Professional & Business Services",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "SBA"
+   ],
+   "areas_requested": [
+    "Operations"
+   ]
+  },
+  {
+   "id": 41,
+   "created": "2026-06",
+   "industry": "Health, Wellness & Personal Care",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "I am a member of the Chamber"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Marketing"
+   ]
+  },
+  {
+   "id": 42,
+   "created": "2026-06",
+   "industry": "Construction & Trades",
+   "ownership": [
+    "Veteran-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Workshop or Event"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Operations",
+    "Technology"
+   ]
+  },
+  {
+   "id": 43,
+   "created": "2026-06",
+   "industry": null,
+   "ownership": [],
+   "employees": null,
+   "referral": [],
+   "areas_requested": []
+  },
+  {
+   "id": 44,
+   "created": "2026-06",
+   "industry": null,
+   "ownership": [],
+   "employees": null,
+   "referral": [],
+   "areas_requested": []
+  },
+  {
+   "id": 45,
+   "created": "2026-06",
+   "industry": null,
+   "ownership": [],
+   "employees": null,
+   "referral": [],
+   "areas_requested": []
+  },
+  {
+   "id": 46,
+   "created": "2026-06",
+   "industry": "Technology / Software / IT",
+   "ownership": [],
+   "employees": null,
+   "referral": [],
+   "areas_requested": []
+  },
+  {
+   "id": 47,
+   "created": "2026-06",
+   "industry": "Manufacturing & Production",
+   "ownership": [],
+   "employees": null,
+   "referral": [],
+   "areas_requested": []
+  },
+  {
+   "id": 48,
+   "created": "2026-06",
+   "industry": "Professional & Business Services",
+   "ownership": [],
+   "employees": null,
+   "referral": [],
+   "areas_requested": []
+  },
+  {
+   "id": 49,
+   "created": "2026-06",
+   "industry": "Manufacturing & Production",
+   "ownership": [],
+   "employees": null,
+   "referral": [],
+   "areas_requested": []
+  },
+  {
+   "id": 50,
+   "created": "2026-06",
+   "industry": null,
+   "ownership": [],
+   "employees": null,
+   "referral": [],
+   "areas_requested": []
+  },
+  {
+   "id": 51,
+   "created": "2026-06",
+   "industry": "Real Estate & Property Services",
+   "ownership": [],
+   "employees": null,
+   "referral": [],
+   "areas_requested": []
+  },
+  {
+   "id": 52,
+   "created": "2026-06",
+   "industry": null,
+   "ownership": [],
+   "employees": null,
+   "referral": [],
+   "areas_requested": []
+  },
+  {
+   "id": 53,
+   "created": "2026-06",
+   "industry": "Technology / Software / IT",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "I am a member of the Chamber",
+    "I attended a Chamber event"
+   ],
+   "areas_requested": [
+    "Business Startup",
+    "Marketing",
+    "Operations"
+   ]
+  },
+  {
+   "id": 54,
+   "created": "2026-07",
+   "industry": "Food & Beverage",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "20-49",
+   "referral": [
+    "BEAM Client or Volunteer"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Marketing"
+   ]
+  },
+  {
+   "id": 55,
+   "created": "2026-07",
+   "industry": "Professional & Business Services",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Other"
+   ],
+   "areas_requested": [
+    "Business Startup",
+    "Marketing",
+    "Operations"
+   ]
+  },
+  {
+   "id": 56,
+   "created": "2026-07",
+   "industry": "Technology / Software / IT",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Friend or Relative"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Business Startup",
+    "Operations"
+   ]
+  },
+  {
+   "id": 57,
+   "created": "2026-07",
+   "industry": "Food & Beverage",
+   "ownership": [
+    "Woman-owned",
+    "Minority-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "BEAM Client or Volunteer"
+   ],
+   "areas_requested": [
+    "Business Startup"
+   ]
+  },
+  {
+   "id": 58,
+   "created": "2026-07",
+   "industry": "Professional & Business Services",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Other"
+   ],
+   "areas_requested": [
+    "Operations"
+   ]
+  },
+  {
+   "id": 59,
+   "created": "2026-07",
+   "industry": "Education & Training",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Other"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Marketing"
+   ]
+  },
+  {
+   "id": 60,
+   "created": "2026-07",
+   "industry": "Professional & Business Services",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "BEAM Client or Volunteer"
+   ],
+   "areas_requested": []
+  },
+  {
+   "id": 61,
+   "created": "2026-07",
+   "industry": "Construction & Trades",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "BEAM Client or Volunteer"
+   ],
+   "areas_requested": [
+    "Marketing",
+    "Technology"
+   ]
+  },
+  {
+   "id": 62,
+   "created": "2026-07",
+   "industry": "Technology / Software / IT",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "BEAM Client or Volunteer"
+   ],
+   "areas_requested": [
+    "Business Startup",
+    "Marketing",
+    "Operations"
+   ]
+  },
+  {
+   "id": 63,
+   "created": "2026-07",
+   "industry": "Education & Training",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "BEAM Client or Volunteer"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Operations"
+   ]
+  },
+  {
+   "id": 64,
+   "created": "2026-07",
+   "industry": "Professional & Business Services",
+   "ownership": [
+    "Minority-owned",
+    "Veteran-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "BEAM Client or Volunteer"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Marketing",
+    "Operations"
+   ]
+  },
+  {
+   "id": 65,
+   "created": "2026-07",
+   "industry": "Construction & Trades",
+   "ownership": [
+    "Minority-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Other"
+   ],
+   "areas_requested": [
+    "Operations",
+    "Technology"
+   ]
+  },
+  {
+   "id": 66,
+   "created": "2026-07",
+   "industry": "Health, Wellness & Personal Care",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Other"
+   ],
+   "areas_requested": [
+    "Marketing",
+    "Operations"
+   ]
+  },
+  {
+   "id": 67,
+   "created": "2026-07",
+   "industry": "Retail (Brick-and-Mortar)",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "I am a member of the Chamber"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Operations",
+    "Technology"
+   ]
+  },
+  {
+   "id": 68,
+   "created": "2026-08",
+   "industry": "Health, Wellness & Personal Care",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Friend or Relative"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Business Startup",
+    "Marketing"
+   ]
+  },
+  {
+   "id": 69,
+   "created": "2026-08",
+   "industry": "Health, Wellness & Personal Care",
+   "ownership": [
+    "Minority-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Friend or Relative"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Business Startup",
+    "Marketing",
+    "Operations",
+    "Technology"
+   ]
+  },
+  {
+   "id": 70,
+   "created": "2026-08",
+   "industry": "Professional & Business Services",
+   "ownership": [
+    "Minority-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "BEAM Client or Volunteer"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Marketing"
+   ]
+  },
+  {
+   "id": 71,
+   "created": "2026-08",
+   "industry": "Health, Wellness & Personal Care",
+   "ownership": [
+    "Woman-owned",
+    "Minority-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Social Media"
+   ],
+   "areas_requested": [
+    "Business Startup",
+    "Marketing"
+   ]
+  },
+  {
+   "id": 72,
+   "created": "2026-08",
+   "industry": "Real Estate & Property Services",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "BEAM Client or Volunteer"
+   ],
+   "areas_requested": [
+    "Operations"
+   ]
+  },
+  {
+   "id": 73,
+   "created": "2026-08",
+   "industry": "Construction & Trades",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Friend or Relative"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Business Startup"
+   ]
+  },
+  {
+   "id": 74,
+   "created": "2026-09",
+   "industry": "Technology / Software / IT",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "BEAM Client or Volunteer"
+   ],
+   "areas_requested": [
+    "Business Startup",
+    "Marketing",
+    "Operations",
+    "Technology"
+   ]
+  },
+  {
+   "id": 75,
+   "created": "2026-09",
+   "industry": "Technology / Software / IT",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Friend or Relative"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Operations",
+    "Technology"
+   ]
+  },
+  {
+   "id": 76,
+   "created": "2026-09",
+   "industry": "Other",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "5-9",
+   "referral": [
+    "BEAM Client or Volunteer"
+   ],
+   "areas_requested": [
+    "Operations",
+    "Technology"
+   ]
+  },
+  {
+   "id": 77,
+   "created": "2026-09",
+   "industry": "Manufacturing & Production",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Friend or Relative",
+    "Other"
+   ],
+   "areas_requested": [
+    "Business Startup",
+    "Marketing"
+   ]
+  },
+  {
+   "id": 78,
+   "created": "2026-09",
+   "industry": "Professional & Business Services",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Online Search"
+   ],
+   "areas_requested": [
+    "Business Startup"
+   ]
+  },
+  {
+   "id": 79,
+   "created": "2026-09",
+   "industry": "Nonprofit / Social Enterprise",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "20-49",
+   "referral": [
+    "I attended a Chamber event"
+   ],
+   "areas_requested": [
+    "Marketing"
+   ]
+  },
+  {
+   "id": 80,
+   "created": "2026-09",
+   "industry": "Food & Beverage",
+   "ownership": [
+    "Woman-owned",
+    "Veteran-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "BEAM Client or Volunteer"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Marketing",
+    "Operations",
+    "Technology"
+   ]
+  }
+ ],
+ "sessions": [
+  {
+   "date": "2026-04-14",
+   "date_estimated": false,
+   "company": 4,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [],
+   "source": "export"
+  },
+  {
+   "date": "2026-04-22",
+   "date_estimated": false,
+   "company": 20,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 6"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": null,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [],
+   "source": "export"
+  },
+  {
+   "date": "2026-05-06",
+   "date_estimated": false,
+   "company": 27,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-05-06",
+   "date_estimated": false,
+   "company": 24,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": null,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-05-12",
+   "date_estimated": false,
+   "company": 19,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": null,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Marketing",
+    "Operations",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-05-13",
+   "date_estimated": false,
+   "company": 46,
+   "mentor": "Mentor 15",
+   "co_mentors": [
+    "Mentor 14"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": 1.0,
+   "type": null,
+   "topics": [
+    "Marketing"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-05-13",
+   "date_estimated": false,
+   "company": 17,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Phone",
+   "topics": [
+    "Accounting & Finance",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-05-13",
+   "date_estimated": false,
+   "company": 4,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": null,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-05-14",
+   "date_estimated": false,
+   "company": 13,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 3"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Marketing",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-05-18",
+   "date_estimated": false,
+   "company": 30,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-05-18",
+   "date_estimated": false,
+   "company": 29,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 3"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": 1.0,
+   "type": "In Person",
+   "topics": [
+    "Operations",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-05-18",
+   "date_estimated": false,
+   "company": 19,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Email",
+   "topics": [
+    "Marketing"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-05-19",
+   "date_estimated": false,
+   "company": 31,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 3"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": 1.0,
+   "type": "In Person",
+   "topics": [
+    "Business Startup",
+    "Marketing"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-05-20",
+   "date_estimated": false,
+   "company": 35,
+   "mentor": null,
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Marketing"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-05-20",
+   "date_estimated": false,
+   "company": 24,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 12"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": 1.0,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-05-21",
+   "date_estimated": false,
+   "company": 25,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-05-21",
+   "date_estimated": false,
+   "company": 7,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Marketing",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-05-21",
+   "date_estimated": false,
+   "company": 10,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Business Startup",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-05-26",
+   "date_estimated": false,
+   "company": 4,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-05-27",
+   "date_estimated": false,
+   "company": 27,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 3"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": 2.0,
+   "type": "In Person",
+   "topics": [
+    "Business Startup",
+    "Operations",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-05-27",
+   "date_estimated": false,
+   "company": 34,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 5"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": 1.5,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance",
+    "Marketing",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-05-27",
+   "date_estimated": false,
+   "company": 27,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Business Startup",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-06-01",
+   "date_estimated": false,
+   "company": 33,
+   "mentor": "Mentor 2",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance",
+    "Business Startup",
+    "Marketing",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-06-01",
+   "date_estimated": false,
+   "company": 33,
+   "mentor": "Mentor 2",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance",
+    "Business Startup",
+    "Marketing",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-06-01",
+   "date_estimated": false,
+   "company": 36,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-06-03",
+   "date_estimated": false,
+   "company": 24,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 12"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": 1.5,
+   "type": "Video Conference",
+   "topics": [
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-06-03",
+   "date_estimated": false,
+   "company": 37,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Business Startup"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-06-04",
+   "date_estimated": false,
+   "company": 13,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Marketing",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-06-04",
+   "date_estimated": false,
+   "company": 20,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 6"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 2.5,
+   "co_mentor_hours": 2.5,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-06-09",
+   "date_estimated": false,
+   "company": 27,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 3"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": 1.5,
+   "type": "In Person",
+   "topics": [
+    "Marketing",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-06-10",
+   "date_estimated": false,
+   "company": 25,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 3"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": 2.0,
+   "type": "Video Conference",
+   "topics": [
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-06-11",
+   "date_estimated": false,
+   "company": 16,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Marketing",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-06-11",
+   "date_estimated": false,
+   "company": 32,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 3"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 1.25,
+   "co_mentor_hours": 1.25,
+   "type": "In Person",
+   "topics": [
+    "Business Startup"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-06-16",
+   "date_estimated": false,
+   "company": 4,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 3"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": 1.5,
+   "type": "In Person",
+   "topics": [
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-06-18",
+   "date_estimated": false,
+   "company": 19,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Marketing",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-06-19",
+   "date_estimated": false,
+   "company": 35,
+   "mentor": "Mentor 7",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Marketing"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-06-19",
+   "date_estimated": false,
+   "company": 31,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 3"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": null,
+   "type": null,
+   "topics": [
+    "Business Startup"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-06-23",
+   "date_estimated": false,
+   "company": 17,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 2.5,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance",
+    "Marketing",
+    "Operations",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-06-23",
+   "date_estimated": false,
+   "company": 38,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-06-29",
+   "date_estimated": false,
+   "company": 54,
+   "mentor": "Mentor 4",
+   "co_mentors": [
+    "Mentor 5"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 5.0,
+   "co_mentor_hours": 5.0,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance",
+    "Marketing",
+    "Operations",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-02",
+   "date_estimated": false,
+   "company": 19,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 3"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": 1.5,
+   "type": "Video Conference",
+   "topics": [
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-02",
+   "date_estimated": false,
+   "company": 20,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 6"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": 1.5,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance",
+    "Marketing",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-03",
+   "date_estimated": false,
+   "company": 10,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Business Startup",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-06",
+   "date_estimated": false,
+   "company": 25,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 5"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": 1.0,
+   "type": "Email",
+   "topics": [
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-07",
+   "date_estimated": false,
+   "company": 56,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Business Startup",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-08",
+   "date_estimated": false,
+   "company": 32,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 9"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": 1.0,
+   "type": "Video Conference",
+   "topics": [
+    "Business Startup",
+    "Marketing",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-09",
+   "date_estimated": false,
+   "company": 37,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Business Startup"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-14",
+   "date_estimated": false,
+   "company": 36,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-15",
+   "date_estimated": false,
+   "company": 4,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance",
+    "Operations",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-15",
+   "date_estimated": false,
+   "company": 57,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Business Startup"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-15",
+   "date_estimated": false,
+   "company": 54,
+   "mentor": "Mentor 4",
+   "co_mentors": [],
+   "co_mentoring": true,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": 1.0,
+   "type": "Phone",
+   "topics": [
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-16",
+   "date_estimated": false,
+   "company": 20,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 6"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": 1.5,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-20",
+   "date_estimated": false,
+   "company": 10,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Phone",
+   "topics": [
+    "Accounting & Finance"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-20",
+   "date_estimated": false,
+   "company": 54,
+   "mentor": "Mentor 4",
+   "co_mentors": [
+    "Mentor 5"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": 2.0,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance",
+    "Marketing",
+    "Operations",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-22",
+   "date_estimated": false,
+   "company": 62,
+   "mentor": "Mentor 2",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "Phone",
+   "topics": [
+    "Accounting & Finance",
+    "Business Startup",
+    "Marketing",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-22",
+   "date_estimated": false,
+   "company": 17,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-23",
+   "date_estimated": false,
+   "company": 19,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 11"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": 1.0,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-24",
+   "date_estimated": false,
+   "company": 10,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Business Startup",
+    "Marketing",
+    "Operations",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-27",
+   "date_estimated": false,
+   "company": 62,
+   "mentor": "Mentor 2",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance",
+    "Business Startup",
+    "Marketing",
+    "Operations",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-27",
+   "date_estimated": false,
+   "company": 59,
+   "mentor": "Mentor 2",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Phone",
+   "topics": [
+    "Accounting & Finance",
+    "Marketing"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-27",
+   "date_estimated": false,
+   "company": 54,
+   "mentor": "Mentor 4",
+   "co_mentors": [
+    "Mentor 5"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": 10.0,
+   "type": "Email",
+   "topics": [
+    "Accounting & Finance"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-28",
+   "date_estimated": false,
+   "company": 20,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 6"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": 2.0,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance",
+    "Marketing",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-29",
+   "date_estimated": false,
+   "company": 64,
+   "mentor": "Mentor 2",
+   "co_mentors": [
+    "Mentor 13"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": 1.0,
+   "type": null,
+   "topics": [
+    "Marketing",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-29",
+   "date_estimated": false,
+   "company": 16,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 9"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": 1.5,
+   "type": "Video Conference",
+   "topics": [
+    "Marketing"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-29",
+   "date_estimated": false,
+   "company": 56,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance",
+    "Business Startup",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-30",
+   "date_estimated": false,
+   "company": 67,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-07-31",
+   "date_estimated": false,
+   "company": 66,
+   "mentor": "Mentor 2",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance",
+    "Marketing"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-03",
+   "date_estimated": true,
+   "company": 66,
+   "mentor": "Mentor 2",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": null,
+   "co_mentor_hours": null,
+   "type": "Email",
+   "topics": [
+    "Business Startup"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-04",
+   "date_estimated": false,
+   "company": 4,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Operations",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-04",
+   "date_estimated": false,
+   "company": 20,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 6"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": 1.5,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-05",
+   "date_estimated": false,
+   "company": 19,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 11"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": 1.5,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-05",
+   "date_estimated": true,
+   "company": 54,
+   "mentor": "Mentor 4",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": null,
+   "co_mentor_hours": null,
+   "type": null,
+   "topics": [],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-05",
+   "date_estimated": false,
+   "company": 54,
+   "mentor": "Mentor 4",
+   "co_mentors": [
+    "Mentor 5"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 3.0,
+   "co_mentor_hours": 20.0,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-05",
+   "date_estimated": false,
+   "company": 14,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 2"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": 1.0,
+   "type": "In Person",
+   "topics": [
+    "Operations",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-06",
+   "date_estimated": false,
+   "company": 61,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 3"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": 3.0,
+   "type": "Video Conference",
+   "topics": [
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-07",
+   "date_estimated": true,
+   "company": 68,
+   "mentor": "Mentor 2",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance",
+    "Marketing"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-07",
+   "date_estimated": false,
+   "company": 66,
+   "mentor": "Mentor 2",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Email",
+   "topics": [
+    "Accounting & Finance"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-07",
+   "date_estimated": false,
+   "company": 58,
+   "mentor": "Mentor 2",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Phone",
+   "topics": [
+    "Accounting & Finance",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-09",
+   "date_estimated": false,
+   "company": 54,
+   "mentor": "Mentor 4",
+   "co_mentors": [
+    "Mentor 5"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": 5.0,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance",
+    "Marketing",
+    "Operations",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-13",
+   "date_estimated": false,
+   "company": 56,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Business Startup",
+    "Marketing",
+    "Operations",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-13",
+   "date_estimated": false,
+   "company": 67,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 3.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-13",
+   "date_estimated": false,
+   "company": 16,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 9"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": 1.5,
+   "type": "Video Conference",
+   "topics": [
+    "Marketing"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-17",
+   "date_estimated": false,
+   "company": 65,
+   "mentor": "Mentor 10",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Business Startup"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-17",
+   "date_estimated": false,
+   "company": 4,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-17",
+   "date_estimated": false,
+   "company": 67,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": null,
+   "type": "Email",
+   "topics": [
+    "Accounting & Finance"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-19",
+   "date_estimated": false,
+   "company": 10,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Phone",
+   "topics": [
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-19",
+   "date_estimated": false,
+   "company": 66,
+   "mentor": "Mentor 2",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Marketing"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-20",
+   "date_estimated": false,
+   "company": 35,
+   "mentor": "Mentor 7",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": null,
+   "topics": [
+    "Marketing"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-20",
+   "date_estimated": false,
+   "company": 16,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 3"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": 1.5,
+   "type": "Video Conference",
+   "topics": [
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-20",
+   "date_estimated": false,
+   "company": 54,
+   "mentor": "Mentor 4",
+   "co_mentors": [
+    "Mentor 5"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": 3.0,
+   "type": "In Person",
+   "topics": [
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-20",
+   "date_estimated": false,
+   "company": 20,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 6"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": 1.5,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-21",
+   "date_estimated": false,
+   "company": 68,
+   "mentor": "Mentor 2",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance",
+    "Marketing",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-25",
+   "date_estimated": false,
+   "company": 57,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Business Startup",
+    "Marketing",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-26",
+   "date_estimated": false,
+   "company": 36,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-26",
+   "date_estimated": false,
+   "company": 54,
+   "mentor": "Mentor 4",
+   "co_mentors": [
+    "Mentor 5"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": 3.0,
+   "type": "In Person",
+   "topics": [
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-27",
+   "date_estimated": false,
+   "company": 39,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance",
+    "Marketing",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-27",
+   "date_estimated": false,
+   "company": 72,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Business Startup",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-08-31",
+   "date_estimated": false,
+   "company": 69,
+   "mentor": "Mentor 7",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": null,
+   "topics": [
+    "Business Startup"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-09-01",
+   "date_estimated": false,
+   "company": 56,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 16",
+    "Mentor 17"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": 2.0,
+   "type": "In Person",
+   "topics": [
+    "Business Startup",
+    "Operations",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-09-02",
+   "date_estimated": false,
+   "company": 41,
+   "mentor": "Mentor 8",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-09-02",
+   "date_estimated": true,
+   "company": 65,
+   "mentor": "Mentor 10",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": null,
+   "co_mentor_hours": null,
+   "type": null,
+   "topics": [],
+   "source": "export"
+  },
+  {
+   "date": "2026-09-02",
+   "date_estimated": false,
+   "company": 54,
+   "mentor": "Mentor 4",
+   "co_mentors": [
+    "Mentor 5"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": 2.0,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance",
+    "Marketing",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-09-02",
+   "date_estimated": false,
+   "company": 66,
+   "mentor": "Mentor 2",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance",
+    "Marketing",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-09-03",
+   "date_estimated": false,
+   "company": 20,
+   "mentor": "Mentor 1",
+   "co_mentors": [
+    "Mentor 6"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 3.0,
+   "co_mentor_hours": 2.5,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-09-03",
+   "date_estimated": false,
+   "company": 36,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 2.5,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-09-03",
+   "date_estimated": false,
+   "company": 73,
+   "mentor": "Mentor 4",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Phone",
+   "topics": [
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-09-04",
+   "date_estimated": false,
+   "company": 68,
+   "mentor": "Mentor 2",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "Phone",
+   "topics": [
+    "Accounting & Finance",
+    "Marketing"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-09-04",
+   "date_estimated": false,
+   "company": 71,
+   "mentor": "Mentor 2",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Marketing"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-09-08",
+   "date_estimated": false,
+   "company": 70,
+   "mentor": "Mentor 8",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance",
+    "Marketing"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-09-09",
+   "date_estimated": false,
+   "company": 35,
+   "mentor": "Mentor 7",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Marketing"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-09-10",
+   "date_estimated": false,
+   "company": 72,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Business Startup",
+    "Operations",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-09-11",
+   "date_estimated": false,
+   "company": 36,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-09-14",
+   "date_estimated": false,
+   "company": 69,
+   "mentor": "Mentor 7",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Business Startup"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-09-15",
+   "date_estimated": false,
+   "company": 4,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance",
+    "Business Startup",
+    "Marketing",
+    "Operations",
+    "Technology"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-09-16",
+   "date_estimated": false,
+   "company": 41,
+   "mentor": "Mentor 8",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-09-16",
+   "date_estimated": false,
+   "company": 70,
+   "mentor": "Mentor 8",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Phone",
+   "topics": [
+    "Accounting & Finance"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-09-17",
+   "date_estimated": false,
+   "company": 54,
+   "mentor": "Mentor 4",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 3.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-09-22",
+   "date_estimated": false,
+   "company": 58,
+   "mentor": "Mentor 2",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Email",
+   "topics": [
+    "Accounting & Finance",
+    "Marketing"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-09-24",
+   "date_estimated": false,
+   "company": 36,
+   "mentor": "Mentor 1",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Marketing",
+    "Operations"
+   ],
+   "source": "export"
+  },
+  {
+   "date": "2026-09-24",
+   "date_estimated": false,
+   "company": 66,
+   "mentor": "Mentor 2",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance",
+    "Marketing"
+   ],
+   "source": "export"
+  }
+ ],
+ "engagements": [
+  {
+   "created": "2026-04-20",
+   "status": "completed",
+   "company": 17
+  },
+  {
+   "created": "2026-04-20",
+   "status": "completed",
+   "company": 18
+  },
+  {
+   "created": "2026-04-20",
+   "status": "completed",
+   "company": 19
+  },
+  {
+   "created": "2026-04-20",
+   "status": "completed",
+   "company": 16
+  },
+  {
+   "created": "2026-04-21",
+   "status": "completed",
+   "company": 20
+  },
+  {
+   "created": "2026-04-25",
+   "status": "completed",
+   "company": null
+  },
+  {
+   "created": "2026-04-25",
+   "status": "completed",
+   "company": 21
+  },
+  {
+   "created": "2026-05-05",
+   "status": "completed",
+   "company": 23
+  },
+  {
+   "created": "2026-05-05",
+   "status": "working",
+   "company": 22
+  },
+  {
+   "created": "2026-05-10",
+   "status": "working",
+   "company": 26
+  },
+  {
+   "created": "2026-05-11",
+   "status": "completed",
+   "company": 24
+  },
+  {
+   "created": "2026-05-11",
+   "status": "working",
+   "company": 18
+  },
+  {
+   "created": "2026-05-12",
+   "status": "completed",
+   "company": 25
+  },
+  {
+   "created": "2026-05-12",
+   "status": "completed",
+   "company": 25
+  },
+  {
+   "created": "2026-05-14",
+   "status": "completed",
+   "company": 25
+  },
+  {
+   "created": "2026-05-14",
+   "status": "working",
+   "company": 27
+  },
+  {
+   "created": "2026-05-15",
+   "status": "working",
+   "company": 28
+  },
+  {
+   "created": "2026-05-15",
+   "status": "working",
+   "company": 4
+  },
+  {
+   "created": "2026-05-18",
+   "status": "working",
+   "company": 29
+  },
+  {
+   "created": "2026-05-20",
+   "status": "completed",
+   "company": 31
+  },
+  {
+   "created": "2026-05-26",
+   "status": "working",
+   "company": 30
+  },
+  {
+   "created": "2026-05-27",
+   "status": "working",
+   "company": 23
+  },
+  {
+   "created": "2026-05-27",
+   "status": "working",
+   "company": 32
+  },
+  {
+   "created": "2026-05-28",
+   "status": "working",
+   "company": 33
+  },
+  {
+   "created": "2026-05-28",
+   "status": "completed",
+   "company": 34
+  },
+  {
+   "created": "2026-05-28",
+   "status": "working",
+   "company": 15
+  },
+  {
+   "created": "2026-06-02",
+   "status": "working",
+   "company": 36
+  },
+  {
+   "created": "2026-06-03",
+   "status": "working",
+   "company": 37
+  },
+  {
+   "created": "2026-06-03",
+   "status": "completed",
+   "company": 35
+  },
+  {
+   "created": "2026-06-07",
+   "status": "working",
+   "company": 36
+  },
+  {
+   "created": "2026-06-08",
+   "status": "working",
+   "company": null
+  },
+  {
+   "created": "2026-06-09",
+   "status": "working",
+   "company": null
+  },
+  {
+   "created": "2026-06-10",
+   "status": "working",
+   "company": 38
+  },
+  {
+   "created": "2026-06-10",
+   "status": "working",
+   "company": 39
+  },
+  {
+   "created": "2026-06-11",
+   "status": "working",
+   "company": 23
+  },
+  {
+   "created": "2026-06-15",
+   "status": "working",
+   "company": 40
+  },
+  {
+   "created": "2026-06-16",
+   "status": "working",
+   "company": 42
+  },
+  {
+   "created": "2026-06-16",
+   "status": "working",
+   "company": 41
+  },
+  {
+   "created": "2026-07-01",
+   "status": "working",
+   "company": 53
+  },
+  {
+   "created": "2026-07-03",
+   "status": "working",
+   "company": 54
+  },
+  {
+   "created": "2026-07-05",
+   "status": "working",
+   "company": 55
+  },
+  {
+   "created": "2026-07-16",
+   "status": "working",
+   "company": 56
+  },
+  {
+   "created": "2026-07-18",
+   "status": "working",
+   "company": 61
+  },
+  {
+   "created": "2026-07-18",
+   "status": "working",
+   "company": 59
+  },
+  {
+   "created": "2026-07-19",
+   "status": "working",
+   "company": 60
+  },
+  {
+   "created": "2026-07-19",
+   "status": "working",
+   "company": 58
+  },
+  {
+   "created": "2026-07-20",
+   "status": "working",
+   "company": 62
+  },
+  {
+   "created": "2026-07-21",
+   "status": "working",
+   "company": 57
+  },
+  {
+   "created": "2026-07-22",
+   "status": "working",
+   "company": 64
+  },
+  {
+   "created": "2026-07-27",
+   "status": "working",
+   "company": 65
+  },
+  {
+   "created": "2026-07-27",
+   "status": "working",
+   "company": 63
+  },
+  {
+   "created": "2026-07-30",
+   "status": "working",
+   "company": 66
+  },
+  {
+   "created": "2026-07-30",
+   "status": "working",
+   "company": 67
+  },
+  {
+   "created": "2026-08-05",
+   "status": "completed",
+   "company": null
+  },
+  {
+   "created": "2026-08-07",
+   "status": "working",
+   "company": 68
+  },
+  {
+   "created": "2026-08-19",
+   "status": "working",
+   "company": 69
+  },
+  {
+   "created": "2026-08-21",
+   "status": "working",
+   "company": 19
+  },
+  {
+   "created": "2026-09-01",
+   "status": "working",
+   "company": 72
+  },
+  {
+   "created": "2026-09-01",
+   "status": "working",
+   "company": 73
+  },
+  {
+   "created": "2026-09-06",
+   "status": "working",
+   "company": 74
+  },
+  {
+   "created": "2026-09-07",
+   "status": "working",
+   "company": 76
+  },
+  {
+   "created": "2026-09-07",
+   "status": "working",
+   "company": 75
+  },
+  {
+   "created": "2026-09-08",
+   "status": "working",
+   "company": 77
+  },
+  {
+   "created": "2026-09-12",
+   "status": "working",
+   "company": 79
+  },
+  {
+   "created": "2026-09-14",
+   "status": "working",
+   "company": 78
+  },
+  {
+   "created": "2026-09-16",
+   "status": "working",
+   "company": 80
+  }
+ ],
+ "workshops": [
+  {
+   "name": "Battle of the Ages",
+   "date": "2026-05-07",
+   "registered": 28,
+   "attended": 20
+  }
+ ],
+ "notes": {}
+}
