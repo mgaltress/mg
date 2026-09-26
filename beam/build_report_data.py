@@ -34,8 +34,8 @@ MANUAL_INPUTS = HERE / "manual_inputs.json"
 DEFAULT_OUT = HERE / "data" / "report.json"
 
 SCHEMA_VERSION = 1
-# Mentor names are volunteers' real names; keep False to publish "Mentor 1", "Mentor 2", ...
-PUBLISH_MENTOR_NAMES = False
+# Show mentors' real names (False publishes "Mentor 1", "Mentor 2", ...)
+PUBLISH_MENTOR_NAMES = True
 
 # Spelling variants -> canonical name (compared case-insensitively)
 PERSON_ALIASES = {
