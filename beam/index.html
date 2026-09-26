@@ -545,11 +545,11 @@ function monthColumns(id, rows, series, fmt, unit) {
   svg.append("line").attr("class", "baseline")
     .attr("x1", m.left).attr("x2", width - m.right).attr("y1", height - m.bottom).attr("y2", height - m.bottom);
 
-  // Whole column is the hit target
+  // Whole column, including its month label under the axis, is the hit target
   svg.append("g").selectAll("rect").data(rows).join("rect")
     .attr("class", "hit").attr("tabindex", 0)
     .attr("x", r => x(r.month) - x.step() * x.paddingInner() / 2).attr("width", x.step())
-    .attr("y", m.top).attr("height", height - m.top - m.bottom)
+    .attr("y", m.top).attr("height", height - m.top)
     .attr("aria-label", r => `${monthName(r.month)}: ${fmt(total(r))} ${unit}`)
     .on("pointermove focus", (e, r) => {
       const rowsTip = stackOrder(series, r.values).map(d => ({ label: d.s.key, value: fmt(d.v), color: d.s.color }));
