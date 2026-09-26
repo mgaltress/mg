@@ -160,7 +160,14 @@ h2 { font-family: var(--font-head); font-size: 24px; font-weight: 700; margin: 3
 .card h3 { font-size: 15px; font-weight: 600; margin: 0 0 2px; }
 .card .sub { margin: 0 0 10px; }
 .legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--ink-2); margin-bottom: 6px; }
-.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend span, .legend button { display: inline-flex; align-items: center; gap: 6px; }
+.legend button {
+  font: inherit; color: inherit; background: none; border: 0; border-radius: 4px;
+  padding: 2px 6px; margin: 0 -6px; cursor: pointer;
+}
+.legend button:hover { background: var(--accent-wash); }
+.legend button:focus-visible { outline: 2px solid var(--s1); outline-offset: 1px; }
+.legend button[aria-pressed="false"] { opacity: .45; text-decoration: line-through; }
 .legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
 .chart { width: 100%; }
 .chart svg { display: block; overflow: visible; }
@@ -263,13 +270,13 @@ footer.site .tagline { font-family: var(--font-head); font-style: italic; font-s
     <div class="grid2">
       <div class="card">
         <h3>Sessions by meeting type</h3>
-        <p class="sub">Mentoring sessions per month</p>
+        <p class="sub">Mentoring sessions per month · click a meeting type to show or hide it</p>
         <div class="legend" id="lg-sessions"></div>
         <div class="chart" id="c-sessions"></div>
       </div>
       <div class="card">
         <h3>Volunteer hours</h3>
-        <p class="sub">Lead mentor and co-mentor hours per month</p>
+        <p class="sub">Lead mentor and co-mentor hours per month · click a key item to show or hide it</p>
         <div class="legend" id="lg-hours"></div>
         <div class="chart" id="c-hours"></div>
       </div>
@@ -369,6 +376,8 @@ const ROLES = [
 ];
 
 const state = { from: null, to: null, mentor: "" };
+// Series hidden via the clickable legends, per chart
+const hidden = { sessions: new Set(), hours: new Set() };
 let R, MONTHS;
 
 const fmtInt = d3.format(",");
@@ -458,15 +467,26 @@ function hideTip() { tip.style.opacity = 0; }
 
 // ------------------------------------------------------------ chart helpers
 
-function legend(id, series) {
+// Legend. With a `hiddenSet`, each entry is a toggle button that shows/hides its series.
+function legend(id, series, hiddenSet = null) {
   const el = document.getElementById(id);
   el.replaceChildren();
   for (const s of series) {
-    const span = document.createElement("span");
+    const item = document.createElement(hiddenSet ? "button" : "span");
     const i = document.createElement("i");
     i.style.background = s.color;
-    span.append(i, document.createTextNode(s.key));
-    el.append(span);
+    item.append(i, document.createTextNode(s.key));
+    if (hiddenSet) {
+      item.type = "button";
+      item.setAttribute("aria-pressed", String(!hiddenSet.has(s.key)));
+      item.title = `Show or hide ${s.key}`;
+      item.addEventListener("click", () => {
+        hiddenSet.has(s.key) ? hiddenSet.delete(s.key) : hiddenSet.add(s.key);
+        item.setAttribute("aria-pressed", String(!hiddenSet.has(s.key)));
+        renderTrends();
+      });
+    }
+    el.append(item);
   }
 }
 
@@ -705,8 +725,10 @@ function renderTrends() {
       hours: { "Lead mentor": d3.sum(ss, s => s.mentor_hours || 0), "Co-mentor": d3.sum(ss, s => s.co_mentor_hours || 0) },
     };
   });
-  monthColumns("c-sessions", rows.map(r => ({ month: r.month, values: r.types })), TYPES, fmtInt, "sessions");
-  monthColumns("c-hours", rows.map(r => ({ month: r.month, values: r.hours })), HOURS, fmt1, "hours");
+  monthColumns("c-sessions", rows.map(r => ({ month: r.month, values: r.types })),
+    TYPES.filter(t => !hidden.sessions.has(t.key)), fmtInt, "sessions");
+  monthColumns("c-hours", rows.map(r => ({ month: r.month, values: r.hours })),
+    HOURS.filter(t => !hidden.hours.has(t.key)), fmt1, "hours");
   monthColumns("c-requests", MONTHS.map(mo => ({ month: mo, values: { Requests: requestsFor(mo, mo).length } })),
     [{ key: "Requests", color: "var(--s1)" }], fmtInt, "requests");
   monthColumns("c-served", rows.map(r => ({ month: r.month, values: { Businesses: new Set(r.ss.map(s => s.company).filter(c => c != null)).size } })),
@@ -891,8 +913,8 @@ function setup() {
     box.append(b);
   }
 
-  legend("lg-sessions", TYPES);
-  legend("lg-hours", HOURS);
+  legend("lg-sessions", TYPES, hidden.sessions);
+  legend("lg-hours", HOURS, hidden.hours);
   legend("lg-mentors", ROLES);
 
   const dl = document.querySelector("#defs dl");
