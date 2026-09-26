@@ -183,8 +183,8 @@ h2 { font-family: var(--font-head); font-size: 24px; font-weight: 700; margin: 3
 .info-btn:focus-visible { outline: 2px solid var(--s1); outline-offset: 1px; }
 .back .info-btn { color: var(--s1); }
 .card .front h3, .tile .front .label { padding-right: 26px; }
-.tile.flip > .back { padding: 12px 34px 12px 14px; }
-.tile.flip > .back h4 { font-size: 15px; }
+.tile.flip > .back { padding: 12px 32px 10px 12px; bottom: 0; box-shadow: none; overflow: hidden; }
+.tile.flip > .back h4 { font-size: 14px; white-space: nowrap; }
 @media (prefers-reduced-motion: reduce) { .flip { transition: none; } }
 
 .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 12px; }
@@ -501,70 +501,15 @@ function hideTip() { tip.style.opacity = 0; }
 const PDF = "the monthly PDF report";
 const PDF_CAP = "The monthly PDF report";
 const INFO = {
-  // KPI tiles
-  requests: {
-    def: "New client businesses added to the BEAM portal in the period, counted by the month their record was created.",
-    notes: [
-      "Not affected by the mentor filter - a request isn't tied to a mentor yet.",
-      "February includes about 15 existing clients imported when the portal launched (Feb 17-19), so it overstates new demand that month.",
-      "Businesses the portal marks as idle aren't returned by its API, so they aren't counted.",
-      `Matches ${PDF} for July (14).`,
-    ],
-  },
-  sessions: {
-    def: "Each 'BEAM Client Session Report' a mentor submits counts as one session, dated by the meeting date the mentor entered.",
-    notes: [
-      "4 reports have no meeting date; they use the submission date instead.",
-      `${PDF_CAP} dates sessions by submission date, so a late report can fall in a different month here. July matches (27) either way.`,
-      "Sessions after the latest form export are picked up from the portal twice a day. If one business logs two sessions between pickups, only the later one is captured.",
-      "With a mentor selected, counts sessions that person led or co-mentored.",
-    ],
-  },
-  hours: {
-    def: "Total volunteer hours: the lead mentor's meeting length plus any co-mentor time, as entered on each session report.",
-    notes: [
-      "Hours are self-reported. 7 sessions have no hours entered and count as 0.",
-      "Co-mentor time only counts when 'Co-Mentor Time' is filled in; 3 sessions name a co-mentor without it.",
-      `${PDF_CAP}'s July hours include co-mentor time (73 by submission date; 65 here by meeting date). Its year-to-date hours appear to leave co-mentor time out.`,
-    ],
-  },
-  avg: {
-    def: "Volunteer hours divided by sessions in the period.",
-    notes: [
-      "Includes co-mentor time, so co-mentored sessions raise the average.",
-      "Sessions with no hours entered count as 0 and pull it down slightly.",
-      "Shows '-' for periods with no sessions.",
-    ],
-  },
-  served: {
-    def: "Distinct businesses with at least one session in the period.",
-    notes: [
-      "A business mentored in several months counts once for the whole period, so monthly figures don't add up to multi-month totals.",
-      "Sessions are linked to a business through the client's email address in the portal.",
-    ],
-  },
-  co: {
-    def: "Sessions where a co-mentor was named or co-mentor time was logged. 'N/A' or blank means no co-mentor.",
-    notes: [
-      `${PDF_CAP} shows 16 for July; the session log supports 12 (11 with a co-mentor named, 12 with either).`,
-      `${PDF_CAP}'s 'SMEs co-mentoring' implies no co-mentoring before July; the log shows about 16 co-mentored sessions from April to June.`,
-    ],
-  },
-  mentors: {
-    def: "Distinct lead mentors - the 'Mentor' on the session report - with at least one session in the period.",
-    notes: [
-      "Co-mentors aren't included here; see Volunteers involved.",
-      "Name spellings are cleaned up (e.g. 'Mike' and 'Michael Woods' are one person).",
-      `${PDF_CAP} shows 4 for July; only 3 people logged sessions as lead mentor that month.`,
-    ],
-  },
-  volunteers: {
-    def: "Distinct people who led or co-mentored at least one session in the period.",
-    notes: [
-      "Co-mentor names are typed freely on the form. Known spelling variants are merged, but a new misspelling could show up as a separate person until it's added to the cleanup list.",
-      "A session listing two co-mentors counts both.",
-    ],
-  },
+  // KPI tiles - one short sentence each, so the back fits the tile without resizing it
+  requests: { def: "Businesses added to the BEAM portal, by date created.", notes: [] },
+  sessions: { def: "Session Report forms submitted by mentors, by meeting date.", notes: [] },
+  hours: { def: "Lead mentor plus co-mentor hours from each Session Report.", notes: [] },
+  avg: { def: "Volunteer hours divided by mentoring sessions.", notes: [] },
+  served: { def: "Distinct businesses with at least one session.", notes: [] },
+  co: { def: "Sessions with a co-mentor named or co-mentor time logged.", notes: [] },
+  mentors: { def: "Distinct lead mentors on Session Reports.", notes: [] },
+  volunteers: { def: "Distinct lead mentors and co-mentors on Session Reports.", notes: [] },
   // Charts
   "c-sessions": {
     def: "Sessions per month, split by the 'How did you meet?' answer on each session report.",
@@ -662,7 +607,8 @@ function makeFlippable(box, key, title) {
     li.textContent = n;
     ul.append(li);
   }
-  back.append(h, forWhat, def, ul);
+  back.append(h, forWhat, def);
+  if (info.notes.length) back.append(ul);
 
   const btn = (label) => {
     const b = document.createElement("button");
