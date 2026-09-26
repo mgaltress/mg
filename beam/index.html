@@ -6,72 +6,78 @@
 <title>BEAM Impact Report</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
 <style>
 :root {
   color-scheme: light;
-  --page: #f9f9f7;
-  --surface: #fcfcfb;
-  --ink: #0b0b0b;
-  --ink-2: #52514e;
-  --muted: #898781;
-  --grid: #e1e0d9;
-  --axis: #c3c2b7;
-  --border: rgba(11, 11, 11, 0.10);
-  --good: #006300;
-  --bad: #d03b3b;
-  --dim: #d6d5cf;
-  --s1: #2a78d6;
-  --s2: #eb6834;
-  --s3: #1baf7a;
-  --s4: #eda100;
-  --s-none: #b3b2ab;
-  --brand: #13306b;
-  --brand-2: #d9a520;
+  --page: #f3f7f8;
+  --surface: #ffffff;
+  --ink: #14343c;
+  --ink-2: #4a6168;
+  --muted: #7b9096;
+  --grid: #e2eaec;
+  --axis: #c3d2d6;
+  --border: rgba(20, 52, 60, 0.12);
+  --good: #2f7a1f;
+  --bad: #c0392b;
+  --dim: #d5e2e5;
+  --accent-wash: rgba(0, 120, 156, 0.10);
+  --s1: #00789c;
+  --s2: #e0a100;
+  --s3: #7d4a9a;
+  --s4: #6a9a3e;
+  --s-none: #b2c0c4;
+  --brand-dark: #14343c;
+  --brand-deep: #00252d;
+  --brand-teal: #005f7c;
+  --brand-gold: #ffc200;
   --brand-ink: #ffffff;
+  --font-body: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-head: "Playfair Display", Georgia, serif;
+  --font-label: "Bebas Neue", "Poppins", sans-serif;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --page: #0d0d0d;
-    --surface: #1a1a19;
+    --page: #0b1f24;
+    --surface: #12303a;
     --ink: #ffffff;
-    --ink-2: #c3c2b7;
-    --muted: #898781;
-    --grid: #2c2c2a;
-    --axis: #383835;
+    --ink-2: #c4d4d8;
+    --muted: #8aa1a7;
+    --grid: #1f414c;
+    --axis: #2e5561;
     --border: rgba(255, 255, 255, 0.10);
-    --good: #0ca30c;
-    --bad: #e66767;
-    --dim: #3a3a37;
-    --s1: #3987e5;
-    --s2: #d95926;
-    --s3: #199e70;
-    --s4: #c98500;
-    --s-none: #5c5b56;
-    --brand: #13306b;
+    --good: #5fc14a;
+    --bad: #f07f6e;
+    --dim: #24444f;
+    --accent-wash: rgba(26, 141, 179, 0.18);
+    --s1: #1a8db3;
+    --s2: #b8860b;
+    --s3: #9b6fbf;
+    --s4: #6aa04a;
+    --s-none: #4d6a72;
   }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --page: #0d0d0d;
-  --surface: #1a1a19;
+  --page: #0b1f24;
+  --surface: #12303a;
   --ink: #ffffff;
-  --ink-2: #c3c2b7;
-  --muted: #898781;
-  --grid: #2c2c2a;
-  --axis: #383835;
+  --ink-2: #c4d4d8;
+  --muted: #8aa1a7;
+  --grid: #1f414c;
+  --axis: #2e5561;
   --border: rgba(255, 255, 255, 0.10);
-  --good: #0ca30c;
-  --bad: #e66767;
-  --dim: #3a3a37;
-  --s1: #3987e5;
-  --s2: #d95926;
-  --s3: #199e70;
-  --s4: #c98500;
-  --s-none: #5c5b56;
-  --brand: #13306b;
+  --good: #5fc14a;
+  --bad: #f07f6e;
+  --dim: #24444f;
+  --accent-wash: rgba(26, 141, 179, 0.18);
+  --s1: #1a8db3;
+  --s2: #b8860b;
+  --s3: #9b6fbf;
+  --s4: #6aa04a;
+  --s-none: #4d6a72;
 }
 
 * { box-sizing: border-box; }
@@ -79,23 +85,23 @@ body {
   margin: 0;
   background: var(--page);
   color: var(--ink);
-  font-family: "Open Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: var(--font-body);
   font-size: 15px;
   line-height: 1.45;
 }
 a { color: inherit; }
 
 header.brand {
-  background: var(--brand);
+  background: linear-gradient(120deg, var(--brand-deep) 0%, var(--brand-dark) 45%, var(--brand-teal) 100%);
   color: var(--brand-ink);
-  padding: 28px 16px 24px;
-  border-bottom: 4px solid var(--brand-2);
+  padding: 30px 16px 28px;
 }
 .wrap { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
 header.brand .wrap { padding: 0; }
-.eyebrow { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--brand-2); font-weight: 700; margin: 0 0 4px; }
-header.brand h1 { margin: 0; font-size: clamp(26px, 5vw, 38px); font-weight: 700; }
-header.brand p { margin: 6px 0 0; opacity: .85; }
+.eyebrow { font-family: var(--font-label); font-size: 18px; letter-spacing: .08em; color: var(--brand-gold); margin: 0 0 2px; }
+header.brand h1 { font-family: var(--font-head); margin: 0; font-size: clamp(30px, 5.5vw, 46px); font-weight: 700; line-height: 1.1; }
+header.brand h1::after { content: ""; display: block; width: 4.5rem; height: 4px; background: var(--brand-gold); margin: 14px 0 12px; border-radius: 2px; }
+header.brand p { margin: 0; opacity: .88; }
 .back { display: inline-block; margin-bottom: 14px; font-size: 13px; opacity: .8; text-decoration: none; }
 .back:hover { opacity: 1; text-decoration: underline; }
 
@@ -116,13 +122,14 @@ header.brand p { margin: 6px 0 0; opacity: .85; }
   padding: 6px 10px;
   cursor: pointer;
 }
-.presets button[aria-pressed="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink); font-weight: 600; }
-.presets button:hover:not([aria-pressed="true"]) { background: var(--grid); }
+.presets button[aria-pressed="true"] { background: var(--s1); color: #ffffff; border-color: var(--s1); font-weight: 600; }
+.presets button:hover:not([aria-pressed="true"]) { background: var(--accent-wash); }
+select:focus-visible, .presets button:focus-visible { outline: 2px solid var(--s1); outline-offset: 1px; }
 .field { display: flex; align-items: center; gap: 6px; font-size: 14px; color: var(--ink-2); }
 .range-label { font-size: 14px; color: var(--ink-2); margin-left: auto; }
 
 main { padding: 20px 0 40px; }
-h2 { font-size: 18px; margin: 32px 0 12px; }
+h2 { font-family: var(--font-head); font-size: 24px; font-weight: 700; margin: 36px 0 12px; }
 .sub { color: var(--ink-2); font-size: 13px; margin: -8px 0 12px; }
 
 .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 12px; }
@@ -130,7 +137,8 @@ h2 { font-size: 18px; margin: 32px 0 12px; }
   background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
   padding: 14px 14px 10px; display: flex; flex-direction: column; gap: 2px; min-width: 0;
 }
-.tile .label { font-size: 13px; color: var(--ink-2); }
+.tile { border-top: 3px solid var(--s1); }
+.tile .label { font-family: var(--font-label); font-size: 17px; letter-spacing: .04em; color: var(--ink-2); }
 .tile .value { font-size: 30px; font-weight: 600; line-height: 1.15; }
 .tile .delta { font-size: 12px; color: var(--muted); min-height: 18px; }
 .tile .delta.up { color: var(--good); }
@@ -139,7 +147,7 @@ h2 { font-size: 18px; margin: 32px 0 12px; }
 
 .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 12px; }
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; min-width: 0; }
-.card h3 { font-size: 15px; margin: 0 0 2px; }
+.card h3 { font-size: 15px; font-weight: 600; margin: 0 0 2px; }
 .card .sub { margin: 0 0 10px; }
 .legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--ink-2); margin-bottom: 6px; }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
@@ -178,14 +186,14 @@ h2 { font-size: 18px; margin: 32px 0 12px; }
 .workshop .nums b { font-size: 22px; font-weight: 600; }
 .workshop .nums span { font-size: 12px; color: var(--ink-2); }
 
-.note { background: var(--surface); border-left: 4px solid var(--brand-2); border-radius: 6px; padding: 12px 16px; margin-top: 12px; }
+.note { background: var(--surface); border-left: 4px solid var(--brand-gold); border-radius: 6px; padding: 12px 16px; margin-top: 12px; }
 
 .table-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
 table { border-collapse: collapse; width: 100%; font-size: 13px; }
 th, td { padding: 8px 12px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--grid); font-variant-numeric: tabular-nums; }
 th:first-child, td:first-child { text-align: left; }
 th { color: var(--ink-2); font-weight: 600; }
-tr.sel td { background: color-mix(in srgb, var(--s1) 10%, transparent); }
+tr.sel td { background: var(--accent-wash); }
 tbody tr:last-child td { border-bottom: 0; }
 
 details { margin-top: 12px; color: var(--ink-2); font-size: 13px; }
@@ -194,7 +202,8 @@ details dl { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16p
 details dt { font-weight: 600; color: var(--ink); }
 details dd { margin: 0; }
 
-footer.site { text-align: center; padding: 16px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); }
+footer.site { text-align: center; padding: 18px 16px; font-size: 13px; color: rgba(255,255,255,.85); background: var(--brand-dark); border-top: 4px solid var(--brand-gold); }
+footer.site .tagline { font-family: var(--font-head); font-style: italic; font-size: 15px; color: #ffffff; display: block; margin-bottom: 4px; }
 
 @media (max-width: 600px) {
   .range-label { margin-left: 0; width: 100%; }
@@ -312,7 +321,8 @@ footer.site { text-align: center; padding: 16px; font-size: 12px; color: var(--m
 </main>
 
 <footer class="site">
-  Creating jobs and helping small businesses thrive &middot; <a href="https://www.beamsb.com">beamsb.com</a>
+  <span class="tagline">Creating Jobs and Helping Small Businesses Thrive.</span>
+  <a href="https://www.beamsb.com">beamsb.com</a>
   &middot; Built by MG with D3.js &middot; <a href="data/report.json">Download the data</a>
 </footer>
 
