@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BEAM Impact Report</title>
+<link rel="icon" href="assets/icon-32.webp" sizes="32x32" type="image/webp">
+<link rel="icon" href="assets/icon-192.webp" sizes="192x192" type="image/webp">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
@@ -98,10 +101,17 @@ header.brand {
 }
 .wrap { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
 header.brand .wrap { padding: 0; }
-.eyebrow { font-family: var(--font-label); font-size: 18px; letter-spacing: .08em; color: var(--brand-gold); margin: 0 0 2px; }
 header.brand h1 { font-family: var(--font-head); margin: 0; font-size: clamp(30px, 5.5vw, 46px); font-weight: 700; line-height: 1.1; }
 header.brand h1::after { content: ""; display: block; width: 4.5rem; height: 4px; background: var(--brand-gold); margin: 14px 0 12px; border-radius: 2px; }
 header.brand p { margin: 0; opacity: .88; }
+.masthead { display: flex; align-items: center; gap: 28px; }
+.masthead .logo { flex: none; padding-right: 28px; border-right: 1px solid rgba(255,255,255,.28); }
+.masthead .logo img { display: block; width: 190px; height: auto; }
+@media (max-width: 640px) {
+  .masthead { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .masthead .logo { border-right: 0; padding-right: 0; }
+  .masthead .logo img { width: 150px; }
+}
 .back { display: inline-block; margin-bottom: 14px; font-size: 13px; opacity: .8; text-decoration: none; }
 .back:hover { opacity: 1; text-decoration: underline; }
 
@@ -217,9 +227,15 @@ footer.site .tagline { font-family: var(--font-head); font-style: italic; font-s
 <header class="brand">
   <div class="wrap">
     <a class="back" href="../funprojects.html">&larr; MG Fun Projects</a>
-    <p class="eyebrow">Business Empowerment &amp; Mentorship</p>
-    <h1>BEAM Impact Report</h1>
-    <p id="asof">Loading data&hellip;</p>
+    <div class="masthead">
+      <a class="logo" href="https://www.beamsb.com" aria-label="BEAM website">
+        <img src="assets/beam-logo-white.webp" alt="BEAM - Business Empowerment and Mentorship" width="189" height="58">
+      </a>
+      <div class="titles">
+        <h1>BEAM Impact Report</h1>
+        <p id="asof">Loading data&hellip;</p>
+      </div>
+    </div>
   </div>
 </header>
 
