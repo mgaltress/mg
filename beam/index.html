@@ -833,7 +833,7 @@ function setRange(from, to) {
 function setup() {
   const through = R.meta.data_through;
   document.getElementById("asof").textContent =
-    `Data through ${d3.timeFormat("%B %-d, %Y")(d3.timeParse("%Y-%m-%d")(through))} · updated ${d3.timeFormat("%b %-d, %Y")(new Date(R.meta.generated_at))}`;
+    `Last updated ${d3.timeFormat("%B %-d, %Y at %-I:%M %p")(new Date(R.meta.generated_at))}`;
 
   const first = d3.min([...R.companies.map(c => c.created), ...R.sessions.map(s => s.date.slice(0, 7))]);
   const last = through.slice(0, 7);
