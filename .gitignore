@@ -1,0 +1,16 @@
+# Credentials - never commit
+.env
+*.secret
+*creds*.txt
+secrets/
+
+# Raw API pulls - local only, may contain PII
+raw/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# BEAM report: session exports + captured sessions contain client data
+beam/private/
