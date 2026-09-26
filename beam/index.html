@@ -347,6 +347,11 @@ footer.site .tagline { font-family: var(--font-head); font-style: italic; font-s
 <script>
 "use strict";
 
+// Show the clean folder URL (/beam/) if the page was opened as /beam/index.html
+if (location.pathname.endsWith("/index.html")) {
+  history.replaceState(null, "", location.pathname.slice(0, -"index.html".length) + location.search + location.hash);
+}
+
 const TYPES = [
   { key: "In Person", color: "var(--s1)" },
   { key: "Video Conference", color: "var(--s2)" },
