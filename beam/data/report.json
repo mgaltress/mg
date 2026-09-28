@@ -1,8 +1,9 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-09-26T18:36:43+00:00",
-  "data_from": "2026-04-14",
+  "generated_at": "2026-09-28T01:19:53+00:00",
+  "program_start": "2026-05",
+  "data_from": "2026-05-01",
   "data_through": "2026-09-24",
   "sources": {
    "session_exports": [
@@ -15,12 +16,14 @@
    "engagements": 66
   },
   "definitions": {
-   "session": "One 'BEAM Client Session Report' submission, dated by meeting date (submission date when the meeting date is missing: date_estimated=true).",
+   "session": "One 'BEAM Client Session Report' submission, dated by meeting date (submission date when the meeting date is missing: date_estimated=true). Sessions before the program start are counted in the start month (date_before_launch keeps the original date).",
    "hours": "Total volunteer hours = mentor_hours + co_mentor_hours.",
    "co_mentoring": "A co-mentor is named or co-mentor time is logged.",
    "active_mentors": "Distinct lead mentors with a session in the period.",
    "volunteers": "Distinct lead mentors and co-mentors with a session in the period.",
-   "new_request": "A company created in the portal (by month).",
+   "new_request": "A company created in the portal (by month), from the program start on. Companies created earlier are existing clients (pre_launch).",
+   "chamber_referral": "A new request whose 'How did you hear about us?' answer includes 'I am a member of the Chamber' or 'I attended a Chamber event'.",
+   "chamber_member": "A company whose 'How did you hear about us?' answer includes 'I am a member of the Chamber'.",
    "engagement": "A portal project opened for a client."
   }
  },
@@ -50,6 +53,7 @@
   {
    "id": 1,
    "created": "2026-02",
+   "pre_launch": true,
    "industry": "Technology / Software / IT",
    "ownership": [],
    "employees": null,
@@ -59,6 +63,7 @@
   {
    "id": 2,
    "created": "2026-02",
+   "pre_launch": true,
    "industry": "Retail (Brick-and-Mortar)",
    "ownership": [],
    "employees": null,
@@ -68,6 +73,7 @@
   {
    "id": 3,
    "created": "2026-02",
+   "pre_launch": true,
    "industry": "Professional & Business Services",
    "ownership": [
     "None of the above"
@@ -83,6 +89,7 @@
   {
    "id": 4,
    "created": "2026-02",
+   "pre_launch": true,
    "industry": "Food & Beverage",
    "ownership": [
     "None of the above"
@@ -100,6 +107,7 @@
   {
    "id": 5,
    "created": "2026-02",
+   "pre_launch": true,
    "industry": "Construction & Trades",
    "ownership": [
     "None of the above"
@@ -118,6 +126,7 @@
   {
    "id": 6,
    "created": "2026-02",
+   "pre_launch": true,
    "industry": "Retail (Brick-and-Mortar)",
    "ownership": [
     "Woman-owned"
@@ -136,6 +145,7 @@
   {
    "id": 7,
    "created": "2026-02",
+   "pre_launch": true,
    "industry": "Manufacturing & Production",
    "ownership": [
     "Woman-owned"
@@ -151,6 +161,7 @@
   {
    "id": 8,
    "created": "2026-02",
+   "pre_launch": true,
    "industry": "Professional & Business Services",
    "ownership": [
     "Woman-owned"
@@ -169,6 +180,7 @@
   {
    "id": 9,
    "created": "2026-02",
+   "pre_launch": true,
    "industry": "Other",
    "ownership": [
     "None of the above"
@@ -187,6 +199,7 @@
   {
    "id": 10,
    "created": "2026-02",
+   "pre_launch": true,
    "industry": "Manufacturing & Production",
    "ownership": [
     "None of the above"
@@ -205,6 +218,7 @@
   {
    "id": 11,
    "created": "2026-02",
+   "pre_launch": true,
    "industry": "Construction & Trades",
    "ownership": [
     "None of the above"
@@ -218,6 +232,7 @@
   {
    "id": 12,
    "created": "2026-02",
+   "pre_launch": true,
    "industry": "Construction & Trades",
    "ownership": [
     "None of the above"
@@ -231,6 +246,7 @@
   {
    "id": 13,
    "created": "2026-02",
+   "pre_launch": true,
    "industry": "Manufacturing & Production",
    "ownership": [
     "Woman-owned"
@@ -249,6 +265,7 @@
   {
    "id": 14,
    "created": "2026-02",
+   "pre_launch": true,
    "industry": "Retail (Brick-and-Mortar)",
    "ownership": [
     "Woman-owned"
@@ -267,6 +284,7 @@
   {
    "id": 15,
    "created": "2026-02",
+   "pre_launch": true,
    "industry": "Professional & Business Services",
    "ownership": [
     "None of the above"
@@ -283,6 +301,7 @@
   {
    "id": 16,
    "created": "2026-04",
+   "pre_launch": true,
    "industry": null,
    "ownership": [],
    "employees": null,
@@ -292,6 +311,7 @@
   {
    "id": 17,
    "created": "2026-04",
+   "pre_launch": true,
    "industry": null,
    "ownership": [],
    "employees": null,
@@ -301,6 +321,7 @@
   {
    "id": 18,
    "created": "2026-04",
+   "pre_launch": true,
    "industry": null,
    "ownership": [],
    "employees": null,
@@ -310,6 +331,7 @@
   {
    "id": 19,
    "created": "2026-04",
+   "pre_launch": true,
    "industry": "Agriculture, Food Systems & Natural Resources",
    "ownership": [
     "None of the above"
@@ -326,6 +348,7 @@
   {
    "id": 20,
    "created": "2026-04",
+   "pre_launch": true,
    "industry": null,
    "ownership": [],
    "employees": null,
@@ -335,6 +358,7 @@
   {
    "id": 21,
    "created": "2026-04",
+   "pre_launch": true,
    "industry": "Professional & Business Services",
    "ownership": [
     "None of the above"
@@ -350,6 +374,7 @@
   {
    "id": 22,
    "created": "2026-04",
+   "pre_launch": true,
    "industry": "Food & Beverage",
    "ownership": [
     "Woman-owned",
@@ -364,6 +389,7 @@
   {
    "id": 23,
    "created": "2026-05",
+   "pre_launch": false,
    "industry": "Education & Training",
    "ownership": [
     "Woman-owned"
@@ -381,6 +407,7 @@
   {
    "id": 24,
    "created": "2026-05",
+   "pre_launch": false,
    "industry": null,
    "ownership": [],
    "employees": null,
@@ -390,6 +417,7 @@
   {
    "id": 25,
    "created": "2026-05",
+   "pre_launch": false,
    "industry": "Construction & Trades",
    "ownership": [
     "None of the above"
@@ -405,6 +433,7 @@
   {
    "id": 26,
    "created": "2026-05",
+   "pre_launch": false,
    "industry": "Professional & Business Services",
    "ownership": [
     "Veteran-owned"
@@ -420,6 +449,7 @@
   {
    "id": 27,
    "created": "2026-05",
+   "pre_launch": false,
    "industry": "Professional & Business Services",
    "ownership": [
     "Woman-owned"
@@ -436,6 +466,7 @@
   {
    "id": 28,
    "created": "2026-05",
+   "pre_launch": false,
    "industry": null,
    "ownership": [],
    "employees": null,
@@ -445,6 +476,7 @@
   {
    "id": 29,
    "created": "2026-05",
+   "pre_launch": false,
    "industry": "Health, Wellness & Personal Care",
    "ownership": [
     "Woman-owned"
@@ -461,6 +493,7 @@
   {
    "id": 30,
    "created": "2026-05",
+   "pre_launch": false,
    "industry": "Health, Wellness & Personal Care",
    "ownership": [
     "Woman-owned"
@@ -474,6 +507,7 @@
   {
    "id": 31,
    "created": "2026-05",
+   "pre_launch": false,
    "industry": "Food & Beverage",
    "ownership": [
     "None of the above"
@@ -494,6 +528,7 @@
   {
    "id": 32,
    "created": "2026-05",
+   "pre_launch": false,
    "industry": "Retail (Brick-and-Mortar)",
    "ownership": [
     "None of the above"
@@ -509,6 +544,7 @@
   {
    "id": 33,
    "created": "2026-05",
+   "pre_launch": false,
    "industry": null,
    "ownership": [],
    "employees": null,
@@ -518,6 +554,7 @@
   {
    "id": 34,
    "created": "2026-05",
+   "pre_launch": false,
    "industry": null,
    "ownership": [],
    "employees": null,
@@ -527,6 +564,7 @@
   {
    "id": 35,
    "created": "2026-05",
+   "pre_launch": false,
    "industry": "Nonprofit / Social Enterprise",
    "ownership": [],
    "employees": null,
@@ -540,6 +578,7 @@
   {
    "id": 36,
    "created": "2026-06",
+   "pre_launch": false,
    "industry": null,
    "ownership": [],
    "employees": null,
@@ -549,6 +588,7 @@
   {
    "id": 37,
    "created": "2026-06",
+   "pre_launch": false,
    "industry": "Professional & Business Services",
    "ownership": [
     "Woman-owned"
@@ -564,6 +604,7 @@
   {
    "id": 38,
    "created": "2026-06",
+   "pre_launch": false,
    "industry": "Food & Beverage",
    "ownership": [
     "Woman-owned"
@@ -582,6 +623,7 @@
   {
    "id": 39,
    "created": "2026-06",
+   "pre_launch": false,
    "industry": "Food & Beverage",
    "ownership": [
     "Woman-owned"
@@ -595,6 +637,7 @@
   {
    "id": 40,
    "created": "2026-06",
+   "pre_launch": false,
    "industry": "Professional & Business Services",
    "ownership": [
     "Woman-owned"
@@ -610,6 +653,7 @@
   {
    "id": 41,
    "created": "2026-06",
+   "pre_launch": false,
    "industry": "Health, Wellness & Personal Care",
    "ownership": [
     "None of the above"
@@ -626,6 +670,7 @@
   {
    "id": 42,
    "created": "2026-06",
+   "pre_launch": false,
    "industry": "Construction & Trades",
    "ownership": [
     "Veteran-owned"
@@ -643,6 +688,7 @@
   {
    "id": 43,
    "created": "2026-06",
+   "pre_launch": false,
    "industry": null,
    "ownership": [],
    "employees": null,
@@ -652,6 +698,7 @@
   {
    "id": 44,
    "created": "2026-06",
+   "pre_launch": false,
    "industry": null,
    "ownership": [],
    "employees": null,
@@ -661,6 +708,7 @@
   {
    "id": 45,
    "created": "2026-06",
+   "pre_launch": false,
    "industry": null,
    "ownership": [],
    "employees": null,
@@ -670,6 +718,7 @@
   {
    "id": 46,
    "created": "2026-06",
+   "pre_launch": false,
    "industry": "Technology / Software / IT",
    "ownership": [],
    "employees": null,
@@ -679,6 +728,7 @@
   {
    "id": 47,
    "created": "2026-06",
+   "pre_launch": false,
    "industry": "Manufacturing & Production",
    "ownership": [],
    "employees": null,
@@ -688,6 +738,7 @@
   {
    "id": 48,
    "created": "2026-06",
+   "pre_launch": false,
    "industry": "Professional & Business Services",
    "ownership": [],
    "employees": null,
@@ -697,6 +748,7 @@
   {
    "id": 49,
    "created": "2026-06",
+   "pre_launch": false,
    "industry": "Manufacturing & Production",
    "ownership": [],
    "employees": null,
@@ -706,6 +758,7 @@
   {
    "id": 50,
    "created": "2026-06",
+   "pre_launch": false,
    "industry": null,
    "ownership": [],
    "employees": null,
@@ -715,6 +768,7 @@
   {
    "id": 51,
    "created": "2026-06",
+   "pre_launch": false,
    "industry": "Real Estate & Property Services",
    "ownership": [],
    "employees": null,
@@ -724,6 +778,7 @@
   {
    "id": 52,
    "created": "2026-06",
+   "pre_launch": false,
    "industry": null,
    "ownership": [],
    "employees": null,
@@ -733,6 +788,7 @@
   {
    "id": 53,
    "created": "2026-06",
+   "pre_launch": false,
    "industry": "Technology / Software / IT",
    "ownership": [
     "None of the above"
@@ -751,6 +807,7 @@
   {
    "id": 54,
    "created": "2026-07",
+   "pre_launch": false,
    "industry": "Food & Beverage",
    "ownership": [
     "None of the above"
@@ -767,6 +824,7 @@
   {
    "id": 55,
    "created": "2026-07",
+   "pre_launch": false,
    "industry": "Professional & Business Services",
    "ownership": [
     "Woman-owned"
@@ -784,6 +842,7 @@
   {
    "id": 56,
    "created": "2026-07",
+   "pre_launch": false,
    "industry": "Technology / Software / IT",
    "ownership": [
     "Woman-owned"
@@ -801,6 +860,7 @@
   {
    "id": 57,
    "created": "2026-07",
+   "pre_launch": false,
    "industry": "Food & Beverage",
    "ownership": [
     "Woman-owned",
@@ -817,6 +877,7 @@
   {
    "id": 58,
    "created": "2026-07",
+   "pre_launch": false,
    "industry": "Professional & Business Services",
    "ownership": [
     "Woman-owned"
@@ -832,6 +893,7 @@
   {
    "id": 59,
    "created": "2026-07",
+   "pre_launch": false,
    "industry": "Education & Training",
    "ownership": [
     "None of the above"
@@ -848,6 +910,7 @@
   {
    "id": 60,
    "created": "2026-07",
+   "pre_launch": false,
    "industry": "Professional & Business Services",
    "ownership": [
     "None of the above"
@@ -861,6 +924,7 @@
   {
    "id": 61,
    "created": "2026-07",
+   "pre_launch": false,
    "industry": "Construction & Trades",
    "ownership": [
     "None of the above"
@@ -877,6 +941,7 @@
   {
    "id": 62,
    "created": "2026-07",
+   "pre_launch": false,
    "industry": "Technology / Software / IT",
    "ownership": [
     "Woman-owned"
@@ -894,6 +959,7 @@
   {
    "id": 63,
    "created": "2026-07",
+   "pre_launch": false,
    "industry": "Education & Training",
    "ownership": [
     "Woman-owned"
@@ -910,6 +976,7 @@
   {
    "id": 64,
    "created": "2026-07",
+   "pre_launch": false,
    "industry": "Professional & Business Services",
    "ownership": [
     "Minority-owned",
@@ -928,6 +995,7 @@
   {
    "id": 65,
    "created": "2026-07",
+   "pre_launch": false,
    "industry": "Construction & Trades",
    "ownership": [
     "Minority-owned"
@@ -944,6 +1012,7 @@
   {
    "id": 66,
    "created": "2026-07",
+   "pre_launch": false,
    "industry": "Health, Wellness & Personal Care",
    "ownership": [
     "None of the above"
@@ -960,6 +1029,7 @@
   {
    "id": 67,
    "created": "2026-07",
+   "pre_launch": false,
    "industry": "Retail (Brick-and-Mortar)",
    "ownership": [
     "Woman-owned"
@@ -977,6 +1047,7 @@
   {
    "id": 68,
    "created": "2026-08",
+   "pre_launch": false,
    "industry": "Health, Wellness & Personal Care",
    "ownership": [
     "Woman-owned"
@@ -994,6 +1065,7 @@
   {
    "id": 69,
    "created": "2026-08",
+   "pre_launch": false,
    "industry": "Health, Wellness & Personal Care",
    "ownership": [
     "Minority-owned"
@@ -1013,6 +1085,7 @@
   {
    "id": 70,
    "created": "2026-08",
+   "pre_launch": false,
    "industry": "Professional & Business Services",
    "ownership": [
     "Minority-owned"
@@ -1029,6 +1102,7 @@
   {
    "id": 71,
    "created": "2026-08",
+   "pre_launch": false,
    "industry": "Health, Wellness & Personal Care",
    "ownership": [
     "Woman-owned",
@@ -1046,6 +1120,7 @@
   {
    "id": 72,
    "created": "2026-08",
+   "pre_launch": false,
    "industry": "Real Estate & Property Services",
    "ownership": [
     "Woman-owned"
@@ -1061,6 +1136,7 @@
   {
    "id": 73,
    "created": "2026-08",
+   "pre_launch": false,
    "industry": "Construction & Trades",
    "ownership": [
     "Woman-owned"
@@ -1077,6 +1153,7 @@
   {
    "id": 74,
    "created": "2026-09",
+   "pre_launch": false,
    "industry": "Technology / Software / IT",
    "ownership": [
     "None of the above"
@@ -1095,6 +1172,7 @@
   {
    "id": 75,
    "created": "2026-09",
+   "pre_launch": false,
    "industry": "Technology / Software / IT",
    "ownership": [
     "None of the above"
@@ -1112,6 +1190,7 @@
   {
    "id": 76,
    "created": "2026-09",
+   "pre_launch": false,
    "industry": "Other",
    "ownership": [
     "Woman-owned"
@@ -1128,6 +1207,7 @@
   {
    "id": 77,
    "created": "2026-09",
+   "pre_launch": false,
    "industry": "Manufacturing & Production",
    "ownership": [
     "Woman-owned"
@@ -1145,6 +1225,7 @@
   {
    "id": 78,
    "created": "2026-09",
+   "pre_launch": false,
    "industry": "Professional & Business Services",
    "ownership": [
     "None of the above"
@@ -1160,6 +1241,7 @@
   {
    "id": 79,
    "created": "2026-09",
+   "pre_launch": false,
    "industry": "Nonprofit / Social Enterprise",
    "ownership": [
     "None of the above"
@@ -1175,6 +1257,7 @@
   {
    "id": 80,
    "created": "2026-09",
+   "pre_launch": false,
    "industry": "Food & Beverage",
    "ownership": [
     "Woman-owned",
@@ -1194,7 +1277,8 @@
  ],
  "sessions": [
   {
-   "date": "2026-04-14",
+   "date": "2026-05-01",
+   "date_before_launch": "2026-04-14",
    "date_estimated": false,
    "company": 4,
    "mentor": "Tom Phillips",
@@ -1207,7 +1291,8 @@
    "source": "export"
   },
   {
-   "date": "2026-04-22",
+   "date": "2026-05-01",
+   "date_before_launch": "2026-04-22",
    "date_estimated": false,
    "company": 20,
    "mentor": "Tom Phillips",
