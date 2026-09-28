@@ -34,6 +34,9 @@ MANUAL_INPUTS = HERE / "manual_inputs.json"
 DEFAULT_OUT = HERE / "data" / "report.json"
 
 SCHEMA_VERSION = 1
+# BEAM's official mentoring start. Clients loaded into the portal before this are existing
+# clients (pre_launch), not new requests; sessions before it are counted in the start month.
+PROGRAM_START = date(2026, 5, 1)
 # Show mentors' real names (False publishes "Mentor 1", "Mentor 2", ...)
 PUBLISH_MENTOR_NAMES = True
 
@@ -259,6 +262,7 @@ def build(companies, contacts, projects, sessions, export_files):
         out_companies.append({
             "id": company_id[c["uid"]],
             "created": (c.get("created") or "")[:7],
+            "pre_launch": (c.get("created") or "")[:7] < PROGRAM_START.isoformat()[:7],
             "industry": industry[0] if industry and industry[0] else None,
             "ownership": [o for o in as_list(f.get("Ownership & Equity Context")) if o in OWNERSHIP],
             "employees": size if isinstance(size, str) and size.strip() else None,
@@ -269,8 +273,10 @@ def build(companies, contacts, projects, sessions, export_files):
     out_sessions = []
     for s in sessions:
         co_hours = s["co_mentor_hours"] or 0
+        before_launch = s["date"] < PROGRAM_START
         out_sessions.append({
-            "date": s["date"].isoformat(),
+            "date": (PROGRAM_START if before_launch else s["date"]).isoformat(),
+            **({"date_before_launch": s["date"].isoformat()} if before_launch else {}),
             "date_estimated": s["date_estimated"],
             "company": company_id.get(s["company_uid"]),
             "mentor": label.get(s["mentor"]),
@@ -298,6 +304,7 @@ def build(companies, contacts, projects, sessions, export_files):
         "meta": {
             "schema_version": SCHEMA_VERSION,
             "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "program_start": PROGRAM_START.isoformat()[:7],
             "data_from": min(session_dates, default=None),
             "data_through": max(session_dates, default=None),
             "sources": {
@@ -310,12 +317,19 @@ def build(companies, contacts, projects, sessions, export_files):
             },
             "definitions": {
                 "session": "One 'BEAM Client Session Report' submission, dated by meeting date "
-                           "(submission date when the meeting date is missing: date_estimated=true).",
+                           "(submission date when the meeting date is missing: date_estimated=true). "
+                           "Sessions before the program start are counted in the start month "
+                           "(date_before_launch keeps the original date).",
                 "hours": "Total volunteer hours = mentor_hours + co_mentor_hours.",
                 "co_mentoring": "A co-mentor is named or co-mentor time is logged.",
                 "active_mentors": "Distinct lead mentors with a session in the period.",
                 "volunteers": "Distinct lead mentors and co-mentors with a session in the period.",
-                "new_request": "A company created in the portal (by month).",
+                "new_request": "A company created in the portal (by month), from the program start on. "
+                               "Companies created earlier are existing clients (pre_launch).",
+                "chamber_referral": "A new request whose 'How did you hear about us?' answer includes "
+                                    "'I am a member of the Chamber' or 'I attended a Chamber event'.",
+                "chamber_member": "A company whose 'How did you hear about us?' answer includes "
+                                  "'I am a member of the Chamber'.",
                 "engagement": "A portal project opened for a client.",
             },
         },
