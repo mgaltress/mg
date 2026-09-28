@@ -104,6 +104,23 @@ header.brand .wrap { padding: 0; }
 header.brand h1 { font-family: var(--font-head); margin: 0; font-size: clamp(30px, 5.5vw, 46px); font-weight: 700; line-height: 1.1; }
 header.brand h1::after { content: ""; display: block; width: 4.5rem; height: 4px; background: var(--brand-gold); margin: 14px 0 12px; border-radius: 2px; }
 header.brand p { margin: 0; opacity: .88; }
+.asof-line { display: flex; align-items: center; gap: 6px; }
+.asof-info { position: relative; display: inline-flex; }
+.asof-info button {
+  width: 22px; height: 22px; padding: 2px; border: 0; border-radius: 50%;
+  background: none; color: inherit; opacity: .8; cursor: help;
+}
+.asof-info button svg { display: block; width: 18px; height: 18px; }
+.asof-info button:hover, .asof-info button:focus-visible { opacity: 1; background: rgba(255,255,255,.14); }
+.asof-info button:focus-visible { outline: 2px solid var(--brand-gold); outline-offset: 1px; }
+.asof-info .asof-tip {
+  position: absolute; right: -6px; top: calc(100% + 8px); z-index: 20;
+  width: max-content; max-width: min(280px, calc(100vw - 32px));
+  background: var(--surface); color: var(--ink); opacity: 0; visibility: hidden;
+  border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,.18);
+  padding: 8px 10px; font-size: 12px; line-height: 1.45; transition: opacity .1s, visibility 0s .1s;
+}
+.asof-info:hover .asof-tip, .asof-info:focus-within .asof-tip { opacity: 1; visibility: visible; transition: opacity .1s; }
 .masthead { display: flex; align-items: center; gap: 28px; }
 .masthead .logo { flex: none; padding-right: 28px; border-right: 1px solid rgba(255,255,255,.28); }
 .masthead .logo img { display: block; width: 190px; height: auto; }
@@ -271,7 +288,13 @@ footer.site .tagline { font-family: var(--font-head); font-style: italic; font-s
       </a>
       <div class="titles">
         <h1>BEAM Impact Report</h1>
-        <p id="asof">Loading data&hellip;</p>
+        <div class="asof-line">
+          <p id="asof">Loading data&hellip;</p>
+          <span class="asof-info">
+            <button type="button" aria-label="About update timing" aria-describedby="asof-tip"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.25" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="10" cy="6.4" r="1.1" fill="currentColor"/><path d="M10 9v5.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
+            <span class="asof-tip" id="asof-tip" role="tooltip">New data is checked for twice a day. This date only changes when the check finds new or changed data.</span>
+          </span>
+        </div>
       </div>
     </div>
   </div>
