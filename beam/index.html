@@ -208,6 +208,8 @@ h2 { font-family: var(--font-head); font-size: 24px; font-weight: 700; margin: 3
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; min-width: 0; }
 .card h3 { font-size: 15px; font-weight: 600; margin: 0 0 2px; }
 .card .sub { margin: 0 0 10px; }
+.card .total { margin: -4px 0 8px; font-size: 13px; color: var(--ink-2); }
+.card .total b { font-size: 22px; font-weight: 700; color: var(--ink); margin-right: 4px; font-variant-numeric: tabular-nums; }
 .legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--ink-2); margin-bottom: 6px; }
 .legend span, .legend button { display: inline-flex; align-items: center; gap: 6px; }
 .legend button {
@@ -338,7 +340,7 @@ footer.site .tagline { font-family: var(--font-head); font-style: italic; font-s
         <h3>New mentoring requests</h3>
         <p class="sub">New client businesses added per month</p>
         <div class="chart" id="c-requests"></div>
-        <p class="foot">February includes existing clients imported when the portal launched (Feb 17&ndash;19).</p>
+        <p class="foot">Clients already in the portal before the May 2026 start aren&rsquo;t counted as new requests.</p>
       </div>
       <div class="card">
         <h3>Businesses served</h3>
@@ -371,6 +373,25 @@ footer.site .tagline { font-family: var(--font-head); font-style: italic; font-s
         <h3>Topics discussed</h3>
         <p class="sub">Share of sessions covering each topic</p>
         <div class="chart" id="c-topics"></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-chamber">
+    <h2 id="h-chamber">Chamber impact</h2>
+    <p class="sub">From how clients said they heard about BEAM on their intake form</p>
+    <div class="grid2">
+      <div class="card">
+        <h3>Chamber referrals to BEAM</h3>
+        <p class="sub">New mentoring requests from Chamber members or Chamber event attendees</p>
+        <p class="total"><b id="n-chamber-referrals"></b>in the selected period</p>
+        <div class="chart" id="c-chamber-referrals"></div>
+      </div>
+      <div class="card">
+        <h3>BEAM clients who are Chamber members</h3>
+        <p class="sub">Chamber-member businesses with at least one session</p>
+        <p class="total"><b id="n-chamber-members"></b>in the selected period</p>
+        <div class="chart" id="c-chamber-members"></div>
       </div>
     </div>
   </section>
@@ -452,7 +473,17 @@ function sessionsFor(from, to, mentor = state.mentor) {
     (!mentor || s.mentor === mentor || s.co_mentors.includes(mentor)));
 }
 function requestsFor(from, to) {
-  return R.companies.filter(c => inRange(c.created, from, to));
+  return R.companies.filter(c => !c.pre_launch && inRange(c.created, from, to));
+}
+
+// Chamber answers on the intake form's "How did you hear about us?" question
+const CHAMBER_MEMBER = "I am a member of the Chamber";
+const CHAMBER_ANSWERS = [CHAMBER_MEMBER, "I attended a Chamber event"];
+const isChamberReferral = c => c.referral.some(a => CHAMBER_ANSWERS.includes(a));
+const isChamberMember = c => c.referral.includes(CHAMBER_MEMBER);
+let companyById;
+function servedFor(from, to, mentor = state.mentor) {
+  return [...new Set(sessionsFor(from, to, mentor).map(s => s.company))].map(id => companyById.get(id)).filter(Boolean);
 }
 
 function metrics(from, to) {
@@ -467,9 +498,15 @@ function metrics(from, to) {
     co: ss.filter(s => s.co_mentoring).length,
     mentors: new Set(ss.map(s => s.mentor).filter(Boolean)).size,
     volunteers: new Set(ss.flatMap(s => [s.mentor, ...s.co_mentors]).filter(Boolean)).size,
+    chamberReferrals: requestsFor(from, to).filter(isChamberReferral).length,
+    chamberMembers: servedFor(from, to).filter(isChamberMember).length,
   };
 }
 
+const CHAMBER_COLS = [
+  { key: "chamberReferrals", label: "Chamber referrals", fmt: fmtInt },
+  { key: "chamberMembers", label: "Chamber members served", fmt: fmtInt },
+];
 const TILES = [
   { key: "requests", label: "New mentoring requests", fmt: fmtInt },
   { key: "sessions", label: "Mentoring sessions", fmt: fmtInt },
@@ -540,6 +577,7 @@ const INFO = {
       "'Not recorded' means the question was left blank (7 sessions).",
       `${PDF_CAP} appears to count Email sessions as in person; here Email is its own type.`,
       "Dated by meeting date, so a few sessions sit in a different month than in the PDF.",
+      "The 2 sessions logged in April, before the official May 2026 start, are counted in May.",
       "Each bar stacks largest to smallest from the bottom. Click the key to hide a type, or a month to focus on it.",
     ],
   },
@@ -554,7 +592,7 @@ const INFO = {
   "c-requests": {
     def: "New client businesses added to the portal each month.",
     notes: [
-      "February includes about 15 existing clients imported when the portal launched.",
+      "Starts in May 2026, BEAM's official mentoring start. The 22 clients added to the portal before then (mostly loaded Feb 17-19 when the portal was set up) count as existing clients, not new requests.",
       "Not affected by the mentor filter.",
     ],
   },
@@ -592,6 +630,21 @@ const INFO = {
     notes: [
       "A session can cover several topics, so percentages add up to more than 100%.",
       "Unticked topics may have been discussed but not recorded.",
+    ],
+  },
+  "c-chamber-referrals": {
+    def: "New mentoring requests whose 'How did you hear about BEAM?' answer is 'I am a member of the Chamber' or 'I attended a Chamber event'.",
+    notes: [
+      "Self-reported and optional: about 1 in 4 clients leave the question blank, so this likely undercounts.",
+      "Clients already in the portal before the May 2026 start aren't new requests, so they aren't counted here.",
+      "Not affected by the mentor filter.",
+    ],
+  },
+  "c-chamber-members": {
+    def: "Businesses with at least one session that answered 'I am a member of the Chamber' to 'How did you hear about BEAM?'.",
+    notes: [
+      "Self-reported, not checked against the Chamber's member list. Members who picked another answer, or left it blank, aren't counted.",
+      "A business seen in several months counts in each of them, so months don't add up to the period total.",
     ],
   },
   "c-mentors": {
@@ -952,8 +1005,7 @@ function countRows(items, keysOf, order = null, limit = 8) {
 
 function renderWho() {
   const ss = sessionsFor(state.from, state.to);
-  const byId = new Map(R.companies.map(c => [c.id, c]));
-  const served = [...new Set(ss.map(s => s.company))].map(id => byId.get(id)).filter(Boolean);
+  const served = servedFor(state.from, state.to);
   const one = [{ key: "n", color: "var(--s1)" }];
   const ownOrder = [...R.lookups.ownership, "Not provided"];
   hBars("c-ownership", countRows(served, c => c.ownership.length ? c.ownership : ["Not provided"], ownOrder),
@@ -964,6 +1016,17 @@ function renderWho() {
   const topicRows = R.lookups.topics.map(t => ({ label: t, values: { n: ss.filter(s => s.topics.includes(t)).length } }))
     .filter(r => r.values.n);
   hBars("c-topics", topicRows, one, { share: ss.length });
+}
+
+function renderChamber() {
+  const one = key => [{ key, color: "var(--s1)" }];
+  monthColumns("c-chamber-referrals", MONTHS.map(mo => ({ month: mo, values: { Referrals: requestsFor(mo, mo).filter(isChamberReferral).length } })),
+    one("Referrals"), fmtInt, "referrals");
+  monthColumns("c-chamber-members", MONTHS.map(mo => ({ month: mo, values: { Members: servedFor(mo, mo).filter(isChamberMember).length } })),
+    one("Members"), fmtInt, "members");
+  const m = metrics(state.from, state.to);
+  document.getElementById("n-chamber-referrals").textContent = fmtInt(m.chamberReferrals);
+  document.getElementById("n-chamber-members").textContent = fmtInt(m.chamberMembers);
 }
 
 function renderMentors() {
@@ -1029,7 +1092,7 @@ function renderNotes() {
 }
 
 function renderTable() {
-  const cols = TILES;
+  const cols = [...TILES, ...CHAMBER_COLS];
   const table = d3.select("#table");
   table.selectAll("*").remove();
   const head = table.append("thead").append("tr");
@@ -1056,6 +1119,7 @@ function renderAll() {
   renderNotes();
   renderTrends();
   renderWho();
+  renderChamber();
   renderMentors();
   renderWorkshops();
   renderTable();
@@ -1075,7 +1139,8 @@ function setup() {
   document.getElementById("asof").textContent =
     `Last updated ${d3.timeFormat("%B %-d, %Y at %-I:%M %p")(new Date(R.meta.generated_at))}`;
 
-  const first = d3.min([...R.companies.map(c => c.created), ...R.sessions.map(s => s.date.slice(0, 7))]);
+  companyById = new Map(R.companies.map(c => [c.id, c]));
+  const first = R.meta.program_start || "2026-05";
   const last = through.slice(0, 7);
   MONTHS = d3.timeMonth.range(d3.timeParse("%Y-%m")(first), d3.timeMonth.offset(d3.timeParse("%Y-%m")(last), 1))
     .map(d3.timeFormat("%Y-%m"));
