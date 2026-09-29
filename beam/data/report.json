@@ -1,7 +1,7 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-09-28T01:19:53+00:00",
+  "generated_at": "2026-09-29T08:37:27+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
   "data_through": "2026-09-24",
@@ -12,7 +12,7 @@
    "sessions_from_exports": 120,
    "sessions_from_api_capture": 0,
    "sessions_unlinked_to_company": 0,
-   "companies": 80,
+   "companies": 81,
    "engagements": 66
   },
   "definitions": {
@@ -1271,6 +1271,26 @@
     "Accounting & Finance",
     "Marketing",
     "Operations",
+    "Technology"
+   ]
+  },
+  {
+   "id": 81,
+   "created": "2026-09",
+   "pre_launch": false,
+   "industry": "Food & Beverage",
+   "ownership": [
+    "Woman-owned",
+    "Minority-owned"
+   ],
+   "employees": null,
+   "referral": [
+    "Friend or Relative"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Business Startup",
+    "Marketing",
     "Technology"
    ]
   }
