@@ -356,19 +356,14 @@ footer.site .tagline { font-family: var(--font-head); font-style: italic; font-s
 .sh-kpi .p.down { color: var(--bad); }
 .sh-kpi.gold { background: #fff6da; border: 1px solid #f2d27a; border-radius: 6px; padding: 1px 8px; margin-top: 3px; }
 .sh-kpi .p.flat { color: var(--ink-2); }
-.sh-table { width: 100%; border-collapse: collapse; font-size: 9.5px; line-height: 1.15; }
-.sh-table th, .sh-table td { padding: 1px 6px; border-bottom: 1px solid var(--grid); text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; min-width: 0; }
+.sh-table { width: 100%; border-collapse: collapse; font-size: 10.5px; line-height: 1.3; }
+.sh-table th, .sh-table td { padding: 2.5px 6px; border-bottom: 1px solid var(--grid); text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; min-width: 0; }
 .sh-table th:first-child, .sh-table td:first-child { text-align: left; }
 .sh-table th { background: var(--brand-dark); color: #ffffff; font-weight: 600; font-size: 9.5px; letter-spacing: .02em; padding: 3px 6px; line-height: 1.2; vertical-align: bottom; }
 .sh-table th:first-child { border-radius: 4px 0 0 0; }
 .sh-table th:last-child { border-radius: 0 4px 0 0; }
 .sh-table tr.grp td { background: var(--wash); }
 .sh-table tbody tr:last-child td { border-bottom: 0; }
-.sh-ahead { display: grid; grid-template-columns: 3fr repeat(4, 1fr); gap: 14px; align-items: start;
-  background: var(--wash); border-radius: 8px; padding: 7px 14px; }
-.sh-ahead h4 { font-family: var(--font-label); font-weight: 400; font-size: 16px; letter-spacing: .04em; color: var(--brand-teal); margin: 0 0 2px; line-height: 1.1; }
-.sh-ahead p { margin: 0; font-size: 10px; color: var(--ink-2); line-height: 1.35; }
-.sh-ahead .pillar h5 { margin: 0 0 1px; font-size: 10.5px; font-weight: 600; color: var(--ink); text-transform: uppercase; letter-spacing: .03em; }
 .sh-note { font-size: 8.5px; color: var(--muted); line-height: 1.3; margin: 0; }
 .sh-foot { background: var(--brand-dark); border-top: 3px solid var(--brand-gold); color: rgba(255,255,255,.9);
   display: flex; align-items: center; gap: 24px; padding: 6px 28px; font-size: 11px; }
@@ -454,7 +449,6 @@ footer.site .tagline { font-family: var(--font-head); font-style: italic; font-s
               <div class="sh-chart" id="sh-cmp"></div>
             </div>
           </div>
-          <div class="sh-ahead" id="sh-ahead"></div>
           <p class="sh-note" id="sh-note"></p>
         </div>
         <footer class="sh-foot">
@@ -1300,16 +1294,6 @@ function setRange(from, to) {
 
 // ------------------------------------------------------------ Board summary (one-pager)
 
-// Fixed text; override it in manual_inputs.json under "summary"
-const SUMMARY_TEXT = {
-  looking_ahead: "Steady mentor engagement, growing community awareness and closer work with the Chamber will let BEAM serve more entrepreneurs and strengthen more local businesses across the Santa Barbara region.",
-  pillars: [
-    { title: "Expand reach", text: "More entrepreneurs. More businesses. More communities." },
-    { title: "Strengthen mentorship", text: "More mentors. More expertise. Greater impact." },
-    { title: "Drive impact", text: "More jobs. Stronger economy. Stronger future." },
-    { title: "Build community", text: "Stronger together. Stronger today. Stronger tomorrow." },
-  ],
-};
 const DASHBOARD_URL = "mgaltress.github.io/mg/beam";
 const SHEET_W = 1056;                                   // 11in at 96px/in
 const parseMonth = d3.timeParse("%Y-%m");
@@ -1463,19 +1447,6 @@ function renderSummary(mo) {
 
   document.getElementById("sh-cmp-h").textContent = `Launch to date vs ${mName}`;
   document.getElementById("sh-cmp-lg").textContent = mLabel;
-
-  // Looking ahead (fixed text)
-  const text = { ...SUMMARY_TEXT, ...(R.summary || {}) };
-  const ahead = document.getElementById("sh-ahead");
-  ahead.replaceChildren();
-  const intro = el("div");
-  intro.append(el("h4", null, "Looking ahead"), el("p", null, text.looking_ahead));
-  ahead.append(intro);
-  for (const p of text.pillars.slice(0, 4)) {
-    const d = el("div", "pillar");
-    d.append(el("h5", null, p.title), el("p", null, p.text));
-    ahead.append(d);
-  }
 
   document.getElementById("sh-note").textContent =
     `Launch to date: since BEAM's ${monthName(first)} mentoring launch. New requests: new client businesses in the BEAM portal. ` +
