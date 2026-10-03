@@ -273,6 +273,123 @@ details dd { margin: 0; }
 footer.site { text-align: center; padding: 18px 16px; font-size: 13px; color: rgba(255,255,255,.85); background: var(--brand-dark); border-top: 4px solid var(--brand-gold); }
 footer.site .tagline { font-family: var(--font-head); font-style: italic; font-size: 15px; color: #ffffff; display: block; margin-bottom: 4px; }
 
+/* ------------------------------------------------------------ Board summary (one-pager) */
+.summary { padding: 20px 0 4px; }
+.summary-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-bottom: 4px; }
+.summary-bar h2 { margin: 0 auto 0 0; }
+.summary .sub { margin: 4px 0 12px; }
+.btn {
+  font: inherit; font-size: 14px; text-decoration: none; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--ink); background: var(--surface);
+  border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px;
+}
+.btn:hover { background: var(--accent-wash); }
+.btn.primary { background: var(--s1); border-color: var(--s1); color: #ffffff; font-weight: 600; }
+.btn.primary:hover { filter: brightness(1.08); }
+.btn:focus-visible { outline: 2px solid var(--s1); outline-offset: 1px; }
+.btn svg { width: 16px; height: 16px; }
+
+/* Full dashboard: hidden behind the Board summary until "Drill deeper" opens it */
+.divider { margin-top: 40px; background: var(--surface); border-top: 4px solid var(--brand-gold); border-bottom: 1px solid var(--border); padding: 22px 0; }
+.divider .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; }
+.divider h2 { margin: 0 0 4px; }
+.divider p { margin: 0; color: var(--ink-2); font-size: 14px; max-width: 640px; }
+.btn .chev { transition: transform .2s; }
+.btn[aria-expanded="true"] .chev { transform: rotate(180deg); }
+@media (prefers-reduced-motion: reduce) { .btn .chev { transition: none; } }
+
+/* The sheet is a fixed 11 x 8.5 in page; on narrow screens it's scaled down to fit (--k, set by JS) */
+.sheet-frame { height: calc(816px * var(--k, 1)); overflow: hidden; }
+.sheet {
+  /* Paper colors: the page stays light in dark mode, like the printout */
+  --ink: #14343c; --ink-2: #4a6168; --muted: #7b9096; --grid: #e2eaec; --axis: #c3d2d6;
+  --border: rgba(20, 52, 60, 0.14); --good: #2f7a1f; --bad: #c0392b; --wash: #eef5f7;
+  color-scheme: light;
+  page: onepager;
+  width: 1056px; height: 816px; overflow: hidden;
+  transform: scale(var(--k, 1)); transform-origin: top left;
+  background: #ffffff; color: var(--ink);
+  font-family: var(--font-body); font-size: 11px; line-height: 1.35;
+  display: flex; flex-direction: column;
+  border-radius: 6px; box-shadow: 0 2px 14px rgba(0, 0, 0, .14);
+  -webkit-print-color-adjust: exact; print-color-adjust: exact;
+}
+.sh-head {
+  background: linear-gradient(120deg, var(--brand-deep) 0%, var(--brand-dark) 45%, var(--brand-teal) 100%);
+  color: #ffffff; display: flex; align-items: center; gap: 22px; padding: 10px 28px;
+}
+.sh-head img { display: block; width: 140px; height: auto; padding-right: 22px; border-right: 1px solid rgba(255,255,255,.3); box-sizing: content-box; }
+.sh-head h3 { font-family: var(--font-head); font-size: 28px; font-weight: 700; margin: 0; line-height: 1.05; }
+.sh-head .kicker { font-family: var(--font-label); font-size: 19px; letter-spacing: .05em; color: var(--brand-gold); line-height: 1.1; margin-top: 4px; }
+.sh-head .through { font-size: 12.5px; opacity: .9; }
+.sh-head .tag { margin-left: auto; max-width: 210px; padding-left: 20px; border-left: 1px solid rgba(255,255,255,.3);
+  font-family: var(--font-head); font-style: italic; font-size: 15px; line-height: 1.3; text-align: right; }
+.sh-body { flex: 1; min-height: 0; padding: 10px 28px 6px; display: flex; flex-direction: column; gap: 9px; }
+.sh-tiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+.sh-tile { background: var(--brand-dark); color: #ffffff; border-radius: 8px; padding: 6px 12px 7px; }
+.sh-tile.gold { background: var(--brand-gold); color: var(--brand-deep); }
+.sh-tile .v { font-size: 27px; font-weight: 600; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.sh-tile .l { font-family: var(--font-label); font-size: 15px; letter-spacing: .04em; line-height: 1.1; }
+.sh-tile .m { font-size: 10.5px; opacity: .85; margin-top: 2px; }
+.sh-row { display: grid; grid-template-rows: minmax(0, 1fr); gap: 10px; min-height: 0; }
+.sh-mid { height: 196px; grid-template-columns: 220px 1fr 262px; }
+.sh-bot { flex: 1 1 0; grid-template-columns: 1.1fr 1fr; }
+.sh-row > .sh-card { overflow: hidden; }
+.sh-card { border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; min-width: 0; display: flex; flex-direction: column; }
+.sh-chart { flex: 1; min-height: 0; }
+.sh-card h4 { font-family: var(--font-label); font-weight: 400; font-size: 16px; letter-spacing: .04em; color: var(--brand-teal); margin: 0 0 4px; line-height: 1.1; }
+.sh-card h4 small { font-family: var(--font-body); font-size: 10px; letter-spacing: 0; color: var(--muted); margin-left: 4px; }
+.sh-checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px; }
+.sh-checks li { display: flex; gap: 7px; align-items: flex-start; font-size: 11px; line-height: 1.3; }
+.sh-checks li::before {
+  content: "✓"; flex: none; width: 15px; height: 15px; border-radius: 50%; margin-top: 1px;
+  background: var(--brand-teal); color: #ffffff; font-size: 10px; font-weight: 600; line-height: 15px; text-align: center;
+}
+.sh-checks li.star::before { content: "★"; background: var(--brand-gold); color: var(--brand-deep); }
+.sh-checks b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.sh-legend { display: flex; gap: 14px; font-size: 10px; color: var(--ink-2); margin: -2px 0 2px; }
+.sh-legend i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+.sh-chart svg { display: block; overflow: visible; }
+.sh-chart text { font-family: var(--font-body); font-size: 10px; fill: var(--ink-2); }
+.sh-chart text.val { fill: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.sh-chart text.sel { fill: var(--ink); font-weight: 600; }
+.sh-kpis { display: grid; gap: 1px; }
+.sh-kpi { display: flex; align-items: center; gap: 8px; padding: 1px 0; border-bottom: 1px solid var(--grid); }
+.sh-kpi:last-child { border-bottom: 0; }
+.sh-kpi .n { flex: 1; min-width: 0; }
+.sh-kpi .n b { display: block; font-weight: 600; font-size: 11px; line-height: 1.25; }
+.sh-kpi .n span { font-size: 9.5px; line-height: 1.2; color: var(--ink-2); }
+.sh-kpi .p { font-size: 17px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.sh-kpi .p.up { color: var(--good); }
+.sh-kpi .p.down { color: var(--bad); }
+.sh-kpi.gold { background: #fff6da; border: 1px solid #f2d27a; border-radius: 6px; padding: 1px 8px; margin-top: 3px; }
+.sh-kpi .p.flat { color: var(--ink-2); }
+.sh-table { width: 100%; border-collapse: collapse; font-size: 10.5px; line-height: 1.3; }
+.sh-table th, .sh-table td { padding: 2.5px 6px; border-bottom: 1px solid var(--grid); text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; min-width: 0; }
+.sh-table th:first-child, .sh-table td:first-child { text-align: left; }
+.sh-table th { background: var(--brand-dark); color: #ffffff; font-weight: 600; font-size: 9.5px; letter-spacing: .02em; padding: 3px 6px; line-height: 1.2; vertical-align: bottom; }
+.sh-table th:first-child { border-radius: 4px 0 0 0; }
+.sh-table th:last-child { border-radius: 0 4px 0 0; }
+.sh-table tr.grp td { background: var(--wash); }
+.sh-table tbody tr:last-child td { border-bottom: 0; }
+.sh-note { font-size: 8.5px; color: var(--muted); line-height: 1.3; margin: 0; }
+.sh-foot { background: var(--brand-dark); border-top: 3px solid var(--brand-gold); color: rgba(255,255,255,.9);
+  display: flex; align-items: center; gap: 24px; padding: 6px 28px; font-size: 11px; }
+.sh-foot .tagline { font-family: var(--font-head); font-style: italic; font-size: 14px; color: #ffffff; margin-right: auto; }
+.sh-foot .tagline em { color: var(--brand-gold); }
+
+@page onepager { size: 11in 8.5in; margin: 0; }
+@media print {
+  html.print-summary, html.print-summary body { background: #ffffff; margin: 0; padding: 0; }
+  html.print-summary body > :not(#summary) { display: none !important; }
+  html.print-summary #summary { padding: 0; }
+  html.print-summary #summary > .wrap { max-width: none; padding: 0; }
+  html.print-summary .summary-bar, html.print-summary .summary .sub { display: none !important; }
+  html.print-summary .sheet-frame { height: auto; overflow: visible; }
+  html.print-summary .sheet { transform: none; border-radius: 0; box-shadow: none; height: 8.49in; }
+}
+
 @media (max-width: 600px) {
   .range-label { margin-left: 0; width: 100%; }
   .grid2 { grid-template-columns: 1fr; }
@@ -302,6 +419,69 @@ footer.site .tagline { font-family: var(--font-head); font-style: italic; font-s
   </div>
 </header>
 
+<section class="summary" id="summary" aria-labelledby="h-summary">
+  <div class="wrap">
+    <div class="summary-bar">
+      <h2 id="h-summary">Board summary</h2>
+      <label class="field">Month <select id="sum-month"></select></label>
+      <button type="button" class="btn primary" id="sum-print"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m0 0-3.5-3.5M10 12l3.5-3.5M4 14v2.5h12V14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Download PDF</button>
+      <button type="button" class="btn drill" aria-controls="full-dashboard" aria-expanded="false"><span class="drill-label">Drill deeper: full dashboard</span><svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+    <p class="sub">A one-page overview for the Board, launch to date through the chosen month. <b>Download PDF</b> opens your browser&rsquo;s print window: choose <b>Save as PDF</b>.</p>
+    <div class="sheet-frame" id="sheet-frame">
+      <article class="sheet" id="sheet" aria-label="BEAM one-page impact summary">
+        <header class="sh-head">
+          <img src="assets/beam-logo-white.webp" alt="BEAM - Business Empowerment and Mentorship" width="189" height="58">
+          <div>
+            <h3>BEAM Impact Report</h3>
+            <div class="kicker">Board summary &middot; Launch to date</div>
+            <div class="through" id="sh-through"></div>
+          </div>
+          <div class="tag">This is the impact BEAM is making in our community.</div>
+        </header>
+        <div class="sh-body">
+          <div class="sh-tiles" id="sh-tiles"></div>
+          <div class="sh-row sh-mid">
+            <div class="sh-card"><h4 id="sh-glance-h"></h4><ul class="sh-checks" id="sh-glance"></ul></div>
+            <div class="sh-card">
+              <h4>Demand &amp; activity by month</h4>
+              <div class="sh-legend"><span><i style="background:var(--brand-gold)"></i>New mentoring requests</span><span><i style="background:var(--s1)"></i>Mentoring sessions</span></div>
+              <div class="sh-chart" id="sh-trend"></div>
+            </div>
+            <div class="sh-card"><h4 id="sh-kpi-h"></h4><div class="sh-kpis" id="sh-kpis"></div></div>
+          </div>
+          <div class="sh-row sh-bot">
+            <div class="sh-card"><h4>Community impact metrics</h4><table class="sh-table" id="sh-table"></table></div>
+            <div class="sh-card">
+              <h4 id="sh-cmp-h"></h4>
+              <div class="sh-legend"><span><i style="background:var(--brand-dark)"></i>Launch to date</span><span><i style="background:var(--brand-gold)"></i><span id="sh-cmp-lg"></span></span></div>
+              <div class="sh-chart" id="sh-cmp"></div>
+            </div>
+          </div>
+          <p class="sh-note" id="sh-note"></p>
+        </div>
+        <footer class="sh-foot">
+          <span class="tagline">Creating <em>Jobs</em> and Helping <em>Small</em> Businesses <em>Thrive.</em></span>
+          <span>Santa Barbara, CA</span>
+          <span>www.beamsb.com</span>
+          <span>info@beamsb.com</span>
+        </footer>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="divider" id="dashboard" aria-labelledby="h-dashboard">
+  <div class="wrap">
+    <div>
+      <h2 id="h-dashboard">Full dashboard</h2>
+      <p>Every chart and filter behind the summary: month-by-month trends, who we serve, Chamber impact, mentor activity, workshops and the monthly detail.</p>
+    </div>
+    <button type="button" class="btn primary drill" aria-controls="full-dashboard" aria-expanded="false"><span class="drill-label">Drill deeper: full dashboard</span><svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
+</section>
+
+<div id="full-dashboard" hidden>
 <div class="filters" role="region" aria-label="Report filters">
   <div class="wrap">
     <div class="presets" id="presets" role="group" aria-label="Period presets"></div>
@@ -417,6 +597,7 @@ footer.site .tagline { font-family: var(--font-head); font-style: italic; font-s
     <details id="defs"><summary>How these numbers are calculated</summary><dl></dl></details>
   </section>
 </main>
+</div>
 
 <footer class="site">
   <span class="tagline">Creating Jobs and Helping Small Businesses Thrive.</span>
@@ -486,8 +667,8 @@ function servedFor(from, to, mentor = state.mentor) {
   return [...new Set(sessionsFor(from, to, mentor).map(s => s.company))].map(id => companyById.get(id)).filter(Boolean);
 }
 
-function metrics(from, to) {
-  const ss = sessionsFor(from, to);
+function metrics(from, to, mentor = state.mentor) {
+  const ss = sessionsFor(from, to, mentor);
   const hours = d3.sum(ss, hoursOf);
   return {
     requests: requestsFor(from, to).length,
@@ -499,7 +680,7 @@ function metrics(from, to) {
     mentors: new Set(ss.map(s => s.mentor).filter(Boolean)).size,
     volunteers: new Set(ss.flatMap(s => [s.mentor, ...s.co_mentors]).filter(Boolean)).size,
     chamberReferrals: requestsFor(from, to).filter(isChamberReferral).length,
-    chamberMembers: servedFor(from, to).filter(isChamberMember).length,
+    chamberMembers: servedFor(from, to, mentor).filter(isChamberMember).length,
   };
 }
 
@@ -1132,6 +1313,231 @@ function setRange(from, to) {
   renderAll();
 }
 
+// ------------------------------------------------------------ Board summary (one-pager)
+
+const DASHBOARD_URL = "mgaltress.github.io/mg/beam";
+const SHEET_W = 1056;                                   // 11in at 96px/in
+const parseMonth = d3.timeParse("%Y-%m");
+const parseDay = d3.timeParse("%Y-%m-%d");
+const fmtDay = d3.timeFormat("%B %-d, %Y");
+const fmtSigned = p => (p > 0 ? "+" : p < 0 ? "−" : "") + fmtPct(Math.abs(p));
+
+// Last day with data in a month: the month's end, or data_through for the current month
+function throughDate(mo) {
+  const end = d3.timeDay.offset(d3.timeMonth.offset(parseMonth(mo), 1), -1);
+  const last = parseDay(R.meta.data_through);
+  return last < end ? last : end;
+}
+const isPartial = mo => throughDate(mo) < d3.timeDay.offset(d3.timeMonth.offset(parseMonth(mo), 1), -1);
+
+// Grouped columns with a value on each bar. cats: [{key, label}], value(cat, seriesKey)
+function groupedBars(el, cats, series, value, { fmt = fmtInt, selected = null } = {}) {
+  el.replaceChildren();
+  const width = el.clientWidth || 300, height = Math.max(90, el.clientHeight || 140);
+  const m = { top: 14, right: 2, bottom: 16, left: 2 };
+  const x = d3.scaleBand().domain(cats.map(c => c.key)).range([m.left, width - m.right]).paddingInner(0.28).paddingOuter(0.1);
+  const xs = d3.scaleBand().domain(series.map(s => s.key)).range([0, x.bandwidth()]).padding(0.08);
+  const max = d3.max(cats, c => d3.max(series, s => value(c, s.key) || 0)) || 1;
+  const y = d3.scaleLinear().domain([0, max]).range([height - m.bottom, m.top]);
+  const bw = Math.min(30, xs.bandwidth());
+  const svg = d3.select(el).append("svg").attr("width", width).attr("height", height).attr("aria-hidden", "true");
+  for (const c of cats) {
+    const g = svg.append("g").attr("transform", `translate(${x(c.key)},0)`);
+    for (const s of series) {
+      const v = value(c, s.key) || 0;
+      const x0 = xs(s.key) + (xs.bandwidth() - bw) / 2;
+      g.append("path").attr("fill", s.color).attr("d", topRounded(x0, y(v), bw, y(0) - y(v), 3));
+      g.append("text").attr("class", "val").attr("x", x0 + bw / 2).attr("y", y(v) - 3)
+        .attr("text-anchor", "middle").text(fmt(v));
+    }
+    g.append("text").attr("class", c.key === selected ? "sel" : null)
+      .attr("x", x.bandwidth() / 2).attr("y", height - 3).attr("text-anchor", "middle").text(c.label);
+  }
+  svg.append("line").attr("x1", m.left).attr("x2", width - m.right).attr("y1", y(0) + 0.5).attr("y2", y(0) + 0.5)
+    .attr("stroke", "var(--axis)");
+}
+
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+
+function renderSummary(mo) {
+  const i = MONTHS.indexOf(mo), first = MONTHS[0];
+  const prevMo = i > 0 ? MONTHS[i - 1] : null;
+  const L = metrics(first, mo, ""), M = metrics(mo, mo, ""), P = prevMo ? metrics(prevMo, prevMo, "") : null;
+  const mName = d3.timeFormat("%B")(parseMonth(mo));
+  const mShort = d3.timeFormat("%b")(parseMonth(mo));
+  const pShort = prevMo ? d3.timeFormat("%b")(parseMonth(prevMo)) : "";
+  const mLabel = mName + (isPartial(mo) ? " (to date)" : "");
+
+  document.getElementById("sh-through").textContent =
+    `Through ${fmtDay(throughDate(mo))}` + (isPartial(mo) ? ` · ${mName} is month to date` : "");
+
+  // Headline tiles: launch to date, with the month's share underneath
+  const tiles = document.getElementById("sh-tiles");
+  tiles.replaceChildren();
+  for (const [k, label, f, gold] of [
+    ["requests", "New mentoring requests", fmtInt], ["sessions", "Mentoring sessions", fmtInt],
+    ["hours", "Volunteer hours", fmt1, true], ["mentors", "Mentors actively mentoring", fmtInt],
+    ["volunteers", "Volunteers serving clients", fmtInt],
+  ]) {
+    const t = el("div", "sh-tile" + (gold ? " gold" : ""));
+    t.append(el("div", "v", f(L[k])), el("div", "l", label), el("div", "m", `${f(M[k])} in ${mLabel}`));
+    tiles.append(t);
+  }
+
+  // Month at a glance: computed facts only
+  document.getElementById("sh-glance-h").textContent = `${mName} ${mo.slice(0, 4)} at a glance`;
+  const glance = document.getElementById("sh-glance");
+  glance.replaceChildren();
+  const earlier = MONTHS.slice(0, i).map(m2 => metrics(m2, m2, ""));
+  const best = k => i > 0 && M[k] > 0 && earlier.every(e => M[k] > e[k]);
+  const items = [];
+  if (best("sessions")) items.push(["star", "Most mentoring sessions of any month since launch"]);
+  if (best("requests")) items.push(["star", "Most new mentoring requests of any month since launch"]);
+  const count = (n, one, many) => ["", [fmt1(n), n === 1 ? one : many]];
+  items.push(
+    count(M.requests, " new mentoring request", " new mentoring requests"),
+    count(M.sessions, " mentoring session", " mentoring sessions"),
+    count(M.hours, " volunteer hour", " volunteer hours"),
+    count(M.served, " business mentored", " businesses mentored"),
+    count(M.co, " co-mentoring session", " co-mentoring sessions"),
+    count(M.mentors, " mentor actively mentoring", " mentors actively mentoring"),
+  );
+  for (const w of R.workshops.filter(w => w.date.startsWith(mo))) items.push(["", [w.attended, ` attended the "${w.name}" workshop`]]);
+  for (const [cls, content] of items.slice(0, 8)) {
+    const li = el("li", cls || null);
+    if (Array.isArray(content)) li.append(el("b", null, String(content[0])), document.createTextNode(content[1]));
+    else li.textContent = content;
+    glance.append(li);
+  }
+
+  // Month over month
+  document.getElementById("sh-kpi-h").textContent = prevMo ? `Month over month: ${mShort}${isPartial(mo) ? " to date" : ""} vs ${pShort}` : "Month over month";
+  const kpis = document.getElementById("sh-kpis");
+  kpis.replaceChildren();
+  const kpiRow = (name, detail, pct, cls = "") => {
+    const r = el("div", "sh-kpi " + cls);
+    const n = el("div", "n");
+    n.append(el("b", null, name), el("span", null, detail));
+    const dir = pct == null ? "flat" : pct > 0.005 ? "up" : pct < -0.005 ? "down" : "flat";
+    r.append(n, el("div", "p " + dir, pct == null ? "–" : fmtSigned(pct)));
+    kpis.append(r);
+  };
+  for (const [k, name, f] of [["requests", "New mentoring requests", fmtInt], ["sessions", "Mentoring sessions", fmtInt],
+    ["hours", "Volunteer hours", fmt1], ["co", "Co-mentoring sessions", fmtInt]]) {
+    if (!P) { kpiRow(name, `${f(M[k])} in the first month of the program`, null); continue; }
+    kpiRow(name, `${f(M[k])} in ${mShort} vs ${f(P[k])} in ${pShort}`, P[k] ? (M[k] - P[k]) / P[k] : null);
+  }
+  kpiRow("Average hours per session",
+    `Launch to date ${L.avg == null ? "–" : fmt2(L.avg)} | ${mShort} ${M.avg == null ? "–" : fmt2(M.avg)}`,
+    L.avg && M.avg != null ? (M.avg - L.avg) / L.avg : null, "gold");
+
+  // Community impact metrics table
+  const servedL = servedFor(first, mo, ""), servedM = servedFor(mo, mo, "");
+  const typeCount = (from, to, t) => sessionsFor(from, to, "").filter(s => s.type === t).length;
+  const ownCount = (list, o) => list.filter(c => c.ownership.includes(o)).length;
+  const rows = [
+    ["New mentoring requests", L.requests, M.requests],
+    ["Mentoring sessions", L.sessions, M.sessions],
+    ["Volunteer hours", fmt1(L.hours), fmt1(M.hours)],
+    ["Businesses mentored", L.served, M.served],
+    ["Co-mentoring sessions", L.co, M.co],
+    ["Mentors actively mentoring", L.mentors, M.mentors],
+    ["Volunteers serving clients", L.volunteers, M.volunteers],
+    ...R.lookups.meeting_types
+      .filter(t => typeCount(first, mo, t) > 0)
+      .map(t => [`${{ "In Person": "In-person", "Video Conference": "Video" }[t] || t} sessions`, typeCount(first, mo, t), typeCount(mo, mo, t)]),
+    ["Women-owned businesses mentored", ownCount(servedL, "Woman-owned"), ownCount(servedM, "Woman-owned")],
+    ["Veteran-owned businesses mentored", ownCount(servedL, "Veteran-owned"), ownCount(servedM, "Veteran-owned")],
+    ["Minority-owned businesses mentored", ownCount(servedL, "Minority-owned"), ownCount(servedM, "Minority-owned")],
+    ["Chamber referrals", L.chamberReferrals, M.chamberReferrals],
+  ];
+  const table = document.getElementById("sh-table");
+  table.replaceChildren();
+  const hr = table.createTHead().insertRow();
+  for (const h of ["", `Launch to date (through ${d3.timeFormat("%b %-d")(throughDate(mo))})`, mLabel]) hr.append(el("th", null, h));
+  const tb = table.createTBody();
+  for (const [label, a, b] of rows) {
+    const tr = tb.insertRow();
+    tr.append(el("td", null, label), el("td", null, typeof a === "number" ? fmtInt(a) : a), el("td", null, typeof b === "number" ? fmtInt(b) : b));
+  }
+
+  document.getElementById("sh-cmp-h").textContent = `Launch to date vs ${mName}`;
+  document.getElementById("sh-cmp-lg").textContent = mLabel;
+
+  document.getElementById("sh-note").textContent =
+    `Launch to date: since BEAM's ${monthName(first)} mentoring launch. New requests: new client businesses in the BEAM portal. ` +
+    `Hours include co-mentor time. Ownership counts businesses mentored. Full interactive report: ${DASHBOARD_URL}`;
+
+  // Charts last: they size themselves to the space left once all the text is in place
+  groupedBars(document.getElementById("sh-trend"),
+    MONTHS.slice(0, i + 1).map(m2 => ({ key: m2, label: monthShort(m2) })),
+    [{ key: "requests", color: "var(--brand-gold)" }, { key: "sessions", color: "var(--s1)" }],
+    (c, k) => metrics(c.key, c.key, "")[k], { selected: mo });
+  groupedBars(document.getElementById("sh-cmp"),
+    [["requests", "New requests"], ["sessions", "Sessions"], ["served", "Businesses"],
+      ["co", "Co-mentoring"], ["volunteers", "Volunteers"]].map(([key, label]) => ({ key, label })),
+    [{ key: "L", color: "var(--brand-dark)" }, { key: "M", color: "var(--brand-gold)" }],
+    (c, k) => (k === "L" ? L : M)[c.key]);
+}
+
+function fitSheet() {
+  const frame = document.getElementById("sheet-frame");
+  frame.style.setProperty("--k", Math.min(1, frame.clientWidth / SHEET_W));
+}
+
+// Show or hide the full dashboard. Its charts size to their containers, so render once visible.
+function setDashboard(open, scroll) {
+  const box = document.getElementById("full-dashboard");
+  box.hidden = !open;
+  for (const b of document.querySelectorAll(".drill")) {
+    b.setAttribute("aria-expanded", String(open));
+    b.querySelector(".drill-label").textContent = open ? "Hide full dashboard" : "Drill deeper: full dashboard";
+  }
+  history.replaceState(null, "", location.pathname + location.search + (open ? "#dashboard" : ""));
+  if (open) renderAll();
+  if (scroll) document.getElementById("dashboard").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+}
+
+function setupSummary() {
+  const sel = document.getElementById("sum-month");
+  for (const mo of [...MONTHS].reverse()) sel.add(new Option(monthName(mo) + (isPartial(mo) ? " (to date)" : ""), mo));
+  const last = MONTHS[MONTHS.length - 1];
+  sel.value = isPartial(last) && MONTHS.length > 1 ? MONTHS[MONTHS.length - 2] : last;
+  sel.addEventListener("change", () => renderSummary(sel.value));
+  fitSheet();
+  renderSummary(sel.value);
+  document.fonts.ready.then(() => renderSummary(sel.value));   // web fonts change text heights
+
+  for (const b of document.querySelectorAll(".drill")) {
+    b.addEventListener("click", () => {
+      const open = document.getElementById("full-dashboard").hidden;
+      setDashboard(open, open);
+    });
+  }
+  // Links to #dashboard open it, on load or from elsewhere on the page
+  if (location.hash === "#dashboard") {
+    setDashboard(true, false);
+    document.fonts.ready.then(() => document.getElementById("dashboard").scrollIntoView());   // after layout settles
+  }
+  window.addEventListener("hashchange", () => { if (location.hash === "#dashboard") setDashboard(true, true); });
+
+  const root = document.documentElement;
+  let title = document.title;
+  window.addEventListener("afterprint", () => { root.classList.remove("print-summary"); document.title = title; });
+  document.getElementById("sum-print").addEventListener("click", () => {
+    title = document.title;
+    root.classList.add("print-summary");
+    // The browser offers the page title as the PDF's file name
+    document.title = `BEAM Impact Summary - ${monthName(sel.value)}`;
+    window.print();
+  });
+}
+
 // ------------------------------------------------------------ setup
 
 function setup() {
@@ -1199,11 +1605,12 @@ function setup() {
   state.from = presets[2][1];
   state.to = presets[2][2];
   renderAll();
+  setupSummary();
 
   let resizeTimer;
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(renderAll, 150);
+    resizeTimer = setTimeout(() => { renderAll(); fitSheet(); }, 150);
   });
 }
 
