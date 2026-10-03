@@ -290,6 +290,15 @@ footer.site .tagline { font-family: var(--font-head); font-style: italic; font-s
 .btn:focus-visible { outline: 2px solid var(--s1); outline-offset: 1px; }
 .btn svg { width: 16px; height: 16px; }
 
+/* Full dashboard: hidden behind the Board summary until "Drill deeper" opens it */
+.divider { margin-top: 40px; background: var(--surface); border-top: 4px solid var(--brand-gold); border-bottom: 1px solid var(--border); padding: 22px 0; }
+.divider .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; }
+.divider h2 { margin: 0 0 4px; }
+.divider p { margin: 0; color: var(--ink-2); font-size: 14px; max-width: 640px; }
+.btn .chev { transition: transform .2s; }
+.btn[aria-expanded="true"] .chev { transform: rotate(180deg); }
+@media (prefers-reduced-motion: reduce) { .btn .chev { transition: none; } }
+
 /* The sheet is a fixed 11 x 8.5 in page; on narrow screens it's scaled down to fit (--k, set by JS) */
 .sheet-frame { height: calc(816px * var(--k, 1)); overflow: hidden; }
 .sheet {
@@ -416,7 +425,7 @@ footer.site .tagline { font-family: var(--font-head); font-style: italic; font-s
       <h2 id="h-summary">Board summary</h2>
       <label class="field">Month <select id="sum-month"></select></label>
       <button type="button" class="btn primary" id="sum-print"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m0 0-3.5-3.5M10 12l3.5-3.5M4 14v2.5h12V14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Download PDF</button>
-      <a class="btn" href="#dashboard">Drill deeper: full dashboard <span aria-hidden="true">&darr;</span></a>
+      <button type="button" class="btn drill" aria-controls="full-dashboard" aria-expanded="false"><span class="drill-label">Drill deeper: full dashboard</span><svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
     <p class="sub">A one-page overview for the Board, launch to date through the chosen month. <b>Download PDF</b> opens your browser&rsquo;s print window: choose <b>Save as PDF</b>.</p>
     <div class="sheet-frame" id="sheet-frame">
@@ -462,7 +471,18 @@ footer.site .tagline { font-family: var(--font-head); font-style: italic; font-s
   </div>
 </section>
 
-<div class="filters" id="dashboard" role="region" aria-label="Report filters">
+<section class="divider" id="dashboard" aria-labelledby="h-dashboard">
+  <div class="wrap">
+    <div>
+      <h2 id="h-dashboard">Full dashboard</h2>
+      <p>Every chart and filter behind the summary: month-by-month trends, who we serve, Chamber impact, mentor activity, workshops and the monthly detail.</p>
+    </div>
+    <button type="button" class="btn primary drill" aria-controls="full-dashboard" aria-expanded="false"><span class="drill-label">Drill deeper: full dashboard</span><svg class="chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
+</section>
+
+<div id="full-dashboard" hidden>
+<div class="filters" role="region" aria-label="Report filters">
   <div class="wrap">
     <div class="presets" id="presets" role="group" aria-label="Period presets"></div>
     <label class="field">From <select id="from"></select></label>
@@ -577,6 +597,7 @@ footer.site .tagline { font-family: var(--font-head); font-style: italic; font-s
     <details id="defs"><summary>How these numbers are calculated</summary><dl></dl></details>
   </section>
 </main>
+</div>
 
 <footer class="site">
   <span class="tagline">Creating Jobs and Helping Small Businesses Thrive.</span>
@@ -1469,6 +1490,19 @@ function fitSheet() {
   frame.style.setProperty("--k", Math.min(1, frame.clientWidth / SHEET_W));
 }
 
+// Show or hide the full dashboard. Its charts size to their containers, so render once visible.
+function setDashboard(open, scroll) {
+  const box = document.getElementById("full-dashboard");
+  box.hidden = !open;
+  for (const b of document.querySelectorAll(".drill")) {
+    b.setAttribute("aria-expanded", String(open));
+    b.querySelector(".drill-label").textContent = open ? "Hide full dashboard" : "Drill deeper: full dashboard";
+  }
+  history.replaceState(null, "", location.pathname + location.search + (open ? "#dashboard" : ""));
+  if (open) renderAll();
+  if (scroll) document.getElementById("dashboard").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+}
+
 function setupSummary() {
   const sel = document.getElementById("sum-month");
   for (const mo of [...MONTHS].reverse()) sel.add(new Option(monthName(mo) + (isPartial(mo) ? " (to date)" : ""), mo));
@@ -1478,6 +1512,19 @@ function setupSummary() {
   fitSheet();
   renderSummary(sel.value);
   document.fonts.ready.then(() => renderSummary(sel.value));   // web fonts change text heights
+
+  for (const b of document.querySelectorAll(".drill")) {
+    b.addEventListener("click", () => {
+      const open = document.getElementById("full-dashboard").hidden;
+      setDashboard(open, open);
+    });
+  }
+  // Links to #dashboard open it, on load or from elsewhere on the page
+  if (location.hash === "#dashboard") {
+    setDashboard(true, false);
+    document.fonts.ready.then(() => document.getElementById("dashboard").scrollIntoView());   // after layout settles
+  }
+  window.addEventListener("hashchange", () => { if (location.hash === "#dashboard") setDashboard(true, true); });
 
   const root = document.documentElement;
   let title = document.title;
