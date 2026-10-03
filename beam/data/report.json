@@ -1,18 +1,18 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-10-02T19:22:32+00:00",
+  "generated_at": "2026-10-03T08:12:29+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
-  "data_through": "2026-09-29",
+  "data_through": "2026-10-01",
   "sources": {
    "session_exports": [
     "submissions_09_26_2026.csv"
    ],
    "sessions_from_exports": 120,
-   "sessions_from_api_capture": 2,
+   "sessions_from_api_capture": 3,
    "sessions_unlinked_to_company": 0,
-   "companies": 82,
+   "companies": 83,
    "engagements": 69
   },
   "definitions": {
@@ -1307,6 +1307,23 @@
     "Friend or Relative"
    ],
    "areas_requested": [
+    "Business Startup"
+   ]
+  },
+  {
+   "id": 83,
+   "created": "2026-10",
+   "pre_launch": false,
+   "industry": "Education & Training",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Workshop or Event"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
     "Business Startup"
    ]
   }
@@ -3324,6 +3341,25 @@
    "topics": [
     "Business Startup",
     "Marketing"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-10-01",
+   "date_estimated": false,
+   "company": 72,
+   "mentor": "Tom Phillips",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 2.5,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance",
+    "Business Startup",
+    "Marketing",
+    "Operations",
+    "Technology"
    ],
    "source": "api"
   }
