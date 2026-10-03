@@ -8,7 +8,8 @@ Sources:
      The API has no session log, but the Session Report form copies each submission onto the
      company record, so every run saves any meeting it hasn't seen to <private>/captured_sessions.json.
      Run this often (every few hours) so meetings aren't overwritten between runs.
-  4. beam/manual_inputs.json                                     - workshops and monthly notes
+  4. beam/manual_inputs.json                                     - workshops, monthly notes and
+                                                                   the Board summary's fixed text
 
 <private> defaults to beam/private/ (git-ignored); the scheduled GitHub Action in the
 mg-private repo points it at that repo instead. The published JSON is de-identified:
@@ -343,6 +344,7 @@ def build(companies, contacts, projects, sessions, export_files):
         "engagements": out_engagements,
         "workshops": manual.get("workshops", []),
         "notes": manual.get("notes", {}),
+        "summary": manual.get("summary", {}),
     }
 
 

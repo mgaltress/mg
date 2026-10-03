@@ -2,5 +2,14 @@
   "workshops": [
     {"name": "Battle of the Ages", "date": "2026-05-07", "registered": 28, "attended": 20}
   ],
-  "notes": {}
+  "notes": {},
+  "summary": {
+    "looking_ahead": "Steady mentor engagement, growing community awareness and closer work with the Chamber will let BEAM serve more entrepreneurs and strengthen more local businesses across the Santa Barbara region.",
+    "pillars": [
+      {"title": "Expand reach", "text": "More entrepreneurs. More businesses. More communities."},
+      {"title": "Strengthen mentorship", "text": "More mentors. More expertise. Greater impact."},
+      {"title": "Drive impact", "text": "More jobs. Stronger economy. Stronger future."},
+      {"title": "Build community", "text": "Stronger together. Stronger today. Stronger tomorrow."}
+    ]
+  }
 }
