@@ -331,6 +331,11 @@ def build(companies, contacts, projects, sessions, export_files):
                 "chamber_member": "A company whose 'How did you hear about us?' answer includes "
                                   "'I am a member of the Chamber'.",
                 "engagement": "A portal project opened for a client.",
+                "workshop_feedback": "From BEAM's post-workshop survey, entered by hand: surveys completed, "
+                                     "whether the workshop met expectations, comments and suggestions.",
+                "workshop_mentor_requests": "Workshop attendees who asked for a BEAM mentor, plus new mentor "
+                                            "opportunities BEAM identified there. Counted separately from "
+                                            "new mentoring requests in the portal.",
             },
         },
         "lookups": {
