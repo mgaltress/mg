@@ -1,16 +1,16 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-10-03T08:12:29+00:00",
+  "generated_at": "2026-10-04T08:30:26+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
-  "data_through": "2026-10-01",
+  "data_through": "2026-10-03",
   "sources": {
    "session_exports": [
     "submissions_09_26_2026.csv"
    ],
    "sessions_from_exports": 120,
-   "sessions_from_api_capture": 3,
+   "sessions_from_api_capture": 4,
    "sessions_unlinked_to_company": 0,
    "companies": 83,
    "engagements": 69
@@ -3360,6 +3360,21 @@
     "Marketing",
     "Operations",
     "Technology"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-10-03",
+   "date_estimated": false,
+   "company": 70,
+   "mentor": "John Jaworski",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance"
    ],
    "source": "api"
   }
