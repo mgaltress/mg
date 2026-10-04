@@ -247,9 +247,19 @@ h2 { font-family: var(--font-head); font-size: 24px; font-weight: 700; margin: 3
 .tooltip .row i { width: 12px; height: 2px; display: inline-block; }
 .tooltip .row span { color: var(--ink-2); }
 
-.workshops { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.workshops { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 12px; align-items: start; }
 .workshop .when { color: var(--ink-2); font-size: 13px; }
-.workshop .nums { display: flex; gap: 18px; margin-top: 8px; }
+.workshop .nums { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 8px; }
+.workshop .ws-h { margin-top: 14px; font-size: 12px; font-weight: 600; color: var(--ink-2); text-transform: uppercase; letter-spacing: .04em; }
+.workshop .ws-bar { display: flex; gap: 2px; height: 12px; margin-top: 8px; border-radius: 3px; overflow: hidden; background: var(--grid); }
+.workshop .ws-bar i { display: block; min-width: 2px; }
+.workshop .ws-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 6px; font-size: 12px; color: var(--ink-2); }
+.workshop .ws-legend span { display: inline-flex; align-items: center; gap: 5px; }
+.workshop .ws-legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+.workshop .ws-legend b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.workshop .ws-quote { margin: 12px 0 0; padding-left: 10px; border-left: 3px solid var(--brand-gold); font-size: 13px; color: var(--ink-2); font-style: italic; }
+.workshop .ws-list { margin: 6px 0 0; padding-left: 18px; font-size: 13px; color: var(--ink-2); }
+.workshop .ws-list li + li { margin-top: 3px; }
 .workshop .nums div { display: flex; flex-direction: column; }
 .workshop .nums b { font-size: 22px; font-weight: 600; }
 .workshop .nums span { font-size: 12px; color: var(--ink-2); }
@@ -366,7 +376,7 @@ footer.site .tagline { font-family: var(--font-head); font-style: italic; font-s
 .sh-kpi.gold { background: #fff6da; border: 1px solid #f2d27a; border-radius: 6px; padding: 1px 8px; margin-top: 3px; }
 .sh-kpi .p.flat { color: var(--ink-2); }
 .sh-table { width: 100%; border-collapse: collapse; font-size: 10.5px; line-height: 1.3; }
-.sh-table th, .sh-table td { padding: 2.5px 6px; border-bottom: 1px solid var(--grid); text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; min-width: 0; }
+.sh-table th, .sh-table td { padding: 1.5px 6px; border-bottom: 1px solid var(--grid); text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; min-width: 0; }
 .sh-table th:first-child, .sh-table td:first-child { text-align: left; }
 .sh-table th { background: var(--brand-dark); color: #ffffff; font-weight: 600; font-size: 9.5px; letter-spacing: .02em; padding: 3px 6px; line-height: 1.2; vertical-align: bottom; }
 .sh-table th:first-child { border-radius: 4px 0 0 0; }
@@ -1223,37 +1233,77 @@ function renderMentors() {
   hBars("c-mentors", rows, ROLES);
 }
 
+const EXPECTATIONS = [
+  { key: "yes", label: "Yes", color: "var(--s1)" },
+  { key: "somewhat", label: "Somewhat", color: "var(--s2)" },
+  { key: "no", label: "No", color: "var(--muted)" },
+];
+
 function renderWorkshops() {
-  const el = document.getElementById("workshops");
-  el.replaceChildren();
+  const box = document.getElementById("workshops");
+  box.replaceChildren();
   const list = R.workshops.filter(w => inRange(w.date.slice(0, 7)));
   if (!list.length) {
-    const p = document.createElement("p");
-    p.className = "empty";
-    p.textContent = "No workshops in the selected period.";
-    el.append(p);
+    box.append(el("p", "empty", "No workshops in the selected period."));
     return;
   }
-  for (const w of list) {
-    const card = document.createElement("div");
-    card.className = "card workshop";
-    const h = document.createElement("h3");
-    h.textContent = w.name;
-    const when = document.createElement("div");
-    when.className = "when";
-    when.textContent = d3.timeFormat("%B %-d, %Y")(d3.timeParse("%Y-%m-%d")(w.date));
-    const nums = document.createElement("div");
-    nums.className = "nums";
-    for (const [v, l] of [[fmtInt(w.registered), "registered"], [fmtInt(w.attended), "attended"],
-      [w.registered ? fmtPct(w.attended / w.registered) : "–", "attendance"]]) {
-      const d = document.createElement("div");
-      const b = document.createElement("b"); b.textContent = v;
-      const s = document.createElement("span"); s.textContent = l;
-      d.append(b, s);
+  // Fields beyond name/date/attended are optional: older workshops only have registration numbers
+  const has = v => v != null;
+  const numRow = pairs => {
+    const nums = el("div", "nums");
+    for (const [v, l] of pairs) {
+      const d = el("div");
+      d.append(el("b", null, v), el("span", null, l));
       nums.append(d);
     }
-    card.append(h, when, nums);
-    el.append(card);
+    return nums;
+  };
+  for (const w of list) {
+    const card = el("div", "card workshop");
+    card.append(el("h3", null, w.name), el("div", "when", d3.timeFormat("%B %-d, %Y")(d3.timeParse("%Y-%m-%d")(w.date))));
+    card.append(numRow([
+      ...(has(w.registered) ? [[fmtInt(w.registered), "registered"]] : []),
+      [fmtInt(w.attended), "attended"],
+      ...(w.registered ? [[fmtPct(w.attended / w.registered), "attendance"]] : []),
+    ]));
+    if (has(w.mentor_requests) || has(w.mentor_opportunities)) {
+      card.append(el("div", "ws-h", "Mentoring pipeline"), numRow([
+        ...(has(w.mentor_requests) ? [[fmtInt(w.mentor_requests), "mentor requests"]] : []),
+        ...(has(w.mentor_opportunities) ? [[fmtInt(w.mentor_opportunities), "new mentor opportunities"]] : []),
+      ]));
+    }
+    const me = w.met_expectations;
+    if (me) {
+      const total = d3.sum(EXPECTATIONS, e => me[e.key] || 0);
+      const head = `Met expectations · ${fmtInt(w.surveys ?? total)} surveys` +
+        (w.surveys && w.attended ? ` (${fmtPct(w.surveys / w.attended)} of attendees)` : "");
+      const bar = el("div", "ws-bar");
+      bar.setAttribute("role", "img");
+      bar.setAttribute("aria-label", EXPECTATIONS.map(e => `${e.label}: ${me[e.key] || 0}`).join(", "));
+      const legend = el("div", "ws-legend");
+      for (const e of EXPECTATIONS) {
+        const n = me[e.key] || 0;
+        if (n && total) {
+          const seg = el("i");
+          seg.style.flexGrow = n;
+          seg.style.background = e.color;
+          bar.append(seg);
+        }
+        const item = el("span");
+        const sw = el("i");
+        sw.style.background = e.color;
+        item.append(sw, el("b", null, fmtInt(n)), document.createTextNode(" " + e.label.toLowerCase()));
+        legend.append(item);
+      }
+      card.append(el("div", "ws-h", head), bar, legend);
+    }
+    for (const c of w.comments || []) card.append(el("p", "ws-quote", c));
+    if (w.suggestions?.length) {
+      const ul = el("ul", "ws-list");
+      for (const s of w.suggestions) ul.append(el("li", null, s));
+      card.append(el("div", "ws-h", "Suggestions for future workshops"), ul);
+    }
+    box.append(card);
   }
 }
 
@@ -1456,6 +1506,12 @@ function renderSummary(mo) {
     ["Minority-owned businesses mentored", ownCount(servedL, "Minority-owned"), ownCount(servedM, "Minority-owned")],
     ["Chamber referrals", L.chamberReferrals, M.chamberReferrals],
   ];
+  // Workshops are entered by hand (manual_inputs.json); show their rows once there is one to date
+  const wsL = R.workshops.filter(w => w.date.slice(0, 7) <= mo), wsM = wsL.filter(w => w.date.startsWith(mo));
+  if (wsL.length) rows.push(
+    ["Workshop attendees", d3.sum(wsL, w => w.attended), d3.sum(wsM, w => w.attended)],
+    ["Mentor requests from workshops", d3.sum(wsL, w => w.mentor_requests || 0), d3.sum(wsM, w => w.mentor_requests || 0)],
+  );
   const table = document.getElementById("sh-table");
   table.replaceChildren();
   const hr = table.createTHead().insertRow();
