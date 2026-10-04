@@ -1,6 +1,19 @@
 {
   "workshops": [
-    {"name": "Battle of the Ages", "date": "2026-05-07", "registered": 28, "attended": 20}
+    {"name": "Battle of the Ages", "date": "2026-05-07", "registered": 28, "attended": 20},
+    {
+      "name": "AI for Small Businesses", "date": "2026-09-02", "attended": 51,
+      "surveys": 7, "met_expectations": {"yes": 4, "somewhat": 3, "no": 0},
+      "mentor_requests": 4, "mentor_opportunities": 3,
+      "comments": ["One respondent commented that the workshop was “beyond expectations.”"],
+      "suggestions": [
+        "Improve audio and microphone amplification; several attendees indicated the presenter was difficult to hear.",
+        "Consider a longer workshop.",
+        "Include more hands-on/workshopping activities.",
+        "Make sure the actual workshop times match the advertised times.",
+        "Better understand the audience and its needs when developing the presentation."
+      ]
+    }
   ],
   "notes": {}
 }
