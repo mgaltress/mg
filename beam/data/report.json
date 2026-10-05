@@ -1,7 +1,7 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-10-04T16:59:59+00:00",
+  "generated_at": "2026-10-05T21:30:52+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
   "data_through": "2026-10-03",
@@ -12,7 +12,7 @@
    "sessions_from_exports": 120,
    "sessions_from_api_capture": 4,
    "sessions_unlinked_to_company": 0,
-   "companies": 83,
+   "companies": 84,
    "engagements": 69
   },
   "definitions": {
@@ -1327,6 +1327,22 @@
    "areas_requested": [
     "Accounting & Finance",
     "Business Startup"
+   ]
+  },
+  {
+   "id": 84,
+   "created": "2026-10",
+   "pre_launch": false,
+   "industry": "Health, Wellness & Personal Care",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Workshop or Event"
+   ],
+   "areas_requested": [
+    "Operations"
    ]
   }
  ],
