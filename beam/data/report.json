@@ -1,19 +1,19 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-10-05T21:30:52+00:00",
+  "generated_at": "2026-10-06T09:03:47+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
-  "data_through": "2026-10-03",
+  "data_through": "2026-10-05",
   "sources": {
    "session_exports": [
     "submissions_09_26_2026.csv"
    ],
    "sessions_from_exports": 120,
-   "sessions_from_api_capture": 4,
+   "sessions_from_api_capture": 5,
    "sessions_unlinked_to_company": 0,
    "companies": 84,
-   "engagements": 69
+   "engagements": 70
   },
   "definitions": {
    "session": "One 'BEAM Client Session Report' submission, dated by meeting date (submission date when the meeting date is missing: date_estimated=true). Sessions before the program start are counted in the start month (date_before_launch keeps the original date).",
@@ -3395,6 +3395,21 @@
     "Accounting & Finance"
    ],
    "source": "api"
+  },
+  {
+   "date": "2026-10-05",
+   "date_estimated": false,
+   "company": 69,
+   "mentor": "Mitra Cline",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.25,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Marketing"
+   ],
+   "source": "api"
   }
  ],
  "engagements": [
@@ -3742,6 +3757,11 @@
    "created": "2026-10-02",
    "status": "working",
    "company": 82
+  },
+  {
+   "created": "2026-10-05",
+   "status": "working",
+   "company": 84
   }
  ],
  "workshops": [
