@@ -1,16 +1,16 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-10-07T08:45:41+00:00",
+  "generated_at": "2026-10-08T09:04:23+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
-  "data_through": "2026-10-05",
+  "data_through": "2026-10-07",
   "sources": {
    "session_exports": [
     "submissions_09_26_2026.csv"
    ],
    "sessions_from_exports": 120,
-   "sessions_from_api_capture": 8,
+   "sessions_from_api_capture": 11,
    "sessions_unlinked_to_company": 0,
    "companies": 84,
    "engagements": 70
@@ -3461,6 +3461,53 @@
    "type": "Video Conference",
    "topics": [
     "Marketing"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-10-05",
+   "date_estimated": false,
+   "company": 82,
+   "mentor": "Tom Phillips",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance",
+    "Business Startup"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-10-07",
+   "date_estimated": false,
+   "company": 17,
+   "mentor": "Tom Phillips",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance",
+    "Operations"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-10-07",
+   "date_estimated": false,
+   "company": 78,
+   "mentor": "Mitra Cline",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": null,
+   "topics": [
+    "Business Startup"
    ],
    "source": "api"
   }
