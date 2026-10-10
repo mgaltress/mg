@@ -279,6 +279,57 @@ a { color: var(--accent); }
   object-fit: contain;
 }
 
+/* No logo file yet: set the name as a wordmark */
+.logo-text {
+  display: grid;
+  place-items: center;
+  color: #1c2230;
+  font-family: var(--sans);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+/* Current role: full-width card, logo beside the text */
+.card.featured {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.card.featured .logo {
+  flex: 0 0 280px;
+  height: 160px;
+  margin: 0;
+}
+
+.card.featured h3 { margin-top: 10px; margin-bottom: 0; }
+.card.featured p + p { margin-top: 12px; }
+
+.role {
+  margin: 2px 0 14px !important;
+  color: var(--ink) !important;
+  font-weight: 600;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 760px) {
+  .card.featured { flex-direction: column; gap: 0; }
+  .card.featured .logo { flex: none; width: auto; height: 120px; margin: -8px -8px 20px; }
+}
+
 .tags {
   display: flex;
   flex-wrap: wrap;
