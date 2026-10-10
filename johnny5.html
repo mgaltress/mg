@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Johnny5 · Michael Galtress</title>
+    <meta name="description" content="Johnny5: a personal AI agent running on a Mac mini at home. How it's built, and the jobs it runs.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="wrap">
+            <a href="index.html" class="brand"><span class="brand-mark">MG</span><span class="brand-name">Michael Galtress</span></a>
+            <nav aria-label="Main">
+                <ul class="nav">
+                    <li><a href="workhistory.html">Work</a></li>
+                    <li><a href="funprojects.html" aria-current="page">Projects</a></li>
+                    <li><a href="interests.html">Interests</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="wrap">
+                <p class="eyebrow"><a href="funprojects.html" class="back">Fun projects</a> / Johnny5</p>
+                <h1>Johnny5, my <em>home AI agent.</em></h1>
+                <p class="lede">A personal AI agent that lives on a Mac mini in my house. It runs my mornings, keeps me learning, and powers a few things I built just for fun. Local models do most of the work; Claude steps in where it's worth it.</p>
+                <ul class="stats">
+                    <li><strong>Feb 2026</strong><span>running since</span></li>
+                    <li><strong>24</strong><span>scheduled jobs</span></li>
+                    <li><strong>3</strong><span>local models (Gemma 4, Qwen 3.5, Whisper)</span></li>
+                    <li><strong>24 GB</strong><span>of memory, the whole budget</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="wrap">
+                <h2 class="section-title">How it's built</h2>
+                <div class="flow">
+                    <div class="flow-col">
+                        <h3>Inputs</h3>
+                        <ul>
+                            <li>Slack: chat with it, and it posts to channels</li>
+                            <li>Its own Google account: calendar, email</li>
+                            <li>Podcasts, RSS and newsletters</li>
+                            <li>Public APIs: sports, games, markets</li>
+                        </ul>
+                    </div>
+                    <div class="flow-col flow-core">
+                        <h3>The agent</h3>
+                        <ul>
+                            <li><strong>OpenClaw</strong> runtime on the Mac mini: chat, memory, schedules</li>
+                            <li><strong>Claude Haiku</strong> for conversation; <strong>Sonnet</strong> only for research write-ups</li>
+                            <li><strong>Ollama</strong> local models for summaries, scoring and extraction</li>
+                            <li><strong>Python</strong> scripts for everything deterministic</li>
+                        </ul>
+                    </div>
+                    <div class="flow-col">
+                        <h3>Outputs</h3>
+                        <ul>
+                            <li>Morning briefs and digests in Slack</li>
+                            <li>DMs that ask a question and file the reply</li>
+                            <li>Reports and research documents</li>
+                            <li>Small web apps on the home network</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 class="subhead">Design principles</h3>
+                <ul class="principles">
+                    <li><strong>The box does the heavy lifting.</strong> Local models first. Paid API calls only where a local model falls short, and then the smallest model that's good enough.</li>
+                    <li><strong>Code where code works.</strong> Scheduled jobs are plain scripts that call a local model only when they need one. An LLM wrapped around a script once hid its failures, so they're gone.</li>
+                    <li><strong>Small blast radius.</strong> No personal or financial data on the box, its own accounts, least-privilege tokens, and a secrets scanner on every commit.</li>
+                    <li><strong>Untrusted input stays data.</strong> Email, feeds and web pages can carry prompt injection, so they only reach prompts that have no tools.</li>
+                    <li><strong>Fail loudly.</strong> Every job exits non-zero on failure and alerts a status channel; weekly checks catch drift.</li>
+                    <li><strong>Benchmark before switching.</strong> Model changes are tested on real tasks first, like Gemma 4 vs Qwen 3.5 on 20 real extractions.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="wrap">
+                <h2 class="section-title">What it does</h2>
+                <div class="grid">
+                    <div class="card static">
+                        <span class="card-num">Every morning</span>
+                        <h3>Briefings</h3>
+                        <ul class="checklist">
+                            <li>Downloads and transcribes three news podcasts with Whisper, then posts one digest</li>
+                            <li>Summarizes a daily tech-strategy newsletter</li>
+                            <li>A family morning brief with markets</li>
+                            <li>A daily calendar check</li>
+                        </ul>
+                    </div>
+                    <div class="card static">
+                        <span class="card-num">Every week</span>
+                        <h3>Learning &amp; growth</h3>
+                        <ul class="checklist">
+                            <li>Pulls ~40 AI and data feeds nightly, scores each against my interests, posts the best on Mondays</li>
+                            <li>Transcribes new episodes of AI and product podcasts</li>
+                            <li>Asks me every Friday what moved that week, and turns the answers into a monthly recap</li>
+                        </ul>
+                    </div>
+                    <div class="card static">
+                        <span class="card-num">For fun</span>
+                        <h3>Things I built on it</h3>
+                        <ul class="checklist">
+                            <li><strong>Dota 2 draft advisor:</strong> win-rate models from ~60k public matches a night, plus local-model item advice</li>
+                            <li><strong>The Kop:</strong> a Roku channel for Liverpool FC that jumps straight into the right streaming app</li>
+                            <li><strong>Love notes:</strong> a small family ritual it prompts and collects</li>
+                        </ul>
+                    </div>
+                    <div class="card static">
+                        <span class="card-num">On request</span>
+                        <h3>Research &amp; tools</h3>
+                        <ul class="checklist">
+                            <li>Research pipeline: Claude plans, local models search and distill, Sonnet writes the report</li>
+                            <li>Web search, PDFs, calendar events and file uploads to Slack</li>
+                        </ul>
+                    </div>
+                    <div class="card static">
+                        <span class="card-num">Behind the scenes</span>
+                        <h3>Looking after itself</h3>
+                        <ul class="checklist">
+                            <li>Nightly memory consolidation on a local model</li>
+                            <li>Weekly job-policy enforcement and config backup</li>
+                            <li>Weekly software update check, nightly cleanup</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap">
+            <span>&copy; 2026 Michael Galtress</span>
+            <span><a href="https://www.linkedin.com/in/michaelgaltress/">LinkedIn</a> · Hosted on GitHub Pages</span>
+        </div>
+    </footer>
+</body>
+</html>
