@@ -325,19 +325,8 @@ a { color: var(--accent); }
   box-shadow: 0 0 0 4px var(--surface), 0 0 0 6px var(--accent-soft);
 }
 
-.avatar-empty {
-  display: grid;
-  place-items: center;
-  background: var(--bg);
-  color: var(--muted);
-  font-family: var(--serif);
-  font-size: 2rem;
-}
-
 .interest h3 { margin-top: 6px; }
 .interest p a { font-weight: 500; }
-.card.placeholder { border-style: dashed; box-shadow: none; background: transparent; }
-.card.placeholder:hover { box-shadow: none; }
 
 @media (max-width: 760px) {
   .card.featured { flex-direction: column; gap: 0; }
