@@ -149,6 +149,7 @@ a { color: var(--accent); }
 }
 
 .hero h1 em { color: var(--accent); font-style: italic; }
+.hero h1 .accent { color: var(--accent); }
 
 .lede {
   max-width: 56ch;
