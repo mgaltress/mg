@@ -151,6 +151,26 @@ a { color: var(--accent); }
 .hero h1 em { color: var(--accent); font-style: italic; }
 .hero h1 .accent { color: var(--accent); }
 
+.hero-split {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 48px;
+}
+
+.hero-photo {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 6px var(--surface), 0 0 0 8px var(--accent-soft), var(--shadow-hover);
+}
+
+@media (max-width: 760px) {
+  .hero-split { grid-template-columns: 1fr; gap: 28px; }
+  .hero-photo { order: -1; width: 160px; height: 160px; }
+}
+
 .lede {
   max-width: 56ch;
   margin: 24px 0 0;
