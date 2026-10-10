@@ -3,47 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MG Work History</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Work History · Michael Galtress</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-   
+    <header class="site-header">
+        <div class="wrap">
+            <a href="index.html" class="brand"><span class="brand-mark">MG</span><span class="brand-name">Michael Galtress</span></a>
+            <nav aria-label="Main">
+                <ul class="nav">
+                    <li><a href="workhistory.html" aria-current="page">Work</a></li>
+                    <li><a href="funprojects.html">Projects</a></li>
+                    <li><a href="interests.html">Interests</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <section class="hero">
-        <h2>Where I've Worked and What I've Done</h2>
-        <p>Here's a bit more about my work history</p>
-        <a href="https://www.linkedin.com/in/michaelgaltress/" class="btn">Visit my LinkedIn Page</a>
-        <a href="index.html" class="btn">Home</a>
-    </section>
+    <main>
+        <section class="hero">
+            <div class="wrap">
+                <p class="eyebrow">Work history</p>
+                <h1>Where I've worked and <em>what I've done.</em></h1>
+                <p class="lede">Here's a bit more about my work history.</p>
+                <div class="actions">
+                    <a href="https://www.linkedin.com/in/michaelgaltress/" class="btn">Visit my LinkedIn page</a>
+                </div>
+            </div>
+        </section>
 
-    <section id="workhistory">
-        <div class="grid">
-            <a href="http://citrix.com/" class = "card">
-                <img src="ctxs_logo.png" alt="Citrix Logo" class="card-image">
-                <h3>Citrix</h3>
-                <p>Here I built and managed Financial reporting systems using the Microsoft BI stack</p>
-            </a>    
-            <a href="http://logmein.com/" class = "card">
-                <img src="logmein_logo.png" alt="LogMeIn Logo" class="card-image">
-                <h3>LogMeIn</h3>
-                <p>Here I led Marketing Data and Analytics teams focused on product-led growth and trial signup/conversion</p>
-            </a>
-            <a href="http://appfolio.com/" class = "card">
-                <img src="appf_logo.png" alt="AppFolio Logo" class="card-image">
-                <h3>AppFolio</h3>
-                <p>Here I built, led, and scaled the entire Data capability and org from soup to nuts</p>
-            </a>
+        <section class="section" id="workhistory">
+            <div class="wrap">
+                <h2 class="section-title">Companies</h2>
+                <div class="grid">
+                    <a href="http://citrix.com/" class="card">
+                        <div class="logo"><img src="ctxs_logo.png" alt="Citrix logo"></div>
+                        <h3>Citrix</h3>
+                        <p>Here I built and managed Financial reporting systems using the Microsoft BI stack.</p>
+                        <ul class="tags"><li>Financial reporting</li><li>Microsoft BI</li></ul>
+                    </a>
+                    <a href="http://logmein.com/" class="card">
+                        <div class="logo"><img src="logmein_logo.png" alt="LogMeIn logo"></div>
+                        <h3>LogMeIn</h3>
+                        <p>Here I led Marketing Data and Analytics teams focused on product-led growth and trial signup/conversion.</p>
+                        <ul class="tags"><li>Marketing analytics</li><li>Product-led growth</li></ul>
+                    </a>
+                    <a href="http://appfolio.com/" class="card">
+                        <div class="logo"><img src="appf_logo.png" alt="AppFolio logo"></div>
+                        <h3>AppFolio</h3>
+                        <p>Here I built, led, and scaled the entire Data capability and org from soup to nuts.</p>
+                        <ul class="tags"><li>Data leadership</li><li>Org building</li></ul>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap">
+            <span>&copy; 2026 Michael Galtress</span>
+            <span><a href="https://www.linkedin.com/in/michaelgaltress/">LinkedIn</a> · Hosted on GitHub Pages</span>
         </div>
-    </section>
-
-
-    <footer>
-        <p>&copy; 2025 MG | Hosted on GitHub Pages</p>
     </footer>
-
 </body>
 </html>
