@@ -1,42 +1,74 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Michael Galtress' Github Page</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Michael Galtress</title>
+    <meta name="description" content="Michael Galtress: data and analytics leader. Work history, side projects and interests.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <section class="hero">
-        <h2>Welcome to My Github Page!</h2>
-        <p>Here you can learn a bit more about me, and check out some things I've done.</p>
-        <a href="https://www.linkedin.com/in/michaelgaltress/" class="btn">Visit my LinkedIn Page</a>
-    </section>
-
-    <section id="aboutme">
-        <div class="grid">
-            <a href="workhistory.html" class = "card">
-                <h3>My Work History</h3>
-                <p>Where I've Worked & What I've Done</p>
-            </a>    
-            <a href="funprojects.html" class = "card">
-                <h3>Fun Projects</h3>
-                <p>Side Projects in Data & Analytics</p>
-            </a>
-            <a href="interests.html" class = "card">
-                <h3>My Interests</h3>
-                <p>Things I'm Into Outside of Work</p>
-            </a>
+    <header class="site-header">
+        <div class="wrap">
+            <a href="index.html" class="brand"><span class="brand-mark">MG</span><span class="brand-name">Michael Galtress</span></a>
+            <nav aria-label="Main">
+                <ul class="nav">
+                    <li><a href="workhistory.html">Work</a></li>
+                    <li><a href="funprojects.html">Projects</a></li>
+                    <li><a href="interests.html">Interests</a></li>
+                </ul>
+            </nav>
         </div>
-    </section>
+    </header>
 
-    <footer>
-        <p>&copy; 2025 MG | Hosted on GitHub Pages</p>
+    <main>
+        <section class="hero">
+            <div class="wrap">
+                <p class="eyebrow">Welcome to my GitHub page</p>
+                <h1>Data, analytics, and <em>things I've built.</em></h1>
+                <p class="lede">Here you can learn a bit more about me, and check out some things I've done.</p>
+                <div class="actions">
+                    <a href="https://www.linkedin.com/in/michaelgaltress/" class="btn">Visit my LinkedIn page</a>
+                    <a href="workhistory.html" class="btn ghost">See my work history</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="aboutme">
+            <div class="wrap">
+                <h2 class="section-title">Explore</h2>
+                <div class="grid">
+                    <a href="workhistory.html" class="card">
+                        <span class="card-num">01</span>
+                        <h3>My Work History</h3>
+                        <p>Where I've worked and what I've done.</p>
+                        <span class="arrow">Read more</span>
+                    </a>
+                    <a href="funprojects.html" class="card">
+                        <span class="card-num">02</span>
+                        <h3>Fun Projects</h3>
+                        <p>Side projects in data and analytics.</p>
+                        <span class="arrow">Take a look</span>
+                    </a>
+                    <a href="interests.html" class="card">
+                        <span class="card-num">03</span>
+                        <h3>My Interests</h3>
+                        <p>Things I'm into outside of work.</p>
+                        <span class="arrow">Say hello</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap">
+            <span>&copy; 2026 Michael Galtress</span>
+            <span><a href="https://www.linkedin.com/in/michaelgaltress/">LinkedIn</a> · Hosted on GitHub Pages</span>
+        </div>
     </footer>
 </body>
 </html>
