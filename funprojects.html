@@ -3,34 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MG Fun Projects</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Fun Projects · Michael Galtress</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-   
+    <header class="site-header">
+        <div class="wrap">
+            <a href="index.html" class="brand"><span class="brand-mark">MG</span><span class="brand-name">Michael Galtress</span></a>
+            <nav aria-label="Main">
+                <ul class="nav">
+                    <li><a href="workhistory.html">Work</a></li>
+                    <li><a href="funprojects.html" aria-current="page">Projects</a></li>
+                    <li><a href="interests.html">Interests</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <section class="hero">
-        <h2>Fun Projects</h2>
-        <p>Here's more about some fun side projects I've done in Data & Analytics</p>
-        <a href="index.html" class="btn">Home</a>
-        
-    </section>
+    <main>
+        <section class="hero">
+            <div class="wrap">
+                <p class="eyebrow">Fun projects</p>
+                <h1>Side projects in <em>data and analytics.</em></h1>
+                <p class="lede">Here's more about some fun side projects I've done in Data &amp; Analytics.</p>
+            </div>
+        </section>
 
-    <section id="projects">
-        <div class="grid">
-            <a href="beam/" class="card">
-                <h3>BEAM Impact Report</h3>
-                <p>Interactive D3.js dashboard of a nonprofit small-business mentoring program, built from its portal API</p>
-            </a>
+        <section class="section" id="projects">
+            <div class="wrap">
+                <h2 class="section-title">Projects</h2>
+                <div class="grid">
+                    <a href="beam/" class="card">
+                        <span class="card-num">01</span>
+                        <h3>BEAM Impact Report</h3>
+                        <p>Interactive D3.js dashboard of a nonprofit small-business mentoring program, built from its portal API.</p>
+                        <ul class="tags"><li>D3.js</li><li>Python</li><li>Nonprofit</li></ul>
+                        <span class="arrow">Open the report</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap">
+            <span>&copy; 2026 Michael Galtress</span>
+            <span><a href="https://www.linkedin.com/in/michaelgaltress/">LinkedIn</a> · Hosted on GitHub Pages</span>
         </div>
-    </section>
-    <footer>
-        <p>&copy; 2025 MG | Hosted on GitHub Pages</p>
     </footer>
-
 </body>
 </html>
