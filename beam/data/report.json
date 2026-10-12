@@ -1,7 +1,7 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-10-10T08:34:31+00:00",
+  "generated_at": "2026-10-12T22:09:41+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
   "data_through": "2026-10-09",
@@ -10,7 +10,7 @@
     "submissions_09_26_2026.csv"
    ],
    "sessions_from_exports": 120,
-   "sessions_from_api_capture": 15,
+   "sessions_from_api_capture": 16,
    "sessions_unlinked_to_company": 0,
    "companies": 84,
    "engagements": 71
@@ -3572,6 +3572,25 @@
    "type": "Video Conference",
    "topics": [
     "Business Startup"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-10-09",
+   "date_estimated": false,
+   "company": 54,
+   "mentor": "Scott Kornspan",
+   "co_mentors": [
+    "Michael Woods"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": 1.0,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance",
+    "Marketing",
+    "Operations"
    ],
    "source": "api"
   }
