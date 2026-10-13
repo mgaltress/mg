@@ -9,12 +9,11 @@ import urllib.request
 from pathlib import Path
 
 BASE_URL = "https://portal.beam805.com/secure-api"
-DEFAULT_CREDS = Path(r"beam_api_key.txt")
 DUMMY_CREDS = {"public_id": "00000000-0000-0000-0000-000000000000", "secret_key": "DummySecretKey"}
 
 
-def load_creds(path=DEFAULT_CREDS):
-    """Read Public ID and Secret Key from the environment, or else a text file.
+def load_creds(path=None):
+    """Read Public ID and Secret Key from the environment, or else a text file (--creds).
 
     Environment: BEAM_PUBLIC_ID and BEAM_SECRET_KEY (used by the scheduled GitHub Action).
     File: 'Label: value', 'Label:' followed by the value on the next line, or
@@ -22,6 +21,8 @@ def load_creds(path=DEFAULT_CREDS):
     """
     if os.environ.get("BEAM_PUBLIC_ID") and os.environ.get("BEAM_SECRET_KEY"):
         return {"public_id": os.environ["BEAM_PUBLIC_ID"], "secret_key": os.environ["BEAM_SECRET_KEY"]}
+    if path is None:
+        sys.exit("No credentials: set BEAM_PUBLIC_ID and BEAM_SECRET_KEY, or pass --creds PATH.")
     path = Path(path)
     if not path.exists():
         sys.exit(f"Credentials file not found: {path}\n"

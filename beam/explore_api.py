@@ -7,7 +7,7 @@ field inventory: field names, types, fill rates and custom-field definitions.
 Record values are never printed, since they contain client PII.
 
 Usage:
-    python explore_api.py                 # real credentials
+    python explore_api.py                 # real credentials from BEAM_PUBLIC_ID / BEAM_SECRET_KEY
     python explore_api.py --dummy         # docs' dummy credentials, fake data, no quota used
     python explore_api.py --creds PATH    # credentials file somewhere else
 """
@@ -17,7 +17,7 @@ from collections import Counter
 from datetime import datetime
 from pathlib import Path
 
-from beam_api import DEFAULT_CREDS, DUMMY_CREDS, Client, load_creds
+from beam_api import DUMMY_CREDS, Client, load_creds
 
 RAW_DIR = Path(__file__).parent / "raw"
 
@@ -79,7 +79,7 @@ def describe_meta(meta):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--creds", type=Path, default=DEFAULT_CREDS)
+    ap.add_argument("--creds", type=Path, help="credentials file (default: BEAM_PUBLIC_ID / BEAM_SECRET_KEY env vars)")
     ap.add_argument("--dummy", action="store_true", help="use the docs' dummy credentials (fake data)")
     ap.add_argument("--max-calls", type=int, default=len(CALLS), help="hard cap on API calls")
     args = ap.parse_args()

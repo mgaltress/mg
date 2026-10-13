@@ -15,8 +15,8 @@ mg-private repo points it at that repo instead. The published JSON is de-identif
 no client names, emails, notes or company names, and companies are replaced by sequential ids.
 
 Usage:
-    python build_report_data.py
-    python build_report_data.py --creds PATH
+    python build_report_data.py                  (credentials from BEAM_PUBLIC_ID / BEAM_SECRET_KEY)
+    python build_report_data.py --creds PATH     (or from a local text file)
     python build_report_data.py --private-dir DIR --out FILE    (used by the scheduled job)
 """
 import argparse
@@ -26,7 +26,7 @@ import re
 from datetime import date, datetime, timezone
 from pathlib import Path
 
-from beam_api import DEFAULT_CREDS, Client, load_creds
+from beam_api import Client, load_creds
 
 HERE = Path(__file__).parent
 DEFAULT_PRIVATE = HERE / "private"
@@ -368,7 +368,7 @@ def write_if_changed(report, out):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--creds", type=Path, default=DEFAULT_CREDS)
+    ap.add_argument("--creds", type=Path, help="credentials file (default: BEAM_PUBLIC_ID / BEAM_SECRET_KEY env vars)")
     ap.add_argument("--private-dir", type=Path, default=DEFAULT_PRIVATE,
                     help="folder holding exports/, the captured session log and caches")
     ap.add_argument("--out", type=Path, default=DEFAULT_OUT)
