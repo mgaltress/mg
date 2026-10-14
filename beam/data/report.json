@@ -1,7 +1,7 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-10-13T20:16:32+00:00",
+  "generated_at": "2026-10-14T18:41:11+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
   "data_through": "2026-10-12",
@@ -12,8 +12,8 @@
    "sessions_from_exports": 120,
    "sessions_from_api_capture": 17,
    "sessions_unlinked_to_company": 0,
-   "companies": 84,
-   "engagements": 71
+   "companies": 85,
+   "engagements": 72
   },
   "definitions": {
    "session": "One 'BEAM Client Session Report' submission, dated by meeting date (submission date when the meeting date is missing: date_estimated=true). Sessions before the program start are counted in the start month (date_before_launch keeps the original date).",
@@ -1340,6 +1340,23 @@
    "employees": "1-4",
    "referral": [
     "Workshop or Event"
+   ],
+   "areas_requested": [
+    "Operations"
+   ]
+  },
+  {
+   "id": 85,
+   "created": "2026-10",
+   "pre_launch": false,
+   "industry": "Professional & Business Services",
+   "ownership": [
+    "Woman-owned",
+    "Veteran-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "BEAM Client or Volunteer"
    ],
    "areas_requested": [
     "Operations"
@@ -3965,6 +3982,11 @@
    "created": "2026-10-08",
    "status": "working",
    "company": 83
+  },
+  {
+   "created": "2026-10-14",
+   "status": "working",
+   "company": 85
   }
  ],
  "workshops": [
