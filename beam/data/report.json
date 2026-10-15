@@ -1,16 +1,16 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-10-14T18:41:11+00:00",
+  "generated_at": "2026-10-15T07:30:57+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
-  "data_through": "2026-10-12",
+  "data_through": "2026-10-14",
   "sources": {
    "session_exports": [
     "submissions_09_26_2026.csv"
    ],
    "sessions_from_exports": 120,
-   "sessions_from_api_capture": 17,
+   "sessions_from_api_capture": 18,
    "sessions_unlinked_to_company": 0,
    "companies": 85,
    "engagements": 72
@@ -3623,6 +3623,21 @@
    "type": "Video Conference",
    "topics": [
     "Marketing"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-10-14",
+   "date_estimated": false,
+   "company": 76,
+   "mentor": "Bob Sears",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Operations"
    ],
    "source": "api"
   }
