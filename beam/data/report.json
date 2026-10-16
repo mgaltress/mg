@@ -1,7 +1,7 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-10-16T07:15:56+00:00",
+  "generated_at": "2026-10-16T18:07:33+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
   "data_through": "2026-10-15",
@@ -12,7 +12,7 @@
    "sessions_from_exports": 120,
    "sessions_from_api_capture": 19,
    "sessions_unlinked_to_company": 0,
-   "companies": 85,
+   "companies": 86,
    "engagements": 72
   },
   "definitions": {
@@ -1360,6 +1360,25 @@
    ],
    "areas_requested": [
     "Operations"
+   ]
+  },
+  {
+   "id": 86,
+   "created": "2026-10",
+   "pre_launch": false,
+   "industry": "Food & Beverage",
+   "ownership": [
+    "Woman-owned",
+    "Minority-owned"
+   ],
+   "employees": "5-9",
+   "referral": [
+    "Other"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Business Startup",
+    "Marketing"
    ]
   }
  ],
