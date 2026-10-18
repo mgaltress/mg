@@ -1,7 +1,7 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-10-16T18:07:33+00:00",
+  "generated_at": "2026-10-18T17:25:19+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
   "data_through": "2026-10-15",
@@ -10,7 +10,7 @@
     "submissions_09_26_2026.csv"
    ],
    "sessions_from_exports": 120,
-   "sessions_from_api_capture": 19,
+   "sessions_from_api_capture": 20,
    "sessions_unlinked_to_company": 0,
    "companies": 86,
    "engagements": 72
@@ -3513,6 +3513,22 @@
    "topics": [
     "Accounting & Finance",
     "Business Startup"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-10-06",
+   "date_estimated": false,
+   "company": 85,
+   "mentor": "Tom Phillips",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Marketing",
+    "Operations"
    ],
    "source": "api"
   },
