@@ -1,7 +1,7 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-10-19T07:52:12+00:00",
+  "generated_at": "2026-10-19T19:58:56+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
   "data_through": "2026-10-15",
@@ -13,7 +13,7 @@
    "sessions_from_api_capture": 22,
    "sessions_unlinked_to_company": 0,
    "companies": 86,
-   "engagements": 72
+   "engagements": 73
   },
   "definitions": {
    "session": "One 'BEAM Client Session Report' submission, dated by meeting date (submission date when the meeting date is missing: date_estimated=true). Sessions before the program start are counted in the start month (date_before_launch keeps the original date).",
@@ -4090,6 +4090,11 @@
    "created": "2026-10-14",
    "status": "working",
    "company": 85
+  },
+  {
+   "created": "2026-10-19",
+   "status": "working",
+   "company": 86
   }
  ],
  "workshops": [
