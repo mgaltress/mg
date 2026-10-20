@@ -1,16 +1,16 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-10-19T19:58:56+00:00",
+  "generated_at": "2026-10-20T07:39:56+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
-  "data_through": "2026-10-15",
+  "data_through": "2026-10-19",
   "sources": {
    "session_exports": [
     "submissions_09_26_2026.csv"
    ],
    "sessions_from_exports": 120,
-   "sessions_from_api_capture": 22,
+   "sessions_from_api_capture": 24,
    "sessions_unlinked_to_company": 0,
    "companies": 86,
    "engagements": 73
@@ -3662,6 +3662,21 @@
    "source": "api"
   },
   {
+   "date": "2026-10-12",
+   "date_estimated": false,
+   "company": 35,
+   "mentor": "Mitra Cline",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Marketing"
+   ],
+   "source": "api"
+  },
+  {
    "date": "2026-10-13",
    "date_estimated": false,
    "company": 56,
@@ -3726,6 +3741,21 @@
    "type": "Video Conference",
    "topics": [
     "Operations"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-10-19",
+   "date_estimated": false,
+   "company": 83,
+   "mentor": "Mitra Cline",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Business Startup"
    ],
    "source": "api"
   }
