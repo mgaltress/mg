@@ -1,16 +1,16 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-10-20T07:39:56+00:00",
+  "generated_at": "2026-10-20T18:29:48+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
-  "data_through": "2026-10-19",
+  "data_through": "2026-10-20",
   "sources": {
    "session_exports": [
     "submissions_09_26_2026.csv"
    ],
    "sessions_from_exports": 120,
-   "sessions_from_api_capture": 24,
+   "sessions_from_api_capture": 25,
    "sessions_unlinked_to_company": 0,
    "companies": 86,
    "engagements": 73
@@ -3756,6 +3756,21 @@
    "type": "In Person",
    "topics": [
     "Business Startup"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-10-20",
+   "date_estimated": false,
+   "company": 54,
+   "mentor": "Scott Kornspan",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Phone",
+   "topics": [
+    "Operations"
    ],
    "source": "api"
   }
