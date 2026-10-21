@@ -1,7 +1,7 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-10-20T18:29:48+00:00",
+  "generated_at": "2026-10-21T07:44:08+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
   "data_through": "2026-10-20",
@@ -10,7 +10,7 @@
     "submissions_09_26_2026.csv"
    ],
    "sessions_from_exports": 120,
-   "sessions_from_api_capture": 25,
+   "sessions_from_api_capture": 26,
    "sessions_unlinked_to_company": 0,
    "companies": 86,
    "engagements": 73
@@ -3770,6 +3770,23 @@
    "co_mentor_hours": null,
    "type": "Phone",
    "topics": [
+    "Operations"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-10-20",
+   "date_estimated": false,
+   "company": 42,
+   "mentor": "Tom Phillips",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance",
+    "Business Startup",
     "Operations"
    ],
    "source": "api"
