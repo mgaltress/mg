@@ -1,16 +1,16 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-10-21T07:44:08+00:00",
+  "generated_at": "2026-10-22T07:39:43+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
-  "data_through": "2026-10-20",
+  "data_through": "2026-10-21",
   "sources": {
    "session_exports": [
     "submissions_09_26_2026.csv"
    ],
    "sessions_from_exports": 120,
-   "sessions_from_api_capture": 26,
+   "sessions_from_api_capture": 28,
    "sessions_unlinked_to_company": 0,
    "companies": 86,
    "engagements": 73
@@ -3787,6 +3787,37 @@
    "topics": [
     "Accounting & Finance",
     "Business Startup",
+    "Operations"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-10-21",
+   "date_estimated": false,
+   "company": 54,
+   "mentor": "Scott Kornspan",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "Phone",
+   "topics": [
+    "Operations"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-10-21",
+   "date_estimated": false,
+   "company": 66,
+   "mentor": "Gregg Hart",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Marketing",
     "Operations"
    ],
    "source": "api"
