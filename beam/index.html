@@ -247,7 +247,11 @@ h2 { font-family: var(--font-head); font-size: 24px; font-weight: 700; margin: 3
 .tooltip .row i { width: 12px; height: 2px; display: inline-block; }
 .tooltip .row span { color: var(--ink-2); }
 
-.workshops { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 12px; align-items: start; }
+.workshops { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); grid-auto-rows: 1fr; gap: 12px; }
+.workshop .na { color: var(--ink-2); font-weight: 400; font-style: normal; }
+.workshop .ws-h + .ws-quote { margin-top: 6px; }
+.workshop .nums b .na, .workshop .ws-legend b .na { font-size: inherit; color: var(--ink-2); }
+.workshop p.ws-list { padding-left: 0; }
 .workshop .when { color: var(--ink-2); font-size: 13px; }
 .workshop .nums { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 8px; }
 .workshop .ws-h { margin-top: 14px; font-size: 12px; font-weight: 600; color: var(--ink-2); text-transform: uppercase; letter-spacing: .04em; }
@@ -1247,13 +1251,18 @@ function renderWorkshops() {
     box.append(el("p", "empty", "No workshops in the selected period."));
     return;
   }
-  // Fields beyond name/date/attended are optional: older workshops only have registration numbers
+  // Every card shows the same sections in the same order; fields missing from
+  // manual_inputs.json (older workshops only have registration numbers) read "n/a"
   const has = v => v != null;
+  const NA = () => el("span", "na", "n/a");
+  const val = (v, f) => has(v) ? f(v) : NA();
   const numRow = pairs => {
     const nums = el("div", "nums");
     for (const [v, l] of pairs) {
       const d = el("div");
-      d.append(el("b", null, v), el("span", null, l));
+      const b = el("b");
+      b.append(v);
+      d.append(b, el("span", null, l));
       nums.append(d);
     }
     return nums;
@@ -1262,47 +1271,49 @@ function renderWorkshops() {
     const card = el("div", "card workshop");
     card.append(el("h3", null, w.name), el("div", "when", d3.timeFormat("%B %-d, %Y")(d3.timeParse("%Y-%m-%d")(w.date))));
     card.append(numRow([
-      ...(has(w.registered) ? [[fmtInt(w.registered), "registered"]] : []),
-      [fmtInt(w.attended), "attended"],
-      ...(w.registered ? [[fmtPct(w.attended / w.registered), "attendance"]] : []),
+      [val(w.registered, fmtInt), "registered"],
+      [val(w.attended, fmtInt), "attended"],
+      [w.registered && has(w.attended) ? fmtPct(w.attended / w.registered) : NA(), "attendance"],
     ]));
-    if (has(w.mentor_requests) || has(w.mentor_opportunities)) {
-      card.append(el("div", "ws-h", "Mentoring pipeline"), numRow([
-        ...(has(w.mentor_requests) ? [[fmtInt(w.mentor_requests), "mentor requests"]] : []),
-        ...(has(w.mentor_opportunities) ? [[fmtInt(w.mentor_opportunities), "new mentor opportunities"]] : []),
-      ]));
-    }
+    card.append(el("div", "ws-h", "Mentoring pipeline"), numRow([
+      [val(w.mentor_requests, fmtInt), "mentor requests"],
+      [val(w.mentor_opportunities, fmtInt), "new mentor opportunities"],
+    ]));
     const me = w.met_expectations;
-    if (me) {
-      const total = d3.sum(EXPECTATIONS, e => me[e.key] || 0);
-      const head = `Met expectations · ${fmtInt(w.surveys ?? total)} surveys` +
-        (w.surveys && w.attended ? ` (${fmtPct(w.surveys / w.attended)} of attendees)` : "");
-      const bar = el("div", "ws-bar");
-      bar.setAttribute("role", "img");
-      bar.setAttribute("aria-label", EXPECTATIONS.map(e => `${e.label}: ${me[e.key] || 0}`).join(", "));
-      const legend = el("div", "ws-legend");
-      for (const e of EXPECTATIONS) {
-        const n = me[e.key] || 0;
-        if (n && total) {
-          const seg = el("i");
-          seg.style.flexGrow = n;
-          seg.style.background = e.color;
-          bar.append(seg);
-        }
-        const item = el("span");
-        const sw = el("i");
-        sw.style.background = e.color;
-        item.append(sw, el("b", null, fmtInt(n)), document.createTextNode(" " + e.label.toLowerCase()));
-        legend.append(item);
+    const total = me ? d3.sum(EXPECTATIONS, e => me[e.key] || 0) : 0;
+    const surveys = w.surveys ?? (me ? total : null);
+    const head = `Met expectations · ${has(surveys) ? fmtInt(surveys) : "n/a"} surveys` +
+      (surveys && w.attended ? ` (${fmtPct(surveys / w.attended)} of attendees)` : "");
+    const bar = el("div", "ws-bar");
+    bar.setAttribute("role", "img");
+    bar.setAttribute("aria-label", me ? EXPECTATIONS.map(e => `${e.label}: ${me[e.key] || 0}`).join(", ") : "No survey results");
+    const legend = el("div", "ws-legend");
+    for (const e of EXPECTATIONS) {
+      const n = me ? me[e.key] || 0 : null;
+      if (n && total) {
+        const seg = el("i");
+        seg.style.flexGrow = n;
+        seg.style.background = e.color;
+        bar.append(seg);
       }
-      card.append(el("div", "ws-h", head), bar, legend);
+      const item = el("span");
+      const sw = el("i");
+      sw.style.background = e.color;
+      const b = el("b");
+      b.append(val(n, fmtInt));
+      item.append(sw, b, document.createTextNode(" " + e.label.toLowerCase()));
+      legend.append(item);
     }
-    for (const c of w.comments || []) card.append(el("p", "ws-quote", c));
+    card.append(el("div", "ws-h", head), bar, legend);
+    card.append(el("div", "ws-h", "Comments"));
+    if (w.comments?.length) for (const c of w.comments) card.append(el("p", "ws-quote", c));
+    else card.append(el("p", "ws-list na", "n/a"));
+    card.append(el("div", "ws-h", "Suggestions for future workshops"));
     if (w.suggestions?.length) {
       const ul = el("ul", "ws-list");
       for (const s of w.suggestions) ul.append(el("li", null, s));
-      card.append(el("div", "ws-h", "Suggestions for future workshops"), ul);
-    }
+      card.append(ul);
+    } else card.append(el("p", "ws-list na", "n/a"));
     box.append(card);
   }
 }
