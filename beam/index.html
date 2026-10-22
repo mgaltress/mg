@@ -1575,7 +1575,9 @@ function setupSummary() {
   const sel = document.getElementById("sum-month");
   for (const mo of [...MONTHS].reverse()) sel.add(new Option(monthName(mo) + (isPartial(mo) ? " (to date)" : ""), mo));
   const last = MONTHS[MONTHS.length - 1];
-  sel.value = isPartial(last) && MONTHS.length > 1 ? MONTHS[MONTHS.length - 2] : last;
+  // Default to the current month once its data runs through the 15th; before that, last month
+  const midMonth = parseDay(R.meta.data_through).getDate() >= 15;
+  sel.value = isPartial(last) && !midMonth && MONTHS.length > 1 ? MONTHS[MONTHS.length - 2] : last;
   sel.addEventListener("change", () => renderSummary(sel.value));
   fitSheet();
   renderSummary(sel.value);
