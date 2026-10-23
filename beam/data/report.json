@@ -1,16 +1,16 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-10-22T21:59:28+00:00",
+  "generated_at": "2026-10-23T07:37:09+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
-  "data_through": "2026-10-21",
+  "data_through": "2026-10-22",
   "sources": {
    "session_exports": [
     "submissions_09_26_2026.csv"
    ],
    "sessions_from_exports": 120,
-   "sessions_from_api_capture": 31,
+   "sessions_from_api_capture": 32,
    "sessions_unlinked_to_company": 0,
    "companies": 86,
    "engagements": 73
@@ -3867,6 +3867,22 @@
    "topics": [
     "Accounting & Finance",
     "Operations"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-10-22",
+   "date_estimated": false,
+   "company": 62,
+   "mentor": "Gregg Hart",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Operations",
+    "Technology"
    ],
    "source": "api"
   }
