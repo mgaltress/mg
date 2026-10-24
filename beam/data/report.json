@@ -1,7 +1,7 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-10-23T07:37:09+00:00",
+  "generated_at": "2026-10-24T07:21:58+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
   "data_through": "2026-10-22",
@@ -10,9 +10,9 @@
     "submissions_09_26_2026.csv"
    ],
    "sessions_from_exports": 120,
-   "sessions_from_api_capture": 32,
+   "sessions_from_api_capture": 34,
    "sessions_unlinked_to_company": 0,
-   "companies": 86,
+   "companies": 87,
    "engagements": 73
   },
   "definitions": {
@@ -1379,6 +1379,22 @@
     "Accounting & Finance",
     "Business Startup",
     "Marketing"
+   ]
+  },
+  {
+   "id": 87,
+   "created": "2026-10",
+   "pre_launch": false,
+   "industry": "Education & Training",
+   "ownership": [],
+   "employees": "1-4",
+   "referral": [
+    "BEAM Client or Volunteer"
+   ],
+   "areas_requested": [
+    "Business Startup",
+    "Marketing",
+    "Technology"
    ]
   }
  ],
@@ -3883,6 +3899,40 @@
    "topics": [
     "Operations",
     "Technology"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-10-22",
+   "date_estimated": false,
+   "company": 20,
+   "mentor": "Tom Phillips",
+   "co_mentors": [
+    "Scott Rhodes"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": 2.0,
+   "type": "Video Conference",
+   "topics": [
+    "Accounting & Finance",
+    "Operations"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-10-22",
+   "date_estimated": false,
+   "company": 57,
+   "mentor": "Tom Phillips",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "Video Conference",
+   "topics": [
+    "Business Startup",
+    "Operations"
    ],
    "source": "api"
   }
