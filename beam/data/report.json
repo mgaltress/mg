@@ -1,16 +1,16 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-10-24T07:21:58+00:00",
+  "generated_at": "2026-10-26T07:52:01+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
-  "data_through": "2026-10-22",
+  "data_through": "2026-10-23",
   "sources": {
    "session_exports": [
     "submissions_09_26_2026.csv"
    ],
    "sessions_from_exports": 120,
-   "sessions_from_api_capture": 34,
+   "sessions_from_api_capture": 35,
    "sessions_unlinked_to_company": 0,
    "companies": 87,
    "engagements": 73
@@ -3932,6 +3932,23 @@
    "type": "Video Conference",
    "topics": [
     "Business Startup",
+    "Operations"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-10-23",
+   "date_estimated": false,
+   "company": 87,
+   "mentor": "Bob Sears",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Business Startup",
+    "Marketing",
     "Operations"
    ],
    "source": "api"
