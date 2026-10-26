@@ -1,7 +1,7 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-10-26T07:52:01+00:00",
+  "generated_at": "2026-10-26T19:59:16+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
   "data_through": "2026-10-23",
@@ -12,7 +12,7 @@
    "sessions_from_exports": 120,
    "sessions_from_api_capture": 35,
    "sessions_unlinked_to_company": 0,
-   "companies": 87,
+   "companies": 88,
    "engagements": 73
   },
   "definitions": {
@@ -1394,6 +1394,27 @@
    "areas_requested": [
     "Business Startup",
     "Marketing",
+    "Technology"
+   ]
+  },
+  {
+   "id": 88,
+   "created": "2026-10",
+   "pre_launch": false,
+   "industry": "Professional & Business Services",
+   "ownership": [
+    "Minority-owned",
+    "Veteran-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Friend or Relative"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Business Startup",
+    "Marketing",
+    "Operations",
     "Technology"
    ]
   }
