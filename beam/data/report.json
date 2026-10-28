@@ -1,16 +1,16 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-10-27T07:57:09+00:00",
+  "generated_at": "2026-10-28T08:39:01+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
-  "data_through": "2026-10-23",
+  "data_through": "2026-10-27",
   "sources": {
    "session_exports": [
     "submissions_09_26_2026.csv"
    ],
    "sessions_from_exports": 120,
-   "sessions_from_api_capture": 35,
+   "sessions_from_api_capture": 37,
    "sessions_unlinked_to_company": 0,
    "companies": 88,
    "engagements": 74
@@ -3971,6 +3971,42 @@
     "Business Startup",
     "Marketing",
     "Operations"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-10-27",
+   "date_estimated": false,
+   "company": 39,
+   "mentor": "Tom Phillips",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance",
+    "Operations",
+    "Technology"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-10-27",
+   "date_estimated": false,
+   "company": 82,
+   "mentor": "Tom Phillips",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.5,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance",
+    "Business Startup",
+    "Marketing",
+    "Operations",
+    "Technology"
    ],
    "source": "api"
   }
