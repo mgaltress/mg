@@ -1,16 +1,16 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-10-30T08:42:41+00:00",
+  "generated_at": "2026-10-30T19:27:24+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
-  "data_through": "2026-10-28",
+  "data_through": "2026-10-29",
   "sources": {
    "session_exports": [
     "submissions_09_26_2026.csv"
    ],
    "sessions_from_exports": 120,
-   "sessions_from_api_capture": 38,
+   "sessions_from_api_capture": 40,
    "sessions_unlinked_to_company": 0,
    "companies": 88,
    "engagements": 75
@@ -4024,6 +4024,41 @@
    "type": "In Person",
    "topics": [
     "Accounting & Finance"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-10-28",
+   "date_estimated": false,
+   "company": 87,
+   "mentor": "Bob Sears",
+   "co_mentors": [],
+   "co_mentoring": true,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": 1.0,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance",
+    "Marketing",
+    "Operations"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-10-29",
+   "date_estimated": false,
+   "company": 86,
+   "mentor": "Bob Sears",
+   "co_mentors": [
+    "Michael Woods"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": 1.0,
+   "type": "Phone",
+   "topics": [
+    "Accounting & Finance",
+    "Operations"
    ],
    "source": "api"
   }
