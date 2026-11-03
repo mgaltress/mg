@@ -1,7 +1,7 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-11-03T09:38:16+00:00",
+  "generated_at": "2026-11-03T20:31:19+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
   "data_through": "2026-11-02",
@@ -12,7 +12,7 @@
    "sessions_from_exports": 120,
    "sessions_from_api_capture": 42,
    "sessions_unlinked_to_company": 0,
-   "companies": 88,
+   "companies": 89,
    "engagements": 75
   },
   "definitions": {
@@ -1416,6 +1416,23 @@
     "Marketing",
     "Operations",
     "Technology"
+   ]
+  },
+  {
+   "id": 89,
+   "created": "2026-11",
+   "pre_launch": false,
+   "industry": "Other",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Friend or Relative"
+   ],
+   "areas_requested": [
+    "Accounting & Finance",
+    "Business Startup"
    ]
   }
  ],
