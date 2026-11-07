@@ -247,27 +247,45 @@ h2 { font-family: var(--font-head); font-size: 24px; font-weight: 700; margin: 3
 .tooltip .row i { width: 12px; height: 2px; display: inline-block; }
 .tooltip .row span { color: var(--ink-2); }
 
-.workshops { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); grid-auto-rows: 1fr; gap: 12px; }
+.workshops { display: flex; flex-direction: column; gap: 10px; }
+.workshop { padding: 0; overflow: hidden; }
 .workshop .na { color: var(--ink-2); font-weight: 400; font-style: italic; }
-.workshop .ws-h + .ws-quote { margin-top: 6px; }
-.workshop .nums b .na { font-size: 14px; }
-.workshop .ws-legend b .na { font-size: inherit; }
-.workshop p.ws-list { padding-left: 0; }
-.workshop .when { color: var(--ink-2); font-size: 13px; }
-.workshop .nums { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 8px; }
-.workshop .ws-h { margin-top: 14px; font-size: 12px; font-weight: 600; color: var(--ink-2); text-transform: uppercase; letter-spacing: .04em; }
-.workshop .ws-bar { display: flex; gap: 2px; height: 12px; margin-top: 8px; border-radius: 3px; overflow: hidden; background: var(--grid); }
+.ws-row { display: grid; grid-template-columns: minmax(0, 2fr) minmax(110px, .8fr) minmax(0, 2fr) 28px; align-items: center; gap: 12px 24px;
+  width: 100%; padding: 14px 16px; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.ws-row:hover { background: var(--accent-wash); }
+.ws-row:focus-visible { outline: 2px solid var(--s1); outline-offset: -2px; }
+.ws-title { font-size: 16px; font-weight: 600; color: var(--ink); }
+.workshop .when { color: var(--ink-2); font-size: 13px; margin-top: 2px; }
+.ws-att b { display: block; font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.ws-att span { font-size: 12px; color: var(--ink-2); }
+.ws-rate-h { font-size: 12px; color: var(--ink-2); }
+.workshop .ws-bar { display: flex; gap: 2px; height: 12px; margin-top: 6px; border-radius: 3px; overflow: hidden; background: var(--grid); }
 .workshop .ws-bar i { display: block; min-width: 2px; }
 .workshop .ws-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 6px; font-size: 12px; color: var(--ink-2); }
 .workshop .ws-legend span { display: inline-flex; align-items: center; gap: 5px; }
 .workshop .ws-legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
 .workshop .ws-legend b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
-.workshop .ws-quote { margin: 12px 0 0; padding-left: 10px; border-left: 3px solid var(--brand-gold); font-size: 13px; color: var(--ink-2); font-style: italic; }
+.workshop .ws-legend b .na { font-size: inherit; }
+.ws-row .chev { width: 20px; height: 20px; color: var(--ink-2); justify-self: end; transition: transform .2s; }
+.ws-row[aria-expanded="true"] .chev { transform: rotate(180deg); }
+@media (prefers-reduced-motion: reduce) { .ws-row .chev { transition: none; } }
+.ws-detail { border-top: 1px solid var(--border); padding: 4px 16px 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 0 24px; }
+.ws-detail[hidden] { display: none; }
+.workshop .ws-h { margin-top: 12px; font-size: 12px; font-weight: 600; color: var(--ink-2); text-transform: uppercase; letter-spacing: .04em; }
+.workshop .ws-quote { margin: 6px 0 0; padding-left: 10px; border-left: 3px solid var(--brand-gold); font-size: 13px; color: var(--ink-2); font-style: italic; }
 .workshop .ws-list { margin: 6px 0 0; padding-left: 18px; font-size: 13px; color: var(--ink-2); }
+.workshop p.ws-list { padding-left: 0; }
 .workshop .ws-list li + li { margin-top: 3px; }
+.workshop .nums { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 6px; }
 .workshop .nums div { display: flex; flex-direction: column; }
-.workshop .nums b { font-size: 22px; font-weight: 600; }
+.workshop .nums b { font-size: 18px; font-weight: 600; font-variant-numeric: tabular-nums; }
 .workshop .nums span { font-size: 12px; color: var(--ink-2); }
+@media (max-width: 640px) {
+  .ws-row { grid-template-columns: minmax(0, 1fr) 28px; }
+  .ws-row .ws-name { grid-column: 1; }
+  .ws-row .chev { grid-column: 2; grid-row: 1; }
+  .ws-row .ws-att, .ws-row .ws-rate { grid-column: 1 / -1; }
+}
 
 .note { background: var(--surface); border-left: 4px solid var(--brand-gold); border-radius: 6px; padding: 12px 16px; margin-top: 12px; }
 
@@ -1252,7 +1270,8 @@ function renderWorkshops() {
     box.append(el("p", "empty", "No workshops in the selected period."));
     return;
   }
-  // Every card shows the same sections in the same order; fields missing from
+  // One wide row per workshop (name, date, attendance, met-expectations scale); the toggle
+  // reveals the mentoring pipeline, comments and suggestions. Fields missing from
   // manual_inputs.json (older workshops only have registration numbers) read "n/a"
   const has = v => v != null;
   const NA = () => el("span", "na", "n/a");
@@ -1268,23 +1287,29 @@ function renderWorkshops() {
     }
     return nums;
   };
-  for (const w of list) {
+  list.forEach((w, i) => {
     const card = el("div", "card workshop");
-    card.append(el("h3", null, w.name), el("div", "when", d3.timeFormat("%B %-d, %Y")(d3.timeParse("%Y-%m-%d")(w.date))));
-    card.append(numRow([
-      [val(w.registered, fmtInt), "registered"],
-      [val(w.attended, fmtInt), "attended"],
-      [w.registered && has(w.attended) ? fmtPct(w.attended / w.registered) : NA(), "attendance"],
-    ]));
-    card.append(el("div", "ws-h", "Mentoring pipeline"), numRow([
-      [val(w.mentor_requests, fmtInt), "mentor requests"],
-      [val(w.mentor_opportunities, fmtInt), "new mentor opportunities"],
-    ]));
+    const id = `ws-detail-${i}`;
+    const row = el("button", "ws-row");
+    row.type = "button";
+    row.setAttribute("aria-expanded", "false");
+    row.setAttribute("aria-controls", id);
+
+    const name = el("div", "ws-name");
+    name.append(el("div", "ws-title", w.name), el("div", "when", d3.timeFormat("%B %-d, %Y")(d3.timeParse("%Y-%m-%d")(w.date))));
+
+    const att = el("div", "ws-att");
+    const attB = el("b");
+    attB.append(val(w.attended, fmtInt));
+    att.append(attB, el("span", null,
+      w.registered && has(w.attended) ? `attended · ${fmtPct(w.attended / w.registered)} of ${fmtInt(w.registered)} registered` : "attended"));
+
     const me = w.met_expectations;
     const total = me ? d3.sum(EXPECTATIONS, e => me[e.key] || 0) : 0;
     const surveys = w.surveys ?? (me ? total : null);
-    const head = `Met expectations · ${has(surveys) ? fmtInt(surveys) : "n/a"} surveys` +
-      (surveys && w.attended ? ` (${fmtPct(surveys / w.attended)} of attendees)` : "");
+    const rate = el("div", "ws-rate");
+    rate.append(el("div", "ws-rate-h", `Met expectations · ${has(surveys) ? fmtInt(surveys) : "n/a"} surveys` +
+      (surveys && w.attended ? ` (${fmtPct(surveys / w.attended)} of attendees)` : "")));
     const bar = el("div", "ws-bar");
     bar.setAttribute("role", "img");
     bar.setAttribute("aria-label", me ? EXPECTATIONS.map(e => `${e.label}: ${me[e.key] || 0}`).join(", ") : "No survey results");
@@ -1305,18 +1330,42 @@ function renderWorkshops() {
       item.append(sw, b, document.createTextNode(" " + e.label.toLowerCase()));
       legend.append(item);
     }
-    card.append(el("div", "ws-h", head), bar, legend);
-    card.append(el("div", "ws-h", "Comments"));
-    if (w.comments?.length) for (const c of w.comments) card.append(el("p", "ws-quote", c));
-    else card.append(el("p", "ws-list na", "n/a"));
-    card.append(el("div", "ws-h", "Suggestions for future workshops"));
+    rate.append(bar, legend);
+
+    const chev = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    chev.setAttribute("class", "chev");
+    chev.setAttribute("viewBox", "0 0 20 20");
+    chev.setAttribute("aria-hidden", "true");
+    chev.innerHTML = '<path d="M5 8l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
+    row.append(name, att, rate, chev);
+
+    const detail = el("div", "ws-detail");
+    detail.id = id;
+    detail.hidden = true;
+    const colPipe = el("div"), colCom = el("div"), colSug = el("div");
+    colPipe.append(el("div", "ws-h", "Mentoring pipeline"), numRow([
+      [val(w.mentor_requests, fmtInt), "mentor requests"],
+      [val(w.mentor_opportunities, fmtInt), "new mentor opportunities"],
+    ]));
+    colCom.append(el("div", "ws-h", "Comments"));
+    if (w.comments?.length) for (const c of w.comments) colCom.append(el("p", "ws-quote", c));
+    else colCom.append(el("p", "ws-list na", "n/a"));
+    colSug.append(el("div", "ws-h", "Suggestions for future workshops"));
     if (w.suggestions?.length) {
       const ul = el("ul", "ws-list");
       for (const s of w.suggestions) ul.append(el("li", null, s));
-      card.append(ul);
-    } else card.append(el("p", "ws-list na", "n/a"));
+      colSug.append(ul);
+    } else colSug.append(el("p", "ws-list na", "n/a"));
+    detail.append(colPipe, colCom, colSug);
+
+    row.addEventListener("click", () => {
+      const open = row.getAttribute("aria-expanded") !== "true";
+      row.setAttribute("aria-expanded", String(open));
+      detail.hidden = !open;
+    });
+    card.append(row, detail);
     box.append(card);
-  }
+  });
 }
 
 function renderNotes() {
