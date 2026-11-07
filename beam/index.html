@@ -1265,7 +1265,8 @@ const EXPECTATIONS = [
 function renderWorkshops() {
   const box = document.getElementById("workshops");
   box.replaceChildren();
-  const list = R.workshops.filter(w => inRange(w.date.slice(0, 7)));
+  // Most recent first
+  const list = R.workshops.filter(w => inRange(w.date.slice(0, 7))).sort((a, b) => b.date.localeCompare(a.date));
   if (!list.length) {
     box.append(el("p", "empty", "No workshops in the selected period."));
     return;
