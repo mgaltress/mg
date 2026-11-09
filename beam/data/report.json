@@ -1,7 +1,7 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-11-09T09:53:34+00:00",
+  "generated_at": "2026-11-09T23:27:39+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
   "data_through": "2026-11-07",
@@ -10,9 +10,9 @@
     "submissions_09_26_2026.csv"
    ],
    "sessions_from_exports": 120,
-   "sessions_from_api_capture": 45,
+   "sessions_from_api_capture": 47,
    "sessions_unlinked_to_company": 0,
-   "companies": 89,
+   "companies": 90,
    "engagements": 76
   },
   "definitions": {
@@ -1433,6 +1433,24 @@
    "areas_requested": [
     "Accounting & Finance",
     "Business Startup"
+   ]
+  },
+  {
+   "id": 90,
+   "created": "2026-11",
+   "pre_launch": false,
+   "industry": "Professional & Business Services",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "BEAM Client or Volunteer",
+    "Workshop or Event"
+   ],
+   "areas_requested": [
+    "Marketing",
+    "Operations"
    ]
   }
  ],
@@ -4138,6 +4156,40 @@
    "type": null,
    "topics": [
     "Business Startup"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-11-05",
+   "date_estimated": false,
+   "company": 76,
+   "mentor": "Bob Sears",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 1.0,
+   "co_mentor_hours": null,
+   "type": "Email",
+   "topics": [
+    "Operations"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-11-06",
+   "date_estimated": false,
+   "company": 86,
+   "mentor": "Bob Sears",
+   "co_mentors": [
+    "Michael Woods"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": 3.0,
+   "co_mentor_hours": 3.0,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance",
+    "Marketing",
+    "Operations"
    ],
    "source": "api"
   },
