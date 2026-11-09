@@ -1,16 +1,16 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-11-06T09:28:25+00:00",
+  "generated_at": "2026-11-09T09:53:34+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
-  "data_through": "2026-11-04",
+  "data_through": "2026-11-07",
   "sources": {
    "session_exports": [
     "submissions_09_26_2026.csv"
    ],
    "sessions_from_exports": 120,
-   "sessions_from_api_capture": 44,
+   "sessions_from_api_capture": 45,
    "sessions_unlinked_to_company": 0,
    "companies": 89,
    "engagements": 76
@@ -4138,6 +4138,24 @@
    "type": null,
    "topics": [
     "Business Startup"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-11-07",
+   "date_estimated": false,
+   "company": 66,
+   "mentor": "Gregg Hart",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": 2.0,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance",
+    "Marketing",
+    "Operations",
+    "Technology"
    ],
    "source": "api"
   }
