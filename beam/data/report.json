@@ -1,7 +1,7 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-11-11T09:30:27+00:00",
+  "generated_at": "2026-11-13T09:38:14+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
   "data_through": "2026-11-10",
@@ -12,7 +12,7 @@
    "sessions_from_exports": 120,
    "sessions_from_api_capture": 48,
    "sessions_unlinked_to_company": 0,
-   "companies": 90,
+   "companies": 91,
    "engagements": 77
   },
   "definitions": {
@@ -1447,6 +1447,23 @@
    "referral": [
     "BEAM Client or Volunteer",
     "Workshop or Event"
+   ],
+   "areas_requested": [
+    "Marketing",
+    "Operations"
+   ]
+  },
+  {
+   "id": 91,
+   "created": "2026-11",
+   "pre_launch": false,
+   "industry": "Health, Wellness & Personal Care",
+   "ownership": [
+    "Woman-owned"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Friend or Relative"
    ],
    "areas_requested": [
     "Marketing",
