@@ -1,16 +1,16 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-11-13T20:55:05+00:00",
+  "generated_at": "2026-11-14T09:02:00+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
-  "data_through": "2026-11-10",
+  "data_through": "2026-11-13",
   "sources": {
    "session_exports": [
     "submissions_09_26_2026.csv"
    ],
    "sessions_from_exports": 120,
-   "sessions_from_api_capture": 48,
+   "sessions_from_api_capture": 49,
    "sessions_unlinked_to_company": 0,
    "companies": 91,
    "engagements": 78
@@ -4243,6 +4243,22 @@
     "Business Startup",
     "Marketing",
     "Technology"
+   ],
+   "source": "api"
+  },
+  {
+   "date": "2026-11-13",
+   "date_estimated": false,
+   "company": 88,
+   "mentor": "Ira Weingarten",
+   "co_mentors": [],
+   "co_mentoring": false,
+   "mentor_hours": null,
+   "co_mentor_hours": null,
+   "type": "In Person",
+   "topics": [
+    "Business Startup",
+    "Marketing"
    ],
    "source": "api"
   }
