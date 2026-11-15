@@ -1,7 +1,7 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-11-14T09:02:00+00:00",
+  "generated_at": "2026-11-15T09:31:58+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
   "data_through": "2026-11-13",
@@ -12,7 +12,7 @@
    "sessions_from_exports": 120,
    "sessions_from_api_capture": 49,
    "sessions_unlinked_to_company": 0,
-   "companies": 91,
+   "companies": 92,
    "engagements": 78
   },
   "definitions": {
@@ -1468,6 +1468,22 @@
    "areas_requested": [
     "Marketing",
     "Operations"
+   ]
+  },
+  {
+   "id": 92,
+   "created": "2026-11",
+   "pre_launch": false,
+   "industry": "Health, Wellness & Personal Care",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Other"
+   ],
+   "areas_requested": [
+    "Marketing"
    ]
   }
  ],
