@@ -1,7 +1,7 @@
 {
  "meta": {
   "schema_version": 1,
-  "generated_at": "2026-11-20T21:51:03+00:00",
+  "generated_at": "2026-11-24T01:42:12+00:00",
   "program_start": "2026-05",
   "data_from": "2026-05-01",
   "data_through": "2026-11-20",
@@ -10,10 +10,10 @@
     "submissions_09_26_2026.csv"
    ],
    "sessions_from_exports": 120,
-   "sessions_from_api_capture": 58,
+   "sessions_from_api_capture": 59,
    "sessions_unlinked_to_company": 0,
-   "companies": 93,
-   "engagements": 80
+   "companies": 94,
+   "engagements": 81
   },
   "definitions": {
    "session": "One 'BEAM Client Session Report' submission, dated by meeting date (submission date when the meeting date is missing: date_estimated=true). Sessions before the program start are counted in the start month (date_before_launch keeps the original date).",
@@ -1502,6 +1502,23 @@
     "Accounting & Finance",
     "Business Startup",
     "Operations"
+   ]
+  },
+  {
+   "id": 94,
+   "created": "2026-11",
+   "pre_launch": false,
+   "industry": "Technology / Software / IT",
+   "ownership": [
+    "None of the above"
+   ],
+   "employees": "1-4",
+   "referral": [
+    "Other"
+   ],
+   "areas_requested": [
+    "Business Startup",
+    "Marketing"
    ]
   }
  ],
@@ -4394,6 +4411,24 @@
    "source": "api"
   },
   {
+   "date": "2026-11-18",
+   "date_estimated": false,
+   "company": 54,
+   "mentor": "Scott Kornspan",
+   "co_mentors": [
+    "Michael Woods"
+   ],
+   "co_mentoring": true,
+   "mentor_hours": null,
+   "co_mentor_hours": 3.5,
+   "type": "In Person",
+   "topics": [
+    "Accounting & Finance",
+    "Operations"
+   ],
+   "source": "api"
+  },
+  {
    "date": "2026-11-19",
    "date_estimated": false,
    "company": 78,
@@ -4841,6 +4876,11 @@
    "created": "2026-11-17",
    "status": "working",
    "company": 92
+  },
+  {
+   "created": "2026-11-24",
+   "status": "working",
+   "company": 94
   }
  ],
  "workshops": [
